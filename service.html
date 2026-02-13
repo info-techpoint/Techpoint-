@@ -1117,17 +1117,8 @@
     <!-- Filters Section -->
     <section class="filters">
         <div class="filters-container">
-            <!-- Search -->
-            <div class="search-container" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" 
-                       id="searchInput" 
-                       class="search-input" 
-                       placeholder="Search services...">
-            </div>
-
             <!-- Category Buttons -->
-            <div class="category-buttons" id="categoryButtons" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+            <div class="category-buttons" id="categoryButtons" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
                 <!-- Categories will be populated by JavaScript -->
             </div>
         </div>
@@ -1256,9 +1247,6 @@
                     <a href="#" class="social-icon" data-path="https://facebook.com/techpoint" target="_blank">
                         <i class="fab fa-facebook"></i>
                     </a>
-                    <a href="#" class="social-icon" data-path="https://linkedin.com/company/techpoint" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
                 </div>
                 <div class="footer-legal-links">
                     <a href="#" class="footer-legal-link">Privacy Policy</a>
@@ -1300,7 +1288,7 @@
         });
 
         // Navigation
-        function navigateTo(path) {
+        function navigateTo(path, service = null) {
             const pathToFile = {
                 '/': 'index.html',
                 '/services': 'service.html',
@@ -1311,7 +1299,11 @@
             
             const targetFile = pathToFile[path];
             if (targetFile) {
-                window.location.href = targetFile;
+                let url = targetFile;
+                if (service) {
+                    url += `?service=${service}`;
+                }
+                window.location.href = url;
             }
         }
 
@@ -1404,30 +1396,20 @@
                 keyFeatures: "• Windows OS installation & licensing\n• Office Suite installation & licensing\n• Engineering software (AutoCAD, Revit, 3ds Max)\n• Digital license provision\n• Software configuration & setup",
                 targetAudience: "Engineers, architects, designers, businesses, students"
             },
+
             {
                 id: "7",
-                serviceName: "Engineering Software",
-                tagline: "AutoCAD, Revit, 3ds Max and more",
-                detailedDescription: "Specialized installation and licensing for professional engineering and design software including AutoCAD, Revit, 3ds Max, and other industry-standard applications with legitimate digital licenses.",
-                category: "Software",
-                serviceImage: "https://images.unsplash.com/photo-1547491826-804f82b757d7?w=800&h=600&fit=crop&crop=center",
-                is247Available: false,
-                keyFeatures: "• AutoCAD installation & licensing\n• Revit installation & licensing\n• 3ds Max installation & licensing\n• Other CAD software\n• Technical support & training",
-                targetAudience: "Engineers, architects, construction professionals, design firms"
-            },
-            {
-                id: "8",
                 serviceName: "Microsoft Office Solutions",
-                tagline: "Complete Office suite support",
-                detailedDescription: "Comprehensive support for Microsoft Office applications including installation, troubleshooting, and advanced feature implementation.",
+                tagline: "Complete Office suite setup and support",
+                detailedDescription: "Professional assistance with Microsoft Office applications including installation, configuration, and troubleshooting to help you maximize productivity with Word, Excel, PowerPoint, and other Office tools.",
                 category: "Software",
                 serviceImage: "https://images.unsplash.com/photo-1611224885990-ab7363d5f2a9?w=800&h=600&fit=crop&crop=center",
                 is247Available: false,
-                keyFeatures: "• Office installation\n• Template creation\n• Macro development\n• Integration setup\n• Training & support",
+                keyFeatures: "• Office software installation and setup\n• Custom template creation\n• Automated task setup\n• System integration configuration\n• Ongoing technical support",
                 targetAudience: "Businesses, students, professionals, educational institutions"
             },
             {
-                id: "9",
+                id: "8",
                 serviceName: "Document Formatting",
                 tagline: "Professional document preparation",
                 detailedDescription: "Transform your documents into professional, well-formatted files with proper styling, layout, and organization.",
@@ -1446,7 +1428,6 @@
         let isLoading = true;
 
         // DOM Elements
-        const searchInput = document.getElementById('searchInput');
         const categoryButtons = document.getElementById('categoryButtons');
         const servicesContainer = document.getElementById('servicesContainer');
 
@@ -1461,9 +1442,6 @@
                 renderCategories();
                 renderServices();
             }, 1000);
-            
-            // Add event listener for search
-            searchInput.addEventListener('input', filterServices);
         }
 
         // Show loading state
@@ -1502,21 +1480,12 @@
             filterServices();
         }
 
-        // Filter services based on search and category
+        // Filter services based on category only (no search functionality)
         function filterServices() {
-            const searchTerm = searchInput.value.toLowerCase();
-            
             filteredServices = servicesData.filter(service => {
                 // Category filter
                 if (selectedCategory !== 'All' && service.category !== selectedCategory) {
                     return false;
-                }
-                
-                // Search filter
-                if (searchTerm) {
-                    return service.serviceName.toLowerCase().includes(searchTerm) ||
-                           service.tagline.toLowerCase().includes(searchTerm) ||
-                           service.detailedDescription.toLowerCase().includes(searchTerm);
                 }
                 
                 return true;
@@ -1574,7 +1543,7 @@
             if (filteredServices.length === 0) {
                 servicesContainer.innerHTML = `
                     <div class="no-results" data-aos="fade-up" data-aos-duration="800">
-                        <p>No services found. Try a different search term.</p>
+                        <p>No services found in this category.</p>
                     </div>
                 `;
                 AOS.refresh();
@@ -1676,8 +1645,58 @@
         window.toggleFlip = toggleFlip;
         window.filterServices = filterServices;
 
+        // Function to get URL parameter
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
         // Initialize the application
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            
+            // Check if there's a service parameter in the URL
+            const serviceParam = getUrlParameter('service');
+            if (serviceParam) {
+                // Wait for services to be rendered, then find and flip the corresponding card
+                setTimeout(() => {
+                    // Map URL service parameter to actual service names
+                    const serviceMap = {
+                        'cybersecurity': 'Cybersecurity',
+                        'it-support': 'IT Support',
+                        'software-solutions': 'Software Solutions',
+                        'data-analytics': 'Data Analytics',
+                        'translation': 'Translation',
+                        '247-support': 'IT Support', // 24/7 Support maps to IT Support
+                        'software-installation': 'Software Installation',
+                        'microsoft-office-solutions': 'Microsoft Office Solutions',
+                        'document-formatting': 'Document Formatting'
+                    };
+                    
+                    const serviceName = serviceMap[serviceParam] || serviceParam;
+                    
+                    // Find the service object by name
+                    const service = servicesData.find(s => s.serviceName.toLowerCase() === serviceName.toLowerCase());
+                    
+                    if (service) {
+                        // Find the corresponding card and flip it
+                        const serviceCard = document.querySelector(`[data-service-id="${service.id}"]`);
+                        if (serviceCard && !serviceCard.classList.contains('flipped')) {
+                            serviceCard.classList.add('flipped');
+                            flippedCardId = service.id;
+                            
+                            // Scroll the flipped card into view
+                            setTimeout(() => {
+                                serviceCard.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'center'
+                                });
+                            }, 100);
+                        }
+                    }
+                }, 1500); // Wait a bit more to ensure services are loaded
+            }
+        });
 
         // Footer Initialization
         // Set current year
