@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Point - Services</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14'%3E%E2%99%A0%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --secondary: #06b6d4;
+            --secondary-light: #22d3ee;
+            --gold-accent: #fbbf24;
+            --background: #0f0f23;
+            --dark-gray: #1a1a2e;
+            --darker-gray: #16213e;
+            --foreground: #ffffff;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gradient-purple: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b);
+            --gradient-dark: linear-gradient(180deg, #0f0f23, #1a1a2e);
+            --foreground-80: rgba(255, 255, 255, 0.8);
+            --foreground-70: rgba(255, 255, 255, 0.7);
+            --foreground-60: rgba(255, 255, 255, 0.6);
+            --foreground-50: rgba(255, 255, 255, 0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Enhanced Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 5rem;
+        }
+
+        .logo-button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: transform 0.3s;
+        }
+
+        .logo-button:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-3d {
+            font-size: 2.25rem;
+            color: var(--gold-accent);
+            animation: rotateY 4s linear infinite;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+        }
+
+        @keyframes rotateY {
+            from { transform: rotateY(0); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .logo-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--foreground);
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            margin: 0;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+            margin: 0;
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex;
+                gap: 2rem;
+            }
+        }
+
+        .nav-link {
+            color: var(--gray-300);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-light);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-purple);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .header-right {
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .header-right {
+                display: flex;
+            }
+        }
+
+        .online-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .online-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--secondary-light);
+            animation: pulseShadow 2s infinite;
+        }
+
+        @keyframes pulseShadow {
+            0% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(6, 182, 212, 1); }
+            100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        .mobile-nav {
+            display: none;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .mobile-nav.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 0;
+            color: var(--foreground);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--primary);
+        }
+
+        .mobile-nav-link.active {
+            color: var(--primary);
+        }
+
+        .mobile-nav-footer {
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 12rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 5rem;
+            }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--foreground-80);
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        /* Filters Section */
+        .filters {
+            padding: 3rem 2rem;
+            background: var(--dark-gray);
+        }
+
+        .filters-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .filters-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        /* Search Box */
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        @media (min-width: 1024px) {
+            .search-container {
+                width: 24rem;
+            }
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            background: var(--background);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 0.5rem;
+            color: var(--foreground);
+            font-size: 0.875rem;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: var(--foreground-50);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--foreground-50);
+            pointer-events: none;
+        }
+
+        /* Category Buttons */
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--background);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 0.5rem;
+            color: var(--foreground);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .category-btn.active {
+            background: var(--primary);
+            color: var(--foreground);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.7);
+        }
+
+        /* Services Grid */
+        .services-grid-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hexagon-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* Service Card */
+        .service-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(21, 21, 40, 0.9));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            height: 320px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .service-card:active {
+            transform: translateY(-4px) scale(0.98);
+            transition: all 0.1s ease;
+        }
+
+        .service-card.flipped {
+            height: auto;
+            min-height: 400px;
+            cursor: default;
+        }
+
+        .service-card.flipped:hover {
+            transform: none;
+        }
+
+        .card-front, .card-back {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .service-card:not(.flipped) .card-back {
+            display: none;
+        }
+
+        .service-card.flipped .card-front {
+            display: none;
+        }
+
+        /* Card Front */
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-title {
+            color: white;
+            transform: scale(1.05);
+        }
+
+
+
+        .service-category {
+            font-size: 0.875rem;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 20px;
+        }
+
+        .service-tagline {
+            font-size: 0.95rem;
+            color: var(--foreground-80);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .availability-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--gradient-gold);
+            color: var(--background);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Card Back */
+        .back-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .back-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+            flex: 1;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--foreground);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            font-size: 1rem;
+            margin-left: 1rem;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .back-content {
+            flex: 1;
+        }
+
+        .back-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .back-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-section-title i {
+            font-size: 1rem;
+        }
+
+        .back-text {
+            font-size: 0.95rem;
+            color: var(--foreground-80);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 0.5rem;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.4rem 0;
+            color: var(--foreground-70);
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .feature-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-light);
+            font-size: 1rem;
+        }
+
+        /* Loading State */
+        .loading-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 3rem;
+            padding: 2rem 0;
+        }
+
+        .loading-card {
+            width: 100%;
+            height: 320px;
+            background: var(--dark-gray);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 5rem 0;
+            color: var(--foreground-60);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 72rem;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .cta-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        .cta-description {
+            font-size: 1.125rem;
+            color: var(--foreground-80);
+            max-width: 42rem;
+            margin: 0 auto 2rem auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.25rem 2.5rem;
+            background: var(--primary);
+            color: var(--foreground);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 0 30px rgba(139, 92, 246, 1);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Footer Styles */
+        .footer {
+            background: linear-gradient(to bottom, #16213e, #0f0f23);
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .footer-container {
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            font-size: 2.25rem;
+            color: var(--gold-accent);
+            animation: rotateSpade 4s linear infinite;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+        }
+
+        @keyframes rotateSpade {
+            from { transform: rotateY(0); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .footer-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--foreground);
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .footer-description {
+            font-size: 0.875rem;
+            color: var(--foreground-80);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-status-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--secondary-light);
+            animation: pulseShadow 2s infinite;
+        }
+
+        .footer-status-text {
+            font-size: 0.875rem;
+            color: var(--foreground);
+        }
+
+        .footer-section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            font-size: 0.875rem;
+            color: var(--foreground-80);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-link a:hover {
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .footer-contact-list {
+            list-style: none;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact-icon {
+            color: var(--primary);
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.5));
+        }
+
+        .footer-contact-text {
+            font-size: 0.875rem;
+            color: var(--foreground-80);
+        }
+
+        .footer-contact-link {
+            font-size: 0.875rem;
+            color: var(--foreground-80);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-contact-link:hover {
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--foreground);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+        
+        .social-icon .fa-instagram {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .fa-instagram {
+            color: #e1306c;
+        }
+        
+        .social-icon .fa-facebook {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .fa-facebook {
+            color: #3b5998;
+        }
+        
+        .social-icon .fa-linkedin {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .fa-linkedin {
+            color: #0077b5;
+        }
+        
+        .social-icon .fa-whatsapp {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .fa-whatsapp {
+            color: #25D366;
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer-copyright {
+            font-size: 0.875rem;
+            color: var(--foreground-60);
+        }
+
+        .footer-legal-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal-link {
+            font-size: 0.875rem;
+            color: var(--foreground-60);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-legal-link:hover {
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #9333ea, #06b6d4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Back to top */
+        .top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #9333ea, #06b6d4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-content">
+                <!-- Logo -->
+                <button onclick="navigateTo('/')" class="logo-button">
+                    <div class="logo-3d">♠</div>
+                    <div>
+                        <h1 class="logo-title">TECH POINT</h1>
+                        <p class="logo-subtitle">Online 24/7</p>
+                    </div>
+                </button>
+
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <a href="#" class="nav-link" data-path="/">Home</a>
+                    <a href="#" class="nav-link active" data-path="/services">Services</a>
+                    <a href="#" class="nav-link" data-path="/about">About</a>
+                    <a href="#" class="nav-link" data-path="/base">Help Center</a>
+                    <a href="#" class="nav-link" data-path="/contact">Contact</a>
+                </nav>
+
+                <!-- Right Section - 24/7 Indicator -->
+                <div class="header-right">
+                    <div class="online-indicator">
+                        <div class="online-dot"></div>
+                        <span>Online 24/7</span>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav id="mobile-nav" class="mobile-nav">
+                <a href="#" class="mobile-nav-link" data-path="/">Home</a>
+                <a href="#" class="mobile-nav-link active" data-path="/services">Services</a>
+                <a href="#" class="mobile-nav-link" data-path="/about">About</a>
+                <a href="#" class="mobile-nav-link" data-path="/base">Help Center</a>
+                <a href="#" class="mobile-nav-link" data-path="/contact">Contact</a>
+                <div class="mobile-nav-footer">
+                    <div class="online-indicator">
+                        <div class="online-dot"></div>
+                        <span>Online 24/7</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Content -->
+        <div class="hero-content">
+            <h1 data-aos="fade-up" data-aos-duration="800">Our Technical Services</h1>
+            <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                Comprehensive technology solutions for your business growth and digital transformation
+            </p>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters">
+        <div class="filters-container">
+            <!-- Search -->
+            <div class="search-container" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" 
+                       id="searchInput" 
+                       class="search-input" 
+                       placeholder="Search services...">
+            </div>
+
+            <!-- Category Buttons -->
+            <div class="category-buttons" id="categoryButtons" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+                <!-- Categories will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-grid-section">
+        <div id="servicesContainer">
+            <!-- Services will be loaded here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title" data-aos="fade-up" data-aos-duration="800">Need a Custom Solution?</h2>
+            <p class="cta-description" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                Tell us about your specific requirements and we'll create a tailored solution just for you
+            </p>
+            <a href="#" class="cta-button" data-path="/contact" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                Contact Us Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Section -->
+                <div class="footer-brand" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">♠</div>
+                        <div class="footer-logo-text">
+                            <h3 class="footer-logo-title">TECH POINT</h3>
+                            <p class="footer-logo-subtitle">Online 24/7</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Professional Remote Technical Solutions
+                    </p>
+                    <div class="footer-status">
+                        <div class="footer-status-dot"></div>
+                        <span class="footer-status-text">Always Online</span>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <h4 class="footer-section-title">Services</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Cybersecurity</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">IT Support</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Software Solutions</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Data Analytics</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Translation</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <h4 class="footer-section-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link">
+                            <a href="#" data-path="/">Home</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Services</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/about">About</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/base">Help Center</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <h4 class="footer-section-title">Contact</h4>
+                    <ul class="footer-contact-list">
+                        <li class="footer-contact-item">
+                            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                            <span class="footer-contact-text">Amman, Jordan</span>
+                        </li>
+                        <li class="footer-contact-item">
+                            <i class="fas fa-envelope footer-contact-icon"></i>
+                            <a href="mailto:asktechpoint.team@gmail.com" class="footer-contact-link">
+                                asktechpoint.team@gmail.com
+                            </a>
+                        </li>
+                        <li class="footer-contact-item">
+                            <i class="fas fa-clock footer-contact-icon"></i>
+                            <span class="footer-contact-text">Remote Support Available</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © <span id="current-year"></span> Tech Point. All Rights Reserved
+                </p>
+                <div class="social-icons" style="justify-content: center; margin: 1rem 0;">
+                    <a href="#" class="social-icon" data-path="https://instagram.com/techpoint" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon" data-path="https://wa.me/962782674812" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-icon" data-path="https://facebook.com/techpoint" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="social-icon" data-path="https://linkedin.com/company/techpoint" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+                <div class="footer-legal-links">
+                    <a href="#" class="footer-legal-link">Privacy Policy</a>
+                    <a href="#" class="footer-legal-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: false,
+                offset: 100,
+                delay: 0,
+                mirror: true
+            });
+        });
+
+        // Header JavaScript
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileMenuIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('show');
+            
+            if (mobileNav.classList.contains('show')) {
+                mobileMenuIcon.classList.remove('fa-bars');
+                mobileMenuIcon.classList.add('fa-times');
+            } else {
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+            }
+        });
+
+        // Navigation
+        function navigateTo(path) {
+            const pathToFile = {
+                '/': 'index.html',
+                '/services': 'service.html',
+                '/about': 'about.html',
+                '/base': 'base.html',
+                '/contact': 'contact.html'
+            };
+            
+            const targetFile = pathToFile[path];
+            if (targetFile) {
+                window.location.href = targetFile;
+            }
+        }
+
+        // Add click handlers to navigation links
+        document.querySelectorAll('[data-path]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo(link.getAttribute('data-path'));
+            });
+        });
+
+        // Service Icons Mapping
+        const serviceIcons = {
+            'Cybersecurity': 'fa-shield-halved',
+            'IT Support': 'fa-headset',
+            'Software Solutions': 'fa-laptop-code',
+            'Data Analytics': 'fa-chart-line',
+            'Translation': 'fa-language',
+            'Software Installation': 'fa-download',
+            'Engineering Software': 'fa-drafting-compass',
+            'Microsoft Office Solutions': 'fa-file-word',
+            'Document Formatting': 'fa-file-alt'
+        };
+
+        // Sample Services Data with Images
+        const servicesData = [
+            {
+                id: "1",
+                serviceName: "Cybersecurity",
+                tagline: "Advanced protection and malware removal",
+                detailedDescription: "We provide comprehensive cybersecurity solutions including threat detection, malware removal, and security audits to keep your systems protected from modern cyber threats.",
+                category: "Security",
+                serviceImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop&crop=center",
+                is247Available: true,
+                keyFeatures: "• Real-time threat detection\n• Malware removal\n• Security audits\n• Firewall configuration\n• Data encryption",
+                targetAudience: "Businesses of all sizes, financial institutions, healthcare organizations"
+            },
+            {
+                id: "2",
+                serviceName: "IT Support",
+                tagline: "Remote technical assistance via AnyDesk",
+                detailedDescription: "Professional IT support services with 24/7 availability. We provide remote assistance for technical issues, software troubleshooting, and system optimization.",
+                category: "Support",
+                serviceImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&crop=center",
+                is247Available: true,
+                keyFeatures: "• Remote desktop support\n• Software troubleshooting\n• System optimization\n• Network configuration\n• Hardware diagnostics",
+                targetAudience: "Small businesses, remote teams, individuals, enterprises"
+            },
+            {
+                id: "3",
+                serviceName: "Software Solutions",
+                tagline: "Installation with digital license activation",
+                detailedDescription: "Expert software installation, configuration, and digital license activation for various applications including productivity suites, business software, and specialized tools with legitimate licensing.",
+                category: "Software",
+                serviceImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&crop=center",
+                is247Available: false,
+                keyFeatures: "• Software installation & licensing\n• Digital license activation\n• Configuration setup\n• Integration services\n• Training & support",
+                targetAudience: "Businesses, educational institutions, government agencies"
+            },
+            {
+                id: "4",
+                serviceName: "Data Analytics",
+                tagline: "Power BI analytics and data entry",
+                detailedDescription: "Transform your raw data into actionable insights with our Power BI analytics services. We help you make data-driven decisions for business growth.",
+                category: "Analytics",
+                serviceImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&crop=center",
+                is247Available: false,
+                keyFeatures: "• Power BI dashboards\n• Data visualization\n• Data entry services\n• Report generation\n• Business intelligence",
+                targetAudience: "Business analysts, data teams, executives, marketing teams"
+            },
+            {
+                id: "5",
+                serviceName: "Translation",
+                tagline: "Professional Arabic/English services",
+                detailedDescription: "High-quality translation and transcription services between Arabic and English for documents, websites, and multimedia content.",
+                category: "Services",
+                serviceImage: "https://images.unsplash.com/photo-1551836026-d5c2c2e66b2b?w=800&h=600&fit=crop&crop=center",
+                is247Available: false,
+                keyFeatures: "• Document translation\n• Website localization\n• Transcription services\n• Proofreading\n• Cultural adaptation",
+                targetAudience: "Businesses, educational institutions, government agencies, individuals"
+            },
+            {
+                id: "6",
+                serviceName: "Software Installation",
+                tagline: "Digital license activation and setup",
+                detailedDescription: "Professional installation of Windows, Office, and engineering software with legitimate digital license activation. We provide you with digital licenses and install software like AutoCAD, Revit, 3ds Max, and many more.",
+                category: "Software",
+                serviceImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&crop=center",
+                is247Available: true,
+                keyFeatures: "• Windows OS installation & licensing\n• Office Suite installation & licensing\n• Engineering software (AutoCAD, Revit, 3ds Max)\n• Digital license provision\n• Software configuration & setup",
+                targetAudience: "Engineers, architects, designers, businesses, students"
+            },
+            {
+                id: "7",
+                serviceName: "Engineering Software",
+                tagline: "AutoCAD, Revit, 3ds Max and more",
+                detailedDescription: "Specialized installation and licensing for professional engineering and design software including AutoCAD, Revit, 3ds Max, and other industry-standard applications with legitimate digital licenses.",
+                category: "Software",
+                serviceImage: "https://images.unsplash.com/photo-1547491826-804f82b757d7?w=800&h=600&fit=crop&crop=center",
+                is247Available: false,
+                keyFeatures: "• AutoCAD installation & licensing\n• Revit installation & licensing\n• 3ds Max installation & licensing\n• Other CAD software\n• Technical support & training",
+                targetAudience: "Engineers, architects, construction professionals, design firms"
+            },
+            {
+                id: "8",
+                serviceName: "Microsoft Office Solutions",
+                tagline: "Complete Office suite support",
+                detailedDescription: "Comprehensive support for Microsoft Office applications including installation, troubleshooting, and advanced feature implementation.",
+                category: "Software",
+                serviceImage: "https://images.unsplash.com/photo-1611224885990-ab7363d5f2a9?w=800&h=600&fit=crop&crop=center",
+                is247Available: false,
+                keyFeatures: "• Office installation\n• Template creation\n• Macro development\n• Integration setup\n• Training & support",
+                targetAudience: "Businesses, students, professionals, educational institutions"
+            },
+            {
+                id: "9",
+                serviceName: "Document Formatting",
+                tagline: "Professional document preparation",
+                detailedDescription: "Transform your documents into professional, well-formatted files with proper styling, layout, and organization.",
+                category: "Services",
+                serviceImage: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&h=600&fit=crop&crop=center",
+                is247Available: false,
+                keyFeatures: "• Document formatting\n• Template design\n• PDF conversion\n• Style consistency\n• Print preparation",
+                targetAudience: "Students, professionals, businesses, researchers"
+            }
+        ];
+
+        // State variables
+        let filteredServices = [...servicesData];
+        let selectedCategory = 'All';
+        let flippedCardId = null;
+        let isLoading = true;
+
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const categoryButtons = document.getElementById('categoryButtons');
+        const servicesContainer = document.getElementById('servicesContainer');
+
+        // Initialize
+        function init() {
+            // Show loading state
+            showLoading();
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                isLoading = false;
+                renderCategories();
+                renderServices();
+            }, 1000);
+            
+            // Add event listener for search
+            searchInput.addEventListener('input', filterServices);
+        }
+
+        // Show loading state
+        function showLoading() {
+            servicesContainer.innerHTML = `
+                <div class="loading-grid">
+                    ${Array(6).fill().map((_, i) => `
+                        <div class="loading-card" data-aos="fade-up" data-aos-delay="${i * 100}"></div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Render category buttons
+        function renderCategories() {
+            const categories = ['All', ...new Set(servicesData.map(s => s.category).filter(Boolean))];
+            
+            categoryButtons.innerHTML = categories.map((category, index) => `
+                <button class="category-btn ${selectedCategory === category ? 'active' : ''}" 
+                        onclick="selectCategory('${category}')"
+                        data-aos="fade-up" 
+                        data-aos-duration="800" 
+                        data-aos-delay="${index * 100}">
+                    ${category}
+                </button>
+            `).join('');
+            
+            // Reinitialize AOS for new elements
+            AOS.refresh();
+        }
+
+        // Select category
+        function selectCategory(category) {
+            selectedCategory = category;
+            renderCategories();
+            filterServices();
+        }
+
+        // Filter services based on search and category
+        function filterServices() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            filteredServices = servicesData.filter(service => {
+                // Category filter
+                if (selectedCategory !== 'All' && service.category !== selectedCategory) {
+                    return false;
+                }
+                
+                // Search filter
+                if (searchTerm) {
+                    return service.serviceName.toLowerCase().includes(searchTerm) ||
+                           service.tagline.toLowerCase().includes(searchTerm) ||
+                           service.detailedDescription.toLowerCase().includes(searchTerm);
+                }
+                
+                return true;
+            });
+            
+            renderServices();
+        }
+
+        // Toggle card flip
+        function toggleFlip(serviceId, event) {
+            // Prevent event bubbling if clicking on close button
+            if (event && event.target.closest('.close-btn')) {
+                return;
+            }
+            
+            const serviceCard = document.querySelector(`[data-service-id="${serviceId}"]`);
+            if (!serviceCard) return;
+            
+            // Close any previously flipped card
+            if (flippedCardId && flippedCardId !== serviceId) {
+                const prevCard = document.querySelector(`[data-service-id="${flippedCardId}"]`);
+                if (prevCard) {
+                    prevCard.classList.remove('flipped');
+                }
+            }
+            
+            // Toggle current card
+            if (flippedCardId === serviceId) {
+                serviceCard.classList.remove('flipped');
+                flippedCardId = null;
+            } else {
+                serviceCard.classList.add('flipped');
+                flippedCardId = serviceId;
+                
+                // Scroll the flipped card into view
+                setTimeout(() => {
+                    serviceCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 100);
+            }
+            
+            // Stop event propagation
+            event.stopPropagation();
+        }
+
+        // Render services
+        function renderServices() {
+            if (isLoading) {
+                showLoading();
+                return;
+            }
+            
+            if (filteredServices.length === 0) {
+                servicesContainer.innerHTML = `
+                    <div class="no-results" data-aos="fade-up" data-aos-duration="800">
+                        <p>No services found. Try a different search term.</p>
+                    </div>
+                `;
+                AOS.refresh();
+                return;
+            }
+            
+            servicesContainer.innerHTML = `
+                <div class="hexagon-container">
+                    ${filteredServices.map((service, index) => {
+                        const iconClass = serviceIcons[service.serviceName] || 'fa-cog';
+                        return `
+                            <div class="service-card ${flippedCardId === service.id ? 'flipped' : ''}" 
+                                 data-service-id="${service.id}"
+                                 onclick="toggleFlip('${service.id}', event)"
+                                 data-aos="fade-up" 
+                                 data-aos-duration="800" 
+                                 data-aos-delay="${index * 100}">
+                                
+                                <!-- Front Side -->
+                                <div class="card-front">
+                                    ${service.is247Available ? `
+                                        <div class="availability-badge">24/7</div>
+                                    ` : ''}
+                                    
+                                    <div class="service-icon">
+                                        <i class="fas ${iconClass}"></i>
+                                    </div>
+                                    
+                                    <h3 class="service-title">${service.serviceName}</h3>
+                                    <div class="service-category">${service.category || 'Service'}</div>
+                                    <p class="service-tagline">${service.tagline}</p>
+                                    
+                                    <p style="color: var(--foreground-60); font-size: 0.875rem; margin-top: auto;">
+                                        <i class="fas fa-hand-pointer" style="margin-right: 0.5rem;"></i>
+                                        Click to view details
+                                    </p>
+                                </div>
+                                
+                                <!-- Back Side -->
+                                <div class="card-back">
+                                    <div class="back-header">
+                                        <h3 class="back-title">${service.serviceName}</h3>
+                                        <button class="close-btn" onclick="toggleFlip('${service.id}', event)">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="back-content">
+                                        <img src="${service.serviceImage}" 
+                                             alt="${service.serviceName}" 
+                                             class="back-image"
+                                             onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop'">
+                                        
+                                        <div class="back-section">
+                                            <h4 class="back-section-title">
+                                                <i class="fas fa-info-circle"></i>
+                                                Description
+                                            </h4>
+                                            <p class="back-text">${service.detailedDescription}</p>
+                                        </div>
+                                        
+                                        ${service.keyFeatures ? `
+                                            <div class="back-section">
+                                                <h4 class="back-section-title">
+                                                    <i class="fas fa-star"></i>
+                                                    Key Features
+                                                </h4>
+                                                <ul class="feature-list">
+                                                    ${service.keyFeatures.split('\n').map(feature => 
+                                                        `<li>${feature.replace('• ', '')}</li>`
+                                                    ).join('')}
+                                                </ul>
+                                            </div>
+                                        ` : ''}
+                                        
+                                        ${service.targetAudience ? `
+                                            <div class="back-section">
+                                                <h4 class="back-section-title">
+                                                    <i class="fas fa-users"></i>
+                                                    Target Audience
+                                                </h4>
+                                                <p class="back-text">${service.targetAudience}</p>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+            
+            // Reinitialize AOS for new elements
+            AOS.refresh();
+        }
+
+        // Make functions globally available
+        window.selectCategory = selectCategory;
+        window.toggleFlip = toggleFlip;
+        window.filterServices = filterServices;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Footer Initialization
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Return to Top Button Functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Add WhatsApp button
+        const whatsappBtn = document.createElement('a');
+        whatsappBtn.href = 'https://wa.me/962782674812';
+        whatsappBtn.target = '_blank';
+        whatsappBtn.className = 'whatsapp-float';
+        whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i>';
+        document.body.appendChild(whatsappBtn);
+
+        // Add back to top button
+        const topBtn = document.createElement('button');
+        topBtn.className = 'top-btn';
+        topBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        topBtn.onclick = scrollToTop;
+        document.body.appendChild(topBtn);
+    </script>
+</body>
+</html>

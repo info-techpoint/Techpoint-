@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Point - Contact</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14'%3E%E2%99%A0%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --secondary: #06b6d4;
+            --secondary-light: #22d3ee;
+            --gold-accent: #fbbf24;
+            --background: #0f0f23;
+            --dark-gray: #1a1a2e;
+            --darker-gray: #16213e;
+            --foreground: #ffffff;
+            --foreground-80: rgba(255, 255, 255, 0.8);
+            --foreground-70: rgba(255, 255, 255, 0.7);
+            --foreground-60: rgba(255, 255, 255, 0.6);
+            --foreground-50: rgba(255, 255, 255, 0.5);
+            --gradient-purple: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b);
+            
+            /* Compatibility variables for existing code */
+            --dark-gray-background: #1a1a2e;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Enhanced Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 5rem;
+        }
+
+        .logo-button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: transform 0.3s;
+        }
+
+        .logo-button:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-3d {
+            font-size: 2.25rem;
+            color: var(--gold-accent);
+            animation: rotateY 4s linear infinite;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+        }
+
+        @keyframes rotateY {
+            from { transform: rotateY(0); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .logo-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--foreground);
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            margin: 0;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+            margin: 0;
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex;
+                gap: 2rem;
+            }
+        }
+
+        .nav-link {
+            color: var(--foreground-80);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-light);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-purple);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .header-right {
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .header-right {
+                display: flex;
+            }
+        }
+
+        .online-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .online-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--secondary-light);
+            animation: pulseShadow 2s infinite;
+        }
+
+        @keyframes pulseShadow {
+            0% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(6, 182, 212, 1); }
+            100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
+        }
+
+        .language-switcher {
+            position: relative;
+        }
+
+        .lang-btn, .mobile-lang-btn {
+            background: none;
+            border: 1px solid var(--foreground-50);
+            color: var(--foreground);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .lang-dropdown, .mobile-lang-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dark-gray);
+            border: 1px solid var(--foreground-50);
+            border-radius: 0.25rem;
+            overflow: hidden;
+            display: none;
+            min-width: 120px;
+        }
+
+        .lang-dropdown.show, .mobile-lang-dropdown.show {
+            display: block;
+        }
+
+        .lang-dropdown button, .mobile-lang-dropdown button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            cursor: pointer;
+        }
+
+        .lang-dropdown button:hover, .mobile-lang-dropdown button:hover {
+            background: var(--darker-gray);
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        .mobile-nav {
+            display: none;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .mobile-nav.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 0;
+            color: var(--foreground);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--primary);
+        }
+
+        .mobile-nav-link.active {
+            color: var(--primary);
+        }
+
+        .mobile-nav-footer {
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+        }
+
+        .circuit-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+        }
+
+        .circuit-pattern svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 5rem;
+            }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--foreground-80);
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .info-description {
+            color: var(--foreground-70);
+            margin-bottom: 2rem;
+        }
+
+        .info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: var(--dark-gray);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-card:hover {
+            border-color: rgba(139, 92, 246, 0.6);
+            transform: translateX(4px);
+            box-shadow: 0 8px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .info-card-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-location {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--primary);
+        }
+
+        .icon-email {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--secondary);
+        }
+
+        .icon-clock {
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--gold-accent);
+        }
+
+        .info-card-content h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .info-card-content p {
+            color: var(--foreground-70);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-card-content .small {
+            color: var(--foreground-50);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .online-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .online-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background: var(--secondary-light);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(6, 182, 212, 1); }
+        }
+
+        .online-text {
+            color: var(--foreground-50);
+            font-size: 0.75rem;
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            background: var(--dark-gray);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (min-width: 768px) {
+            .contact-form-container {
+                padding: 3rem;
+            }
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Form Styles */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--foreground);
+        }
+
+        .form-label .required {
+            color: #ef4444;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 0.75rem 1rem;
+            background: var(--background);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 0.5rem;
+            color: var(--foreground);
+            font-size: 0.875rem;
+            transition: all 0.3s;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--foreground-50);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .form-textarea {
+            resize: none;
+            min-height: 9rem;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--foreground);
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid var(--foreground);
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hide honeypot field */
+        .hidden {
+            position: absolute;
+            left: -9999px;
+            display: none;
+        }
+
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .success-icon {
+            color: var(--secondary-light);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .success-text {
+            color: var(--foreground-70);
+        }
+
+        /* Get In Touch Section Styles */
+        .content-section {
+            padding: 5rem 2rem;
+            background: var(--dark-gray);
+        }
+        
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-card {
+            background: var(--background);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            text-align: center;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .contact-card h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .contact-card p {
+            color: var(--foreground-80);
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        .contact-card a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-card a:hover {
+            color: var(--secondary-light);
+        }
+
+        /* Enhanced Footer Styles */
+        footer {
+            background: linear-gradient(to bottom, #16213e, #0f0f23);
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .footer-container {
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            font-size: 2.25rem;
+            color: var(--gold-accent);
+            animation: rotateSpade 4s linear infinite;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+        }
+
+        @keyframes rotateSpade {
+            from { transform: rotateY(0); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .footer-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--foreground);
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .footer-description {
+            font-size: 0.875rem;
+            color: var(--foreground-80);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-status-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--secondary-light);
+            animation: pulseShadow 2s infinite;
+        }
+
+        @keyframes pulseShadow {
+            0% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(6, 182, 212, 1); }
+            100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
+        }
+
+        .footer-section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            font-size: 0.875rem;
+            color: var(--foreground-80);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-link a:hover {
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .footer-contact-list {
+            list-style: none;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact-icon {
+            color: var(--primary);
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.5));
+        }
+
+        .footer-contact-text {
+            font-size: 0.875rem;
+            color: var(--foreground-80);
+        }
+
+        .footer-contact-link {
+            font-size: 0.875rem;
+            color: var(--foreground-80);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-contact-link:hover {
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer-copyright {
+            font-size: 0.875rem;
+            color: var(--foreground-60);
+        }
+
+        .footer-legal-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal-link {
+            font-size: 0.875rem;
+            color: var(--foreground-60);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-legal-link:hover {
+            color: var(--secondary-light);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--foreground);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+        
+        .social-icon .fa-instagram {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .fa-instagram {
+            color: #e1306c;
+        }
+        
+        .social-icon .fa-facebook {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .fa-facebook {
+            color: #3b5998;
+        }
+        
+        .social-icon .fa-linkedin {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .fa-linkedin {
+            color: #0077b5;
+        }
+        
+        .social-icon .fa-whatsapp {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .fa-whatsapp {
+            color: #25D366;
+        }
+        
+        
+        /* Animations */
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-slide-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-slide-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #9333ea, #06b6d4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-content">
+                <!-- Logo -->
+                <button onclick="navigateTo('/')" class="logo-button">
+                    <div class="logo-3d">♠</div>
+                    <div>
+                        <h1 class="logo-title">TECH POINT</h1>
+                        <p class="logo-subtitle">Online 24/7</p>
+                    </div>
+                </button>
+
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <a href="#" class="nav-link" data-path="/">Home</a>
+                    <a href="#" class="nav-link" data-path="/services">Services</a>
+                    <a href="#" class="nav-link" data-path="/about">About</a>
+                    <a href="#" class="nav-link" data-path="/base">Help Center</a>
+                    <a href="#" class="nav-link active" data-path="/contact">Contact</a>
+                </nav>
+
+                <!-- Right Section - 24/7 Indicator & Language Switcher -->
+                <div class="header-right">
+                    <div class="online-indicator">
+                        <div class="online-dot"></div>
+                        <span>Online 24/7</span>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav id="mobile-nav" class="mobile-nav">
+                <a href="#" class="mobile-nav-link" data-path="/">Home</a>
+                <a href="#" class="mobile-nav-link" data-path="/services">Services</a>
+                <a href="#" class="mobile-nav-link" data-path="/about">About</a>
+                <a href="#" class="mobile-nav-link" data-path="/base">Base</a>
+                <a href="#" class="mobile-nav-link active" data-path="/contact">Contact</a>
+                <div class="mobile-nav-footer">
+                    <div class="online-indicator">
+                        <div class="online-dot"></div>
+                        <span>Online 24/7</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Circuit Pattern -->
+        <div class="circuit-pattern">
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="circuit-contact" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                        <path d="M10 10h20v20h-20z M40 40h20v20h-20z M70 10h20v20h-20z" stroke="#8b5cf6" stroke-width="0.5" fill="none" />
+                        <circle cx="20" cy="20" r="2" fill="#06b6d4" />
+                        <circle cx="50" cy="50" r="2" fill="#06b6d4" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#circuit-contact)" />
+            </svg>
+        </div>
+
+        <!-- Content -->
+        <div class="hero-content">
+            <h1 class="animate-fade-in">Get in Touch</h1>
+            <p class="animate-fade-in" style="transition-delay: 0.2s">
+                Ready to solve your technical challenges? Contact Tech Point today for expert remote assistance and tailored solutions.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-grid">
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <div class="animate-slide-in-left">
+                    <h2 class="info-title">Contact Information</h2>
+                    <p class="info-description">
+                        Have questions about our services or need technical assistance? Our team is here to help you with expert remote support.
+                    </p>
+                </div>
+
+                <div class="info-cards">
+                    <!-- Location -->
+                    <div class="info-card animate-slide-in-left" style="transition-delay: 0.2s">
+                        <div class="info-card-icon icon-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-card-content">
+                            <h3>Location</h3>
+                            <p>Amman, Jordan</p>
+                            <p class="small">Serving clients globally via remote access</p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="info-card animate-slide-in-left" style="transition-delay: 0.3s">
+                        <div class="info-card-icon icon-email">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-card-content">
+                            <h3>Email</h3>
+                            <a href="mailto:asktechpoint.team@gmail.com" style="color: var(--foreground-70); text-decoration: none;">
+                                asktechpoint.team@gmail.com
+                            </a>
+                            <p class="small">Typically respond within 2 hours</p>
+                        </div>
+                    </div>
+
+                    <!-- Availability -->
+                    <div class="info-card animate-slide-in-left" style="transition-delay: 0.4s">
+                        <div class="info-card-icon icon-clock">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-card-content">
+                            <h3>Availability</h3>
+                            <p>24/7 Remote Support</p>
+                            <div class="online-status">
+                                <div class="online-dot"></div>
+                                <span class="online-text">Currently Online</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-container animate-slide-in-right">
+                <h2 class="form-title">Send Us a Message</h2>
+                
+                <div id="formSuccess" class="success-message" style="display: none;">
+                    <i class="fas fa-check-circle success-icon"></i>
+                    <h3 class="success-title">Message Sent Successfully!</h3>
+                    <p class="success-text">Thank you for contacting Tech Point. Our team will get back to you within 24 hours.</p>
+                </div>
+
+                <!-- Netlify Contact Form -->
+                <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form">
+                    <input type="hidden" name="form-name" value="contact" />
+                    <input type="hidden" name="redirect" value="/contact.html?success=true" />
+                    <!-- Honeypot field to catch spam bots -->
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                    </p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+962 XX XXX XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Service Needed <span class="required">*</span></label>
+                            <select id="service" name="service" class="form-select" required>
+                                <option value="">Select a service</option>
+                                <option value="Cybersecurity">Cybersecurity</option>
+                                <option value="IT Support">IT Support</option>
+                                <option value="Account Recovery">Account Recovery</option>
+                                <option value="Software Solutions">Software Solutions</option>
+                                <option value="Data Analytics">Data Analytics</option>
+                                <option value="Translation">Translation</option>
+                                <option value="Microsoft Office Solutions">Microsoft Office Solutions</option>
+                                <option value="Document Formatting">Document Formatting</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Message <span class="required">*</span></label>
+                        <textarea id="message" name="message" class="form-textarea" 
+                                  placeholder="Tell us about your technical needs or questions..." required></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        <span id="submitText">Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/962782674812" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Return to Top Button -->
+    <button class="top-btn" id="topBtn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Enhanced Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Section -->
+                <div class="footer-brand" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">♠</div>
+                        <div class="footer-logo-text">
+                            <h3 class="footer-logo-title">TECH POINT</h3>
+                            <p class="footer-logo-subtitle">Online 24/7</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Professional Remote Technical Solutions
+                    </p>
+                    <div class="footer-status">
+                        <div class="footer-status-dot"></div>
+                        <span class="footer-status-text">Always Online</span>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <h4 class="footer-section-title">Services</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Cybersecurity</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">IT Support</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Software Solutions</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Data Analytics</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Translation</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <h4 class="footer-section-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link">
+                            <a href="#" data-path="/">Home</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/services">Services</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/about">About</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/base">Help Center</a>
+                        </li>
+                        <li class="footer-link">
+                            <a href="#" data-path="/contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <h4 class="footer-section-title">Contact</h4>
+                    <ul class="footer-contact-list">
+                        <li class="footer-contact-item">
+                            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                            <span class="footer-contact-text">Amman, Jordan</span>
+                        </li>
+                        <li class="footer-contact-item">
+                            <i class="fas fa-envelope footer-contact-icon"></i>
+                            <a href="mailto:asktechpoint.team@gmail.com" class="footer-contact-link">
+                                asktechpoint.team@gmail.com
+                            </a>
+                        </li>
+                        <li class="footer-contact-item">
+                            <i class="fas fa-clock footer-contact-icon"></i>
+                            <span class="footer-contact-text">Remote Support Available</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © <span id="current-year"></span> Tech Point. All Rights Reserved
+                </p>
+                <div class="social-icons" style="justify-content: center; margin: 1rem 0;">
+                    <a href="https://instagram.com/techpoint" class="social-icon" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/962782674812" class="social-icon" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://facebook.com/techpoint" class="social-icon" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/techpoint" class="social-icon" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+                <div class="footer-legal-links">
+                    <a href="#" class="footer-legal-link">Privacy Policy</a>
+                    <a href="#" class="footer-legal-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Header JavaScript
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileMenuIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('show');
+            
+            if (mobileNav.classList.contains('show')) {
+                mobileMenuIcon.classList.remove('fa-bars');
+                mobileMenuIcon.classList.add('fa-times');
+            } else {
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+            }
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.language-switcher')) {
+                // No language switcher elements to hide anymore
+            }
+        });
+
+        // Navigation
+        function navigateTo(path) {
+            // Map paths to actual files
+            const pathToFile = {
+                '/': 'index.html',
+                '/services': 'service.html',
+                '/about': 'about.html',
+                '/base': 'base.html',
+                '/contact': 'contact.html'
+            };
+            
+            const targetFile = pathToFile[path];
+            if (targetFile) {
+                window.location.href = targetFile;
+            }
+        }
+
+        // Add click handlers to navigation links
+        document.querySelectorAll('[data-path]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo(link.getAttribute('data-path'));
+            });
+        });
+
+        // Form Submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    // Ensure Netlify form attributes are set correctly
+                    contactForm.setAttribute('data-netlify', 'true');
+                    contactForm.setAttribute('method', 'POST');
+                    
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    submitText.textContent = 'Sending...';
+                    submitBtn.insertAdjacentHTML('beforeend', '<div class="spinner"></div>');
+                });
+            }
+        });
+
+        // Handle form submission success (if redirected back to this page)
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Check for success parameter
+            if (urlParams.get('success') === 'true' || window.location.hash === '#success') {
+                showSuccessMessage();
+            }
+            
+            // Check for error parameter
+            if (urlParams.get('error') === 'true') {
+                showErrorMessage();
+            }
+        });
+        
+        function showSuccessMessage() {
+            const formContainer = document.querySelector('.contact-form');
+            const formSuccess = document.getElementById('formSuccess');
+            
+            if (formContainer && formSuccess) {
+                formContainer.style.display = 'none';
+                formSuccess.style.display = 'block';
+                
+                // Scroll to success message
+                formSuccess.scrollIntoView({ behavior: 'smooth' });
+                
+                // Reset form after 5 seconds
+                setTimeout(() => {
+                    formContainer.style.display = 'block';
+                    formSuccess.style.display = 'none';
+                    // Reset form fields
+                    document.getElementById('contactForm').reset();
+                    // Remove success parameter from URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }, 5000);
+            }
+        }
+        
+        function showErrorMessage() {
+            const formContainer = document.querySelector('.contact-form');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message';
+            errorMessage.innerHTML = `
+                <div style="padding: 1rem; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 0.5rem; margin-bottom: 1rem; color: #ef4444;">
+                    <strong>Error:</strong> There was a problem submitting your form. Please try again.
+                </div>
+            `;
+            
+            formContainer.parentNode.insertBefore(errorMessage, formContainer);
+            
+            // Remove error message after 5 seconds
+            setTimeout(() => {
+                errorMessage.remove();
+                // Remove error parameter from URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }, 5000);
+        }
+        
+        // Animate on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '-10% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-fade-in, .animate-slide-in-left, .animate-slide-in-right, [data-aos]').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add focus styles to form inputs
+        const formInputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', () => {
+                input.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Email link interaction
+        const emailLink = document.querySelector('a[href^="mailto:"]');
+        if (emailLink) {
+            emailLink.addEventListener('mouseenter', () => {
+                emailLink.style.color = 'var(--secondary-light)';
+            });
+            
+            emailLink.addEventListener('mouseleave', () => {
+                emailLink.style.color = 'var(--foreground-70)';
+            });
+        }
+
+        // Form validation styles
+        const requiredInputs = document.querySelectorAll('[required]');
+        requiredInputs.forEach(input => {
+            input.addEventListener('invalid', (e) => {
+                e.preventDefault();
+                input.style.borderColor = '#ef4444';
+                input.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+            });
+            
+            input.addEventListener('input', () => {
+                if (input.checkValidity()) {
+                    input.style.borderColor = 'rgba(139, 92, 246, 0.3)';
+                    input.style.boxShadow = 'none';
+                }
+            });
+        });
+
+        // Add animation to info cards on hover
+        const infoCards = document.querySelectorAll('.info-card');
+        infoCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateX(4px)';
+                card.style.borderColor = 'rgba(139, 92, 246, 0.4)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateX(0)';
+                card.style.borderColor = 'rgba(139, 92, 246, 0.3)';
+            });
+        });
+
+        // Footer Initialization
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Return to Top Button Functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: false,
+            offset: 100,
+            delay: 0,
+            mirror: true
+        });
+        
+        // Footer link navigation
+        document.querySelectorAll('.footer-link a, .footer-contact-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.hasAttribute('data-path')) {
+                    e.preventDefault();
+                    navigateTo(link.getAttribute('data-path'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
