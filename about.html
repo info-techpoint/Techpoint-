@@ -2,9 +2,9 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tech Point - About</title>
-        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14'%3E%E2%99%A0%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14'%3E%E2%99%A0%3C/text%3E%3C/svg%3E" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -806,12 +806,6 @@
             animation: pulseShadow 2s infinite;
         }
 
-        @keyframes pulseShadow {
-            0% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
-            50% { box-shadow: 0 0 15px rgba(6, 182, 212, 1); }
-            100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
-        }
-
         .footer-status-text {
             font-size: 0.875rem;
             color: var(--foreground);
@@ -919,6 +913,56 @@
             text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
 
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #9333ea, #06b6d4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
         /* Responsive Styles */
         @media (max-width: 1024px) {
             .hero-title {
@@ -992,54 +1036,184 @@
             }
         }
 
-        /* WhatsApp Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            transition: all 0.3s;
+        /* =========================================
+           MOBILE TUNING OVERRIDES (About Page)
+           ========================================= */
+        @media (max-width: 768px) {
+            /* Header Adjustments */
+            .header-container {
+                padding: 0 1rem;
+            }
+            
+            /* Hide the center container on mobile to prevent layout shift between logo and burger */
+            .header-center {
+                display: none; 
+            }
+
+            .logo-3d {
+                font-size: 1.8rem;
+            }
+            .logo-title {
+                font-size: 1.1rem;
+            }
+            .logo-subtitle {
+                font-size: 0.6rem;
+            }
+
+            /* Hero Section */
+            .hero-section {
+                padding: 7rem 1.5rem 4rem; /* Adjusted for fixed header */
+            }
+
+            .hero-title {
+                font-size: 2.2rem !important; /* Force specific mobile size */
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-buttons {
+                width: 100%;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 1rem;
+                text-align: center;
+                justify-content: center;
+            }
+
+            /* Section Adjustments */
+            section {
+                padding: 4rem 1.5rem; /* Consistent vertical padding */
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2.5rem;
+            }
+
+            /* About Grid */
+            .about-grid {
+                gap: 2.5rem;
+            }
+
+            .about-content h3 {
+                font-size: 1.75rem;
+            }
+
+            .about-text {
+                font-size: 0.95rem;
+            }
+
+            /* Feature Cards */
+            .feature-card {
+                flex-direction: column; /* Stack icon on top of text */
+                text-align: center;
+                align-items: center;
+            }
+
+            .feature-icon {
+                margin-bottom: 1rem;
+            }
+
+            /* Expertise & Values Grids */
+            /* Original CSS makes them 1 column, we just refine the look */
+            .expertise-card, .value-card {
+                padding: 1.5rem;
+            }
+
+            .expertise-icon {
+                width: 3.5rem;
+                height: 3.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .expertise-card h3, .value-card h3 {
+                font-size: 1.25rem;
+            }
+
+            .expertise-card p, .value-card p {
+                font-size: 0.9rem;
+            }
+
+            /* Services Grid */
+            .service-item {
+                padding: 1rem;
+            }
+
+            .service-item p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            /* CTA Section */
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .cta-text {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .cta-btn {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 3rem 1.5rem;
+            }
+
+            .footer-bottom {
+                text-align: center;
+            }
+
+            .footer-legal-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            /* Floating Buttons */
+            .whatsapp-float, .top-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .whatsapp-float {
+                bottom: 75px;
+                right: 15px;
+            }
+
+            .top-btn {
+                bottom: 15px;
+                right: 15px;
+            }
         }
 
-        .top-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #9333ea, #06b6d4);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .top-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 1.8rem !important;
+            }
+            .section-title {
+                font-size: 1.75rem;
+            }
+            .container {
+                padding: 0 1rem;
+            }
         }
 
     </style>
