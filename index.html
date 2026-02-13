@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tech Point - Home</title>
-        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14'%3E%E2%99%A0%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14'%3E%E2%99%A0%3C/text%3E%3C/svg%3E" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+        /* =========================================
+           ORIGINAL STYLES (Preserved)
+           ========================================= */
         * {
             margin: 0;
             padding: 0;
@@ -60,7 +63,7 @@
         .header-container {
             max-width: 120rem;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem; /* Slightly reduced padding for mobile */
         }
 
         .header-content {
@@ -73,7 +76,7 @@
         .logo-button {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             background: none;
             border: none;
             cursor: pointer;
@@ -86,7 +89,7 @@
         }
 
         .logo-3d {
-            font-size: 2.25rem;
+            font-size: 1.8rem; /* Adjusted for mobile fit */
             color: var(--gold-accent);
             animation: rotateY 4s linear infinite;
             text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
@@ -98,18 +101,17 @@
         }
 
         .logo-title {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--gold-accent);
             letter-spacing: 0.05em;
             text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
             margin: 0;
+            line-height: 1;
         }
-        
-        
 
         .logo-subtitle {
-            font-size: 0.75rem;
+            font-size: 0.6rem;
             color: var(--secondary-light);
             text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
             margin: 0;
@@ -124,6 +126,9 @@
                 display: flex;
                 gap: 2rem;
             }
+            .logo-3d { font-size: 2.25rem; }
+            .logo-title { font-size: 1.5rem; }
+            .logo-subtitle { font-size: 0.75rem; }
         }
 
         .nav-link {
@@ -174,6 +179,7 @@
             border-radius: 9999px;
             background: rgba(6, 182, 212, 0.1);
             border: 1px solid rgba(6, 182, 212, 0.2);
+            font-size: 0.75rem;
         }
 
         .online-dot {
@@ -190,51 +196,6 @@
             100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
         }
 
-        .language-switcher {
-            position: relative;
-        }
-
-        .lang-btn, .mobile-lang-btn {
-            background: none;
-            border: 1px solid var(--gray-600);
-            color: var(--foreground);
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-size: 0.875rem;
-        }
-
-        .lang-dropdown, .mobile-lang-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--dark-gray);
-            border: 1px solid var(--gray-600);
-            border-radius: 0.25rem;
-            overflow: hidden;
-            display: none;
-            min-width: 120px;
-        }
-
-        .lang-dropdown.show, .mobile-lang-dropdown.show {
-            display: block;
-        }
-
-        .lang-dropdown button, .mobile-lang-dropdown button {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 0.5rem;
-            background: none;
-            border: none;
-            color: var(--foreground);
-            cursor: pointer;
-        }
-
-        .lang-dropdown button:hover, .mobile-lang-dropdown button:hover {
-            background: var(--darker-gray);
-        }
-
         .mobile-menu-btn {
             display: block;
             background: none;
@@ -244,6 +205,7 @@
             cursor: pointer;
             border-radius: 0.5rem;
             transition: background-color 0.3s;
+            font-size: 1.25rem;
         }
 
         .mobile-menu-btn:hover {
@@ -274,6 +236,7 @@
             color: var(--foreground);
             text-decoration: none;
             font-weight: 500;
+            font-size: 1.1rem;
         }
 
         .mobile-nav-link:hover {
@@ -315,6 +278,7 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            padding-top: 5rem; /* Space for fixed header */
         }
 
         .hero-bg {
@@ -330,6 +294,7 @@
             position: absolute;
             inset: 0;
             opacity: 0.08;
+            pointer-events: none;
         }
 
         .circuit-pattern svg {
@@ -357,7 +322,7 @@
             text-align: center;
             position: relative;
             z-index: 10;
-            padding: 2rem;
+            padding: 2rem 1.5rem; /* Mobile padding adjustment */
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -370,6 +335,7 @@
             display: inline-block;
             animation: rotateY 8s linear infinite;
             transform-style: preserve-3d;
+            line-height: 1;
         }
 
         .typewriter h1 {
@@ -378,6 +344,7 @@
             margin-bottom: 1.5rem;
             color: white;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            line-height: 1.1;
         }
 
         .cursor {
@@ -388,6 +355,7 @@
             margin-left: 0.5rem;
             animation: blink 0.8s infinite;
             box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+            vertical-align: middle;
         }
 
         @keyframes blink {
@@ -429,6 +397,9 @@
             overflow: hidden;
             transition: all 0.3s;
             box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-primary:hover {
@@ -521,8 +492,15 @@
         }
 
         .mission-header {
-            position: sticky;
-            top: 6rem;
+            position: relative; /* Changed from sticky to prevent mobile overlap issues */
+            z-index: 10;
+        }
+
+        @media (min-width: 1024px) {
+            .mission-header {
+                position: sticky;
+                top: 6rem;
+            }
         }
 
         .status {
@@ -810,37 +788,12 @@
             transition: border-color 0.3s;
         }
 
-        .corner-tl {
-            top: 0;
-            left: 0;
-            border-top: 1px solid;
-            border-left: 1px solid;
-        }
+        .corner-tl { top: 0; left: 0; border-top: 1px solid; border-left: 1px solid; }
+        .corner-tr { top: 0; right: 0; border-top: 1px solid; border-right: 1px solid; }
+        .corner-bl { bottom: 0; left: 0; border-bottom: 1px solid; border-left: 1px solid; }
+        .corner-br { bottom: 0; right: 0; border-bottom: 1px solid; border-right: 1px solid; }
 
-        .corner-tr {
-            top: 0;
-            right: 0;
-            border-top: 1px solid;
-            border-right: 1px solid;
-        }
-
-        .corner-bl {
-            bottom: 0;
-            left: 0;
-            border-bottom: 1px solid;
-            border-left: 1px solid;
-        }
-
-        .corner-br {
-            bottom: 0;
-            right: 0;
-            border-bottom: 1px solid;
-            border-right: 1px solid;
-        }
-
-        .service-card:hover .corner {
-            border-color: var(--primary);
-        }
+        .service-card:hover .corner { border-color: var(--primary); }
 
         .service-icon {
             width: 3.5rem;
@@ -892,9 +845,7 @@
             transition: color 0.3s;
         }
 
-        .service-card:hover .service-access {
-            color: var(--primary);
-        }
+        .service-card:hover .service-access { color: var(--primary); }
 
         .access-line {
             flex: 1;
@@ -904,9 +855,7 @@
             transition: opacity 0.3s;
         }
 
-        .service-card:hover .access-line {
-            opacity: 0.5;
-        }
+        .service-card:hover .access-line { opacity: 0.5; }
 
         /* Enhanced Metrics Section */
         .metrics {
@@ -917,9 +866,7 @@
         }
 
         @media (min-width: 1024px) {
-            .metrics {
-                grid-template-columns: 1fr 1fr;
-            }
+            .metrics { grid-template-columns: 1fr 1fr; }
         }
 
         .metrics-content {
@@ -931,9 +878,7 @@
         }
 
         @media (min-width: 1024px) {
-            .metrics-content {
-                background: transparent;
-            }
+            .metrics-content { background: transparent; }
         }
 
         .metrics-subtitle {
@@ -967,15 +912,9 @@
         }
 
         /* Enhanced Stats Bars */
-        .stats {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+        .stats { display: flex; flex-direction: column; gap: 2rem; }
 
-        .stat-item {
-            position: relative;
-        }
+        .stat-item { position: relative; }
 
         .stat-label {
             display: flex;
@@ -985,10 +924,7 @@
             font-size: 0.875rem;
         }
 
-        .stat-label span:first-child {
-            color: var(--gray-200);
-        }
-
+        .stat-label span:first-child { color: var(--gray-200); }
         .stat-label span:last-child {
             color: var(--primary-light);
             text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
@@ -1011,11 +947,7 @@
             box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
         }
 
-        @keyframes fillBar {
-            to {
-                width: var(--fill-width);
-            }
-        }
+        @keyframes fillBar { to { width: var(--fill-width); } }
 
         /* Enhanced Metrics Visual */
         .metrics-visual {
@@ -1025,9 +957,7 @@
         }
 
         @media (min-width: 1024px) {
-            .metrics-visual {
-                height: auto;
-            }
+            .metrics-visual { height: auto; }
         }
 
         .metrics-visual::before {
@@ -1096,10 +1026,7 @@
         .grid-stat:nth-child(4) { animation-delay: 0.8s; }
 
         @keyframes fadeInScale {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .grid-stat-number {
@@ -1139,8 +1066,7 @@
             opacity: 0.3;
         }
 
-        .cta-line-top,
-        .cta-line-bottom {
+        .cta-line-top, .cta-line-bottom {
             position: absolute;
             left: 0;
             width: 100%;
@@ -1179,17 +1105,8 @@
             line-height: 1.1;
         }
 
-        @media (min-width: 768px) {
-            .cta-title {
-                font-size: 5rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .cta-title {
-                font-size: 6rem;
-            }
-        }
+        @media (min-width: 768px) { .cta-title { font-size: 5rem; } }
+        @media (min-width: 1024px) { .cta-title { font-size: 6rem; } }
 
         .cta-title span {
             background: linear-gradient(to right, var(--primary), var(--primary-light), var(--secondary-light));
@@ -1236,14 +1153,8 @@
             transform-origin: left;
         }
 
-        .cta-button:hover::before {
-            transform: scaleX(1);
-        }
-
-        .cta-button span {
-            position: relative;
-            z-index: 1;
-        }
+        .cta-button:hover::before { transform: scaleX(1); }
+        .cta-button span { position: relative; z-index: 1; }
 
         /* Enhanced Footer Styles */
         .footer {
@@ -1277,22 +1188,10 @@
             margin-bottom: 3rem;
         }
 
-        @media (min-width: 768px) {
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        @media (min-width: 1024px) {
-            .footer-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .footer-brand {
-            display: flex;
-            flex-direction: column;
-        }
+        .footer-brand { display: flex; flex-direction: column; }
 
         .footer-logo {
             display: flex;
@@ -1313,10 +1212,7 @@
             to { transform: rotateY(360deg); }
         }
 
-        .footer-logo-text {
-            display: flex;
-            flex-direction: column;
-        }
+        .footer-logo-text { display: flex; flex-direction: column; }
 
         .footer-logo-title {
             font-size: 1.5rem;
@@ -1338,11 +1234,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .footer-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+        .footer-status { display: flex; align-items: center; gap: 0.5rem; }
 
         .footer-status-dot {
             width: 0.5rem;
@@ -1358,10 +1250,7 @@
             100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
         }
 
-        .footer-status-text {
-            font-size: 0.875rem;
-            color: var(--foreground);
-        }
+        .footer-status-text { font-size: 0.875rem; color: var(--foreground); }
 
         .footer-section-title {
             font-size: 1.125rem;
@@ -1371,13 +1260,9 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
-        .footer-links {
-            list-style: none;
-        }
+        .footer-links { list-style: none; }
 
-        .footer-link {
-            margin-bottom: 0.75rem;
-        }
+        .footer-link { margin-bottom: 0.75rem; }
 
         .footer-link a {
             font-size: 0.875rem;
@@ -1391,9 +1276,7 @@
             text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
 
-        .footer-contact-list {
-            list-style: none;
-        }
+        .footer-contact-list { list-style: none; }
 
         .footer-contact-item {
             display: flex;
@@ -1409,10 +1292,7 @@
             filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.5));
         }
 
-        .footer-contact-text {
-            font-size: 0.875rem;
-            color: var(--gray-300);
-        }
+        .footer-contact-text { font-size: 0.875rem; color: var(--gray-300); }
 
         .footer-contact-link {
             font-size: 0.875rem;
@@ -1453,37 +1333,17 @@
             box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
         }
         
-        .social-icon .fa-instagram {
-            transition: all 0.3s ease;
-        }
+        .social-icon .fa-instagram { transition: all 0.3s ease; }
+        .social-icon:hover .fa-instagram { color: #e1306c; }
         
-        .social-icon:hover .fa-instagram {
-            color: #e1306c;
-        }
+        .social-icon .fa-facebook { transition: all 0.3s ease; }
+        .social-icon:hover .fa-facebook { color: #3b5998; }
         
-        .social-icon .fa-facebook {
-            transition: all 0.3s ease;
-        }
+        .social-icon .fa-linkedin { transition: all 0.3s ease; }
+        .social-icon:hover .fa-linkedin { color: #0077b5; }
         
-        .social-icon:hover .fa-facebook {
-            color: #3b5998;
-        }
-        
-        .social-icon .fa-linkedin {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-linkedin {
-            color: #0077b5;
-        }
-        
-        .social-icon .fa-whatsapp {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-whatsapp {
-            color: #25D366;
-        }
+        .social-icon .fa-whatsapp { transition: all 0.3s ease; }
+        .social-icon:hover .fa-whatsapp { color: #25D366; }
 
         .footer-bottom {
             margin-top: 3rem;
@@ -1502,15 +1362,9 @@
             }
         }
 
-        .footer-copyright {
-            font-size: 0.875rem;
-            color: var(--gray-400);
-        }
+        .footer-copyright { font-size: 0.875rem; color: var(--gray-400); }
 
-        .footer-legal-links {
-            display: flex;
-            gap: 1.5rem;
-        }
+        .footer-legal-links { display: flex; gap: 1.5rem; }
 
         .footer-legal-link {
             font-size: 0.875rem;
@@ -1531,18 +1385,10 @@
             display: block;
         }
 
-        @media (min-width: 768px) {
-            .mobile-view-all {
-                display: none;
-            }
-        }
+        @media (min-width: 768px) { .mobile-view-all { display: none; } }
 
         /* Utilities */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
         /* WhatsApp Button */
         .whatsapp-float {
@@ -1567,14 +1413,14 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, #9333ea, #06b6d4);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             color: white;
             text-decoration: none;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -1584,21 +1430,11 @@
             cursor: pointer;
         }
 
-        .top-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
+        .top-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
 
         /* Get In Touch Section Styles */
-        .content-section {
-            padding: 5rem 2rem;
-            background: var(--dark-gray);
-        }
+        .content-section { padding: 5rem 1.5rem; background: var(--dark-gray); }
         
         .content-section h2 {
             text-align: center;
@@ -1607,6 +1443,7 @@
             color: var(--foreground);
             margin-bottom: 1rem;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            line-height: 1.2;
         }
         
         .content-section p {
@@ -1619,14 +1456,19 @@
             margin-right: auto;
         }
         
+        /* Mobile Critical Fix: Originally 4 columns, breaking layout on phone */
         .contact-info-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr); /* Changed to 2 for mobile */
+            gap: 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
         }
         
+        @media (min-width: 768px) {
+            .contact-info-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        }
+
         .contact-card {
             background: var(--background);
             border: 1px solid rgba(139, 92, 246, 0.3);
@@ -1635,6 +1477,10 @@
             transition: all 0.3s;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .contact-card:hover {
@@ -1643,11 +1489,7 @@
             box-shadow: 0 8px 40px rgba(139, 92, 246, 0.2);
         }
         
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
+        .contact-icon { font-size: 2rem; color: var(--primary); margin-bottom: 1rem; }
         
         .contact-card h3 {
             font-size: 1.125rem;
@@ -1660,6 +1502,7 @@
             color: var(--foreground-70);
             margin: 0;
             font-size: 0.875rem;
+            word-break: break-word; /* Prevents long emails from overflowing */
         }
         
         .contact-card a {
@@ -1668,8 +1511,178 @@
             transition: color 0.3s;
         }
         
-        .contact-card a:hover {
-            color: var(--secondary-light);
+        .contact-card a:hover { color: var(--secondary-light); }
+
+        /* =========================================
+           MOBILE TUNING OVERRIDES
+           ========================================= */
+        @media (max-width: 768px) {
+            /* Hero Section Adjustments */
+            .hero-logo-3d {
+                font-size: 5rem; /* Reduced from 8rem */
+                margin-bottom: 1.5rem;
+            }
+
+            .typewriter h1 {
+                font-size: 2.5rem; /* Reduced from 4rem */
+                margin-bottom: 1rem;
+            }
+
+            .cursor {
+                height: 3rem; /* Match text height */
+            }
+
+            .tagline {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 1rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            /* Mission Section */
+            .mission {
+                padding: 4rem 1.5rem;
+            }
+
+            .mission h2 {
+                font-size: 2rem; /* Reduced from 3rem */
+            }
+
+            .mission-description {
+                font-size: 1rem;
+            }
+
+            .mission-card {
+                padding: 1.5rem;
+            }
+
+            .card-icon {
+                display: none; /* Hide large background icon on mobile to save space */
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+            }
+
+            /* Services Section */
+            .services {
+                padding: 4rem 1.5rem;
+            }
+
+            .services-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .services-title {
+                font-size: 2.5rem; /* Reduced from 3.5rem */
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            /* Metrics Section */
+            .metrics-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .metrics-title {
+                font-size: 2rem;
+            }
+
+            /* Grid Stats overlay on metrics image */
+            .grid-stats-container {
+                gap: 0.5rem;
+            }
+            
+            .grid-stat {
+                padding: 0.75rem;
+            }
+            
+            .grid-stat-number {
+                font-size: 1.5rem;
+            }
+
+            /* Content Section (Get In Touch) */
+            .content-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .contact-info-grid {
+                grid-template-columns: 1fr; /* Force 1 column on very small screens */
+                gap: 1rem;
+            }
+
+            .contact-card {
+                padding: 1.25rem;
+            }
+
+            /* Final CTA */
+            .final-cta {
+                padding: 4rem 1.5rem;
+            }
+
+            .cta-title {
+                font-size: 2.5rem !important; /* Force smaller size on mobile */
+            }
+
+            .cta-description {
+                font-size: 1rem;
+            }
+
+            /* Footer */
+            .footer {
+                padding: 3rem 1.5rem;
+            }
+            
+            .footer-grid {
+                gap: 2rem;
+            }
+
+            /* Floating buttons */
+            .whatsapp-float, .top-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .whatsapp-float {
+                bottom: 80px;
+                right: 15px;
+            }
+
+            .top-btn {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        /* Extra small devices (iPhone SE size) */
+        @media (max-width: 380px) {
+            .typewriter h1 {
+                font-size: 2rem;
+            }
+            .hero-logo-3d {
+                font-size: 4rem;
+            }
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+            }
+            .services-title {
+                font-size: 2rem;
+            }
         }
 
     </style>
@@ -1768,7 +1781,7 @@
 
             <!-- Tagline -->
             <p class="tagline" data-aos="fade-up" data-aos-delay="400">
-                <span>&lt;System&gt;</span> Your trusted partner for comprehensive technical solutions. We bridge the gap between technology and business needs with expert remote services, cybersecurity, and innovative software solutions. <span>&lt;/System&gt;</span>
+                Your trusted partner for comprehensive technical solutions. We bridge the gap between technology and business needs with expert remote services, cybersecurity, and innovative software solutions.
             </p>
 
             <!-- CTA Buttons -->
@@ -1781,11 +1794,7 @@
             </div>
         </div>
 
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="800">
-            <div class="scroll-text">Scroll to Scan</div>
-            <div class="scroll-line"></div>
-        </div>
+        
     </section>
 
     <!-- Mission Statement -->
@@ -1878,7 +1887,7 @@
 
         <div class="services-grid">
             <!-- Cybersecurity -->
-            <a href="#" class="service-card" data-aos="fade-up" data-aos-delay="100">
+            <a href="#" class="service-card" data-service="cybersecurity" data-aos="fade-up" data-aos-delay="100">
                 <div class="corner corner-tl"></div>
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
@@ -1898,7 +1907,7 @@
             </a>
 
             <!-- IT Support -->
-            <a href="#" class="service-card" data-aos="fade-up" data-aos-delay="200">
+            <a href="#" class="service-card" data-service="it-support" data-aos="fade-up" data-aos-delay="200">
                 <div class="corner corner-tl"></div>
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
@@ -1918,7 +1927,7 @@
             </a>
 
             <!-- Software Solutions -->
-            <a href="#" class="service-card" data-aos="fade-up" data-aos-delay="300">
+            <a href="#" class="service-card" data-service="software-solutions" data-aos="fade-up" data-aos-delay="300">
                 <div class="corner corner-tl"></div>
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
@@ -1938,7 +1947,7 @@
             </a>
 
             <!-- Data Analytics -->
-            <a href="#" class="service-card" data-aos="fade-up" data-aos-delay="400">
+            <a href="#" class="service-card" data-service="data-analytics" data-aos="fade-up" data-aos-delay="400">
                 <div class="corner corner-tl"></div>
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
@@ -1958,7 +1967,7 @@
             </a>
 
             <!-- Translation -->
-            <a href="#" class="service-card" data-aos="fade-up" data-aos-delay="500">
+            <a href="#" class="service-card" data-service="translation" data-aos="fade-up" data-aos-delay="500">
                 <div class="corner corner-tl"></div>
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
@@ -1978,7 +1987,7 @@
             </a>
 
             <!-- 24/7 Support -->
-            <a href="#" class="service-card" data-aos="fade-up" data-aos-delay="600">
+            <a href="#" class="service-card" data-service="247-support" data-aos="fade-up" data-aos-delay="600">
                 <div class="corner corner-tl"></div>
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
@@ -2003,101 +2012,7 @@
         </a>
     </section>
 
-    <!-- Metrics -->
-    <section class="metrics">
-        <div class="metrics-content">
-            <div class="metrics-subtitle" data-aos="fade-right" data-aos-delay="100">
-                <i class="fas fa-diagnoses"></i>
-                DIAGNOSTICS
-            </div>
-            <h2 class="metrics-title" data-aos="fade-right" data-aos-delay="200">
-                Performance<br> <span>Metrics</span>
-            </h2>
-            <p class="metrics-description" data-aos="fade-right" data-aos-delay="300">
-                Real-time performance analytics and quality assurance metrics that demonstrate our commitment to excellence and reliability in every service we deliver.
-            </p>
 
-            <div class="stats">
-                <!-- Remote Expertise -->
-                <div class="stat-item" data-aos="fade-right" data-aos-delay="400">
-                    <div class="stat-label">
-                        <span>Remote Expertise</span>
-                        <span>95%</span>
-                    </div>
-                    <div class="stat-bar-bg">
-                        <div class="stat-bar-fill" style="--fill-width: 95%"></div>
-                    </div>
-                </div>
-
-                <!-- Client Satisfaction -->
-                <div class="stat-item" data-aos="fade-right" data-aos-delay="500">
-                    <div class="stat-label">
-                        <span>Client Satisfaction</span>
-                        <span>98%</span>
-                    </div>
-                    <div class="stat-bar-bg">
-                        <div class="stat-bar-fill" style="--fill-width: 98%"></div>
-                    </div>
-                </div>
-
-                <!-- Response Time -->
-                <div class="stat-item" data-aos="fade-right" data-aos-delay="600">
-                    <div class="stat-label">
-                        <span>Response Time</span>
-                        <span>92%</span>
-                    </div>
-                    <div class="stat-bar-bg">
-                        <div class="stat-bar-fill" style="--fill-width: 92%"></div>
-                    </div>
-                </div>
-
-                <!-- Security Standards -->
-                <div class="stat-item" data-aos="fade-right" data-aos-delay="700">
-                    <div class="stat-label">
-                        <span>Security Standards</span>
-                        <span>100%</span>
-                    </div>
-                    <div class="stat-bar-bg">
-                        <div class="stat-bar-fill" style="--fill-width: 100%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="metrics-visual">
-            <img src="https://static.wixstatic.com/media/e82780_f080c89bbf2e4d329795596061385776~mv2.png?originWidth=1152&originHeight=576" 
-                 alt="Tech Point Server Infrastructure" class="metrics-image" data-aos="fade-left" data-aos-delay="400">
-            
-            <!-- Grid Stats -->
-            <div class="grid-stats">
-                <div class="grid-stats-container">
-                    <!-- 24/7 Support -->
-                    <div class="grid-stat" data-aos="zoom-in" data-aos-delay="500">
-                        <div class="grid-stat-number">24/7</div>
-                        <div class="grid-stat-label">Support Available</div>
-                    </div>
-
-                    <!-- Remote Service -->
-                    <div class="grid-stat" data-aos="zoom-in" data-aos-delay="600">
-                        <div class="grid-stat-number">100%</div>
-                        <div class="grid-stat-label">Remote Service</div>
-                    </div>
-
-                    <!-- Clients Served -->
-                    <div class="grid-stat" data-aos="zoom-in" data-aos-delay="700">
-                        <div class="grid-stat-number">500+</div>
-                        <div class="grid-stat-label">Clients Served</div>
-                    </div>
-
-                    <!-- Service Categories -->
-                    <div class="grid-stat" data-aos="zoom-in" data-aos-delay="800">
-                        <div class="grid-stat-number">10+</div>
-                        <div class="grid-stat-label">Service Categories</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Get In Touch Section from old index.html -->
     <section id="get-in-touch" class="content-section">
@@ -2119,7 +2034,7 @@
                 <div class="contact-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
                     <h3>WhatsApp</h3>
-                    <p><a href="https://wa.me/962782674812" target="_blank">Chat with us on WhatsApp</a></p>
+                    <p><a href="https://wa.me/962782674812" target="_blank">Chat with us</a></p>
                 </div>
                 <div class="contact-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="contact-icon">📍</div>
@@ -2255,9 +2170,6 @@
                     <a href="#" class="social-icon" data-path="https://facebook.com/techpoint" target="_blank">
                         <i class="fab fa-facebook"></i>
                     </a>
-                    <a href="#" class="social-icon" data-path="https://linkedin.com/company/techpoint" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
                 </div>
                 <div class="footer-legal-links">
                     <a href="#" class="footer-legal-link">Privacy Policy</a>
@@ -2275,7 +2187,7 @@
                 duration: 800,
                 easing: 'ease-in-out',
                 once: false,
-                offset: 100,
+                offset: 50, // Reduced offset for mobile to trigger animations sooner
                 delay: 0,
                 mirror: true
             });
@@ -2308,7 +2220,8 @@
 
         // Create Particles
         const particlesContainer = document.getElementById('particles');
-        const particleCount = 40;
+        // Reduced particle count for mobile performance
+        const particleCount = window.innerWidth < 768 ? 15 : 40;
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
@@ -2401,7 +2314,7 @@
         });
 
         // Navigation
-        function navigateTo(path) {
+        function navigateTo(path, service = null) {
             // Map paths to actual files
             const pathToFile = {
                 '/': 'index.html',
@@ -2413,7 +2326,11 @@
             
             const targetFile = pathToFile[path];
             if (targetFile) {
-                window.location.href = targetFile;
+                let url = targetFile;
+                if (service) {
+                    url += `?service=${service}`;
+                }
+                window.location.href = url;
             }
         }
 
@@ -2428,6 +2345,15 @@
                     e.preventDefault();
                     navigateTo(path);
                 }
+            });
+        });
+
+        // Add click handlers for service cards
+        document.querySelectorAll('[data-service]').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                const service = card.getAttribute('data-service');
+                navigateTo('/services', service);
             });
         });
 
@@ -2455,3 +2381,4 @@
     </button>
 </body>
 </html>
+
