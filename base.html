@@ -32,22 +32,9 @@
             --nav-height: 5rem;
             --nav-height-mobile: 4rem;
             --container-max-width: 75rem;
-            --border-radius: 0.75rem;
+            --border-radius: 1rem;
             --border-radius-sm: 0.375rem;
             --border-radius-full: 9999px;
-            
-            /* Spacing */
-            --spacing-xs: 0.25rem;
-            --spacing-sm: 0.5rem;
-            --spacing-md: 1rem;
-            --spacing-lg: 1.5rem;
-            --spacing-xl: 2rem;
-            --spacing-2xl: 3rem;
-            
-            /* Transitions */
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             
             /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
@@ -68,6 +55,25 @@
             color: var(--foreground);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Ambient Background Orbs */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        body::before {
+            background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+        }
+        body::after {
+            background: radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 40%);
         }
         
         /* Enhanced Header Styles */
@@ -76,9 +82,9 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 15, 35, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+            background: rgba(15, 15, 35, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
             z-index: 1000;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
@@ -114,7 +120,7 @@
         }
 
         .logo-button:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .logo-3d {
@@ -132,9 +138,9 @@
         .logo-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--gold-accent);
+            color: var(--foreground);
             letter-spacing: 0.05em;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
             margin: 0;
         }
         
@@ -166,11 +172,11 @@
         }
 
         .nav-link:hover {
-            color: var(--secondary-light);
+            color: var(--foreground);
         }
 
         .nav-link.active {
-            color: var(--primary);
+            color: var(--primary-light);
         }
 
         .nav-link.active::after {
@@ -181,7 +187,7 @@
             width: 100%;
             height: 2px;
             background: var(--gradient-purple);
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 8px var(--primary);
         }
 
         .header-right {
@@ -204,6 +210,7 @@
             border-radius: 9999px;
             background: rgba(6, 182, 212, 0.1);
             border: 1px solid rgba(6, 182, 212, 0.2);
+            font-size: 0.875rem;
         }
 
         .online-dot {
@@ -304,37 +311,30 @@
             visibility: visible;
         }
 
-        /* Knowledge Base Section - add top margin to account for fixed header */
+        /* Knowledge Base Section */
         .knowledge-base {
-            margin-top: 6rem; /* Account for header height */
+            margin-top: 6rem;
             position: relative;
-            z-index: 5; /* Lower than suggestions */
-        }
-        
-        /* Knowledge Base Section from add.html */
-        .knowledge-base {
-            background: var(--dark-gray);
-            border-radius: 10px;
+            z-index: 5;
+            background: transparent; /* Transparent to show body background */
             padding: 40px 20px;
-            margin: 40px 0;
         }
         
-        /* Knowledge Base Top Panel - slides down from top */
+        /* Knowledge Base Top Panel */
         .kb-article-top-panel {
             position: fixed;
             top: -100%;
             left: 0;
             width: 100%;
             height: 100vh;
-            background: var(--gradient-dark);
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
             z-index: 10000;
-            transition: top 0.4s ease-in-out;
+            transition: top 0.4s ease-in-out; /* Kept animation */
             border-bottom: 1px solid rgba(139, 92, 246, 0.3);
-            box-shadow: 0 5px 25px rgba(147, 51, 234, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             overflow-y: auto;
             color: var(--foreground);
-            backdrop-filter: blur(10px);
-            background-clip: padding-box;
         }
         
         .kb-article-top-panel.active {
@@ -343,6 +343,8 @@
         
         .kb-article-top-content {
             padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
             height: 100%;
         }
         
@@ -350,125 +352,141 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
-            margin-bottom: 15px;
-            background: rgba(15, 15, 35, 0.7);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            margin-bottom: 20px;
+            background: transparent;
         }
         
         .kb-top-close-btn {
-            background: var(--gradient-purple);
-            border: none;
-            color: white;
-            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--gray-300);
+            font-size: 1.5rem;
             cursor: pointer;
-            width: 35px;
-            height: 35px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            box-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
         }
         
         .kb-top-close-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(147, 51, 234, 0.8);
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #ef4444;
+            transform: rotate(90deg);
         }
         
         .kb-article-top-body {
-            padding: 0 20px 20px;
+            padding: 0 10px 20px;
             max-height: calc(100vh - 140px);
             overflow-y: auto;
         }
         
         .kb-article-top-body pre {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 1rem;
-            line-height: 1.6;
+            line-height: 1.8;
             white-space: pre-wrap;
-            font-family: Arial, sans-serif;
-            color: var(--foreground);
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-200);
         }
         
         .kb-article-top-related {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(139, 92, 246, 0.3);
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 8px;
+            margin-top: 30px;
+            padding: 25px;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+
+        .kb-article-top-related h4 {
+            color: var(--secondary-light);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
         }
         
         .kb-article-top-related ul {
             list-style: none;
-            margin: 10px 0 0;
-            padding-left: 10px;
+            margin: 0;
+            padding: 0;
         }
         
         .kb-article-top-related ul li {
-            padding: 5px 0;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
-            color: var(--primary);
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--primary-light);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            border-radius: 8px;
         }
         
         .kb-article-top-related ul li:hover {
-            color: var(--primary-light);
-            padding-left: 5px;
+            background: rgba(139, 92, 246, 0.1);
+            padding-left: 20px;
+            color: var(--primary);
         }
         
         .kb-title {
             text-align: center;
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 40px;
-            text-shadow: 0 0 10px rgba(147, 92, 246, 0.5);
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-size: 3.5rem;
+            color: transparent;
+            background: linear-gradient(to right, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin-bottom: 50px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .kb-search {
             max-width: 700px;
-            margin: 0 auto 40px;
+            margin: 0 auto 50px;
             position: relative;
             padding: 0 20px;
-            z-index: 100; /* Higher than knowledge-base */
+            z-index: 100;
         }
 
         .kb-input {
             width: 100%;
-            padding: 15px 50px 15px 20px;
-            background: linear-gradient(145deg, var(--background), var(--dark-gray));
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 30px;
+            padding: 20px 60px 20px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
             color: var(--foreground);
-            font-size: 16px;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
             z-index: 101;
+            transition: all 0.3s;
         }
 
         .kb-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(147, 92, 246, 0.3);
+            background: rgba(139, 92, 246, 0.05);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1), 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .kb-input::placeholder {
+            color: var(--gray-500);
         }
 
         .kb-search-btn {
             position: absolute;
-            right: 28px;
+            right: 32px;
             top: 50%;
             transform: translateY(-50%);
             background: var(--gradient-purple);
             border: none;
-            width: 38px;
-            height: 38px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -476,58 +494,52 @@
             color: white;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 0 10px rgba(147, 92, 246, 0.5);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
             z-index: 102;
         }
         
         .kb-search-btn:hover {
             transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0 15px rgba(147, 51, 234, 0.8);
+            box-shadow: 0 0 25px rgba(147, 51, 234, 0.6);
         }
 
-        /* Search Suggestions Dropdown - FIXED Z-INDEX */
+        /* Search Suggestions Dropdown */
         .search-suggestions {
             position: absolute;
             top: 100%;
             left: 20px;
             right: 20px;
-            background: var(--dark-gray);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-top: none;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
             max-height: 400px;
             overflow-y: auto;
             display: none;
-            z-index: 1050; /* HIGHER THAN EVERYTHING ELSE */
-            margin-top: -5px;
+            z-index: 1050;
+            margin-top: -10px;
         }
 
         .search-suggestions.active {
             display: block;
-            animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Kept animation */
         }
 
         @keyframes slideDown {
-            from { 
-                opacity: 0; 
-                transform: translateY(-10px) scale(0.95); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .suggestion-item {
-            padding: 12px 20px;
-            color: var(--gray-300);
+            padding: 15px 20px;
+            color: var(--gray-200);
             cursor: pointer;
             transition: all 0.2s;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             position: relative;
         }
 
@@ -538,68 +550,65 @@
         .suggestion-item:hover {
             background: rgba(139, 92, 246, 0.1);
             color: var(--primary-light);
-            padding-left: 25px;
         }
 
         .suggestion-item.active {
             background: rgba(139, 92, 246, 0.15);
             color: var(--primary);
-            border-left: 3px solid var(--gold-accent);
+            border-left: 3px solid var(--primary);
         }
 
         .suggestion-item i {
-            color: var(--primary);
-            font-size: 1rem;
+            color: var(--secondary-light);
+            font-size: 1.1rem;
             width: 20px;
             text-align: center;
         }
 
         .suggestion-category {
             font-size: 0.75rem;
-            color: var(--secondary-light);
+            color: var(--foreground);
             margin-left: auto;
-            background: rgba(6, 182, 212, 0.1);
-            padding: 3px 10px;
+            background: rgba(139, 92, 246, 0.2);
+            padding: 4px 12px;
             border-radius: 12px;
-            border: 1px solid rgba(6, 182, 212, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         .no-suggestions {
-            padding: 20px;
+            padding: 25px;
             color: var(--gray-400);
             text-align: center;
             font-style: italic;
         }
 
         .suggestion-highlight {
-            color: var(--gold-accent);
+            color: var(--secondary-light);
             font-weight: bold;
-            background: rgba(251, 191, 36, 0.1);
+            background: rgba(6, 182, 212, 0.1);
             padding: 0 2px;
             border-radius: 2px;
         }
 
         .suggestion-preview {
             font-size: 0.85rem;
-            color: var(--gray-400);
-            margin-top: 4px;
+            color: var(--gray-500);
+            margin-top: 5px;
             display: block;
             line-height: 1.4;
         }
 
-        /* .suggestion-relevance removed - percentage display not needed */
-
         /* Popular searches section */
         .popular-searches {
-            padding: 15px 20px;
+            padding: 20px;
             background: rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .popular-searches-title {
             font-size: 0.9rem;
             color: var(--gray-400);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -612,15 +621,15 @@
         .popular-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
 
         .popular-tag {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            color: var(--primary-light);
-            padding: 4px 12px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-300);
+            padding: 6px 14px;
+            border-radius: 20px;
             font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s;
@@ -628,14 +637,16 @@
 
         .popular-tag:hover {
             background: rgba(139, 92, 246, 0.2);
-            transform: translateY(-2px);
+            border-color: var(--primary);
+            color: var(--primary-light);
+            transform: translateY(-1px);
         }
 
         /* Search stats */
         .search-stats {
-            padding: 10px 20px;
+            padding: 12px 20px;
             background: rgba(0, 0, 0, 0.1);
-            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 0.8rem;
             color: var(--gray-500);
             display: flex;
@@ -645,30 +656,42 @@
         .kb-categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            gap: 25px;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
-            z-index: 1; /* LOWER than search suggestions */
+            z-index: 1;
             padding: 20px;
         }
 
         .kb-category {
-            background: linear-gradient(145deg, var(--background), var(--dark-gray));
-            border-radius: 15px;
-            padding: 25px;
-            transition: all 0.3s;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            position: relative;
-            z-index: 1; /* LOWER than search suggestions */
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
-            background-clip: padding-box;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .kb-category::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         .kb-category:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(147, 51, 234, 0.4), 0 8px 32px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px); /* Kept animation */
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2), 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .kb-category-title {
@@ -676,19 +699,16 @@
             align-items: center;
             gap: 15px;
             font-size: 1.4rem;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 20px;
-            color: var(--primary);
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+            color: var(--foreground);
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .kb-category-title i {
             font-size: 1.6rem;
-            background: var(--gradient-purple);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-light);
         }
 
         .kb-articles {
@@ -699,8 +719,8 @@
         }
 
         .kb-article {
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 15px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--gray-400);
             cursor: pointer;
             transition: all 0.3s;
@@ -708,20 +728,21 @@
             z-index: 1;
             border-radius: 8px;
             margin-bottom: 5px;
+            border-left: 3px solid transparent;
         }
         
         .kb-article:hover {
-            background: rgba(147, 92, 246, 0.1);
-            color: var(--primary);
-            padding-left: 20px;
-            transform: translateX(5px);
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary-light);
+            padding-left: 22px; /* Kept animation logic */
+            border-left-color: var(--primary);
         }
         
         /* Footer Styles */
         .footer {
-            background: linear-gradient(to bottom, #16213e, #0f0f23);
-            border-top: 1px solid rgba(139, 92, 246, 0.3);
-            padding: 4rem 2rem;
+            background: linear-gradient(to bottom, #0f0f23, #080816);
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 5rem 2rem;
             position: relative;
         }
 
@@ -731,9 +752,9 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--primary), transparent);
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--secondary), var(--primary), transparent);
+            opacity: 0.5;
         }
 
         .footer-container {
@@ -780,11 +801,6 @@
             text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
         }
 
-        @keyframes rotateSpade {
-            from { transform: rotateY(0); }
-            to { transform: rotateY(360deg); }
-        }
-
         .footer-logo-text {
             display: flex;
             flex-direction: column;
@@ -806,8 +822,9 @@
 
         .footer-description {
             font-size: 0.875rem;
-            color: var(--gray-300);
+            color: var(--gray-400);
             margin-bottom: 1.5rem;
+            line-height: 1.8;
         }
 
         .footer-status {
@@ -822,12 +839,6 @@
             border-radius: 50%;
             background-color: var(--secondary-light);
             animation: pulseShadow 2s infinite;
-        }
-
-        @keyframes pulseShadow {
-            0% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
-            50% { box-shadow: 0 0 15px rgba(6, 182, 212, 1); }
-            100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
         }
 
         .footer-status-text {
@@ -853,14 +864,29 @@
 
         .footer-link a {
             font-size: 0.875rem;
-            color: var(--gray-300);
+            color: var(--gray-400);
             text-decoration: none;
             transition: all 0.3s;
+            position: relative;
+        }
+        
+        .footer-link a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary-light);
+            transition: width 0.3s;
         }
 
         .footer-link a:hover {
             color: var(--secondary-light);
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        
+        .footer-link a:hover::before {
+            width: 100%;
         }
 
         .footer-contact-list {
@@ -875,27 +901,25 @@
         }
 
         .footer-contact-icon {
-            color: var(--primary);
+            color: var(--primary-light);
             margin-top: 0.25rem;
             flex-shrink: 0;
-            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.5));
         }
 
         .footer-contact-text {
             font-size: 0.875rem;
-            color: var(--gray-300);
+            color: var(--gray-400);
         }
 
         .footer-contact-link {
             font-size: 0.875rem;
-            color: var(--gray-300);
+            color: var(--gray-400);
             text-decoration: none;
             transition: all 0.3s;
         }
 
         .footer-contact-link:hover {
             color: var(--secondary-light);
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
         
         /* Social Icons */
@@ -912,55 +936,24 @@
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--foreground);
             font-size: 1rem;
             transition: all 0.3s ease;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .social-icon:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
-        }
-        
-        .social-icon .fa-instagram {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-instagram {
-            color: #e1306c;
-        }
-        
-        .social-icon .fa-facebook {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-facebook {
-            color: #3b5998;
-        }
-        
-        .social-icon .fa-linkedin {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-linkedin {
-            color: #0077b5;
-        }
-        
-        .social-icon .fa-whatsapp {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-whatsapp {
-            color: #25D366;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+            border-color: var(--primary);
         }
 
         .footer-bottom {
             margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -976,7 +969,7 @@
 
         .footer-copyright {
             font-size: 0.875rem;
-            color: var(--gray-400);
+            color: var(--gray-500);
         }
 
         .footer-legal-links {
@@ -986,14 +979,13 @@
 
         .footer-legal-link {
             font-size: 0.875rem;
-            color: var(--gray-400);
+            color: var(--gray-500);
             text-decoration: none;
             transition: all 0.3s;
         }
 
         .footer-legal-link:hover {
             color: var(--secondary-light);
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
 
         /* WhatsApp Button */
@@ -1038,12 +1030,12 @@
 
         .top-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.6);
         }
 
         .whatsapp-float:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
         }
 
         /* Responsive Design */
@@ -1054,7 +1046,7 @@
             }
             
             .kb-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
             .kb-search {
@@ -1068,11 +1060,7 @@
             .search-suggestions {
                 left: 10px;
                 right: 10px;
-                z-index: 1050; /* Keep high on mobile too */
-            }
-            
-            .suggestion-relevance {
-                display: none;
+                z-index: 1050;
             }
             
             .popular-tags {
@@ -1145,7 +1133,7 @@
             
             <!-- Search Suggestions Dropdown -->
             <div class="search-suggestions" id="search-suggestions">
-                <!-- Suggestions will be dynamically added here -->
+                <!-- Suggestions populated by JS -->
             </div>
         </div>
         <div class="kb-categories" data-aos="fade-up" data-aos-delay="200">
@@ -1225,440 +1213,82 @@
             once: true
         });
         
-        // Comprehensive search database with enhanced content
+        // Comprehensive search database
         const searchDatabase = [
-            // Cybersecurity
-            { 
-                title: "How to protect against ransomware attacks", 
-                category: "Cybersecurity", 
-                keywords: ["ransomware", "protection", "security", "malware", "encryption", "backup", "cyber", "attack"], 
-                icon: "fa-shield-alt",
-                preview: "Learn essential steps to prevent ransomware infections and protect your data.",
-                popularity: 95
-            },
-            { 
-                title: "Setting up two-factor authentication", 
-                category: "Cybersecurity", 
-                keywords: ["2fa", "authentication", "security", "login", "verification", "otp", "two factor"], 
-                icon: "fa-lock",
-                preview: "Add an extra layer of security to your accounts with 2FA.",
-                popularity: 88
-            },
-            { 
-                title: "Best practices for password security", 
-                category: "Cybersecurity", 
-                keywords: ["password", "security", "strong", "complex", "manager", "policy", "passwords"], 
-                icon: "fa-key",
-                preview: "Create and manage strong, secure passwords for all your accounts.",
-                popularity: 92
-            },
-            { 
-                title: "Recognizing phishing attempts", 
-                category: "Cybersecurity", 
-                keywords: ["phishing", "email", "scam", "fraud", "suspicious", "links", "spoofing"], 
-                icon: "fa-fish",
-                preview: "Identify and avoid phishing scams in emails and messages.",
-                popularity: 85
-            },
-            { 
-                title: "How to secure your home network", 
-                category: "Cybersecurity", 
-                keywords: ["wifi", "network", "security", "router", "encryption", "firewall", "home", "wireless"], 
-                icon: "fa-wifi",
-                preview: "Protect your home network from unauthorized access and attacks.",
-                popularity: 80
-            },
-            { 
-                title: "Understanding VPNs and when to use them", 
-                category: "Cybersecurity", 
-                keywords: ["vpn", "privacy", "security", "remote", "connection", "encryption", "virtual"], 
-                icon: "fa-user-secret",
-                preview: "Learn about VPNs and how they protect your online privacy.",
-                popularity: 78
-            },
-            { 
-                title: "Social engineering attack prevention", 
-                category: "Cybersecurity", 
-                keywords: ["social engineering", "manipulation", "security", "awareness", "training", "psychological"], 
-                icon: "fa-user-ninja",
-                preview: "Defend against psychological manipulation tactics used by attackers.",
-                popularity: 75
-            },
-            { 
-                title: "Mobile device security best practices", 
-                category: "Cybersecurity", 
-                keywords: ["mobile", "phone", "security", "app", "permissions", "lock", "android", "ios"], 
-                icon: "fa-mobile-alt",
-                preview: "Secure your smartphones and tablets from various threats.",
-                popularity: 82
-            },
-            
-            // IT Support
-            { 
-                title: "Troubleshooting slow computer performance", 
-                category: "IT Support", 
-                keywords: ["slow", "computer", "performance", "speed", "optimization", "memory", "cpu", "lag"], 
-                icon: "fa-tachometer-alt",
-                preview: "Fix slow computer issues and improve system performance.",
-                popularity: 90
-            },
-            { 
-                title: "Fixing common network connectivity issues", 
-                category: "IT Support", 
-                keywords: ["network", "connection", "wifi", "internet", "troubleshooting", "router", "ethernet"], 
-                icon: "fa-network-wired",
-                preview: "Solve common network and internet connection problems.",
-                popularity: 87
-            },
-            { 
-                title: "Windows update troubleshooting guide", 
-                category: "IT Support", 
-                keywords: ["windows", "update", "error", "installation", "troubleshooting", "patch", "microsoft"], 
-                icon: "fa-windows",
-                preview: "Resolve Windows update issues and errors.",
-                popularity: 83
-            },
-            { 
-                title: "How to backup your data effectively", 
-                category: "IT Support", 
-                keywords: ["backup", "data", "protection", "cloud", "storage", "recovery", "files"], 
-                icon: "fa-hdd",
-                preview: "Create effective backup strategies to protect your important data.",
-                popularity: 89
-            },
-            { 
-                title: "Printer setup and connection issues", 
-                category: "IT Support", 
-                keywords: ["printer", "setup", "connection", "driver", "wireless", "troubleshooting", "printing"], 
-                icon: "fa-print",
-                preview: "Set up printers and fix common printing problems.",
-                popularity: 76
-            },
-            { 
-                title: "Blue screen error solutions", 
-                category: "IT Support", 
-                keywords: ["blue screen", "bsod", "error", "crash", "driver", "system", "windows"], 
-                icon: "fa-bug",
-                preview: "Diagnose and fix blue screen of death errors in Windows.",
-                popularity: 79
-            },
-            { 
-                title: "Driver update and installation guide", 
-                category: "IT Support", 
-                keywords: ["driver", "update", "installation", "hardware", "device", "software", "graphics"], 
-                icon: "fa-cogs",
-                preview: "Properly update and install hardware drivers.",
-                popularity: 77
-            },
-            { 
-                title: "System optimization techniques", 
-                category: "IT Support", 
-                keywords: ["system", "optimization", "performance", "cleanup", "maintenance", "speed", "tune"], 
-                icon: "fa-tools",
-                preview: "Optimize your computer system for better performance.",
-                popularity: 84
-            },
-            
-            // Software
-            { 
-                title: "Microsoft Office 365 setup guide", 
-                category: "Software", 
-                keywords: ["office", "365", "setup", "installation", "microsoft", "subscription", "word", "excel"], 
-                icon: "fa-microsoft",
-                preview: "Install and configure Microsoft Office 365 suite.",
-                popularity: 86
-            },
-            { 
-                title: "Windows 10/11 installation steps", 
-                category: "Software", 
-                keywords: ["windows", "installation", "setup", "10", "11", "os", "operating system"], 
-                icon: "fa-laptop",
-                preview: "Step-by-step guide to install Windows 10 or 11.",
-                popularity: 88
-            },
-            { 
-                title: "Adobe Creative Cloud basics", 
-                category: "Software", 
-                keywords: ["adobe", "creative", "cloud", "photoshop", "illustrator", "subscription", "design"], 
-                icon: "fa-palette",
-                preview: "Get started with Adobe Creative Cloud applications.",
-                popularity: 81
-            },
-            { 
-                title: "AutoCAD for beginners", 
-                category: "Software", 
-                keywords: ["autocad", "cad", "design", "engineering", "drafting", "beginner", "3d"], 
-                icon: "fa-ruler-combined",
-                preview: "Learn the basics of AutoCAD for design and drafting.",
-                popularity: 74
-            },
-            { 
-                title: "Excel formula and function guide", 
-                category: "Software", 
-                keywords: ["excel", "formula", "function", "spreadsheet", "calculation", "vlookup", "sum", "if"], 
-                icon: "fa-file-excel",
-                preview: "Master Excel formulas and functions for data analysis.",
-                popularity: 91
-            },
-            { 
-                title: "PowerPoint presentation design tips", 
-                category: "Software", 
-                keywords: ["powerpoint", "presentation", "design", "slides", "template", "formatting", "animation"], 
-                icon: "fa-file-powerpoint",
-                preview: "Create professional and engaging PowerPoint presentations.",
-                popularity: 83
-            },
-            { 
-                title: "Software licensing and activation help", 
-                category: "Software", 
-                keywords: ["license", "activation", "software", "key", "product", "registration", "serial"], 
-                icon: "fa-id-card",
-                preview: "Understand software licensing and activation processes.",
-                popularity: 72
-            },
-            { 
-                title: "Troubleshooting common software errors", 
-                category: "Software", 
-                keywords: ["software", "error", "troubleshooting", "crash", "bug", "fix", "application"], 
-                icon: "fa-exclamation-triangle",
-                preview: "Fix common software errors and application crashes.",
-                popularity: 85
-            },
-            
-            // Data & Analytics
-            { 
-                title: "Getting started with Power BI", 
-                category: "Data & Analytics", 
-                keywords: ["power bi", "bi", "business intelligence", "dashboard", "report", "data", "visualization"], 
-                icon: "fa-chart-bar",
-                preview: "Beginner's guide to creating reports and dashboards in Power BI.",
-                popularity: 82
-            },
-            { 
-                title: "Excel advanced formulas guide", 
-                category: "Data & Analytics", 
-                keywords: ["excel", "advanced", "formulas", "functions", "index", "match", "array", "pivot"], 
-                icon: "fa-calculator",
-                preview: "Learn advanced Excel formulas for complex data analysis.",
-                popularity: 89
-            },
-            { 
-                title: "Database design principles", 
-                category: "Data & Analytics", 
-                keywords: ["database", "design", "sql", "normalization", "structure", "schema", "tables"], 
-                icon: "fa-database",
-                preview: "Fundamental principles of database design and structure.",
-                popularity: 76
-            },
-            { 
-                title: "Data visualization best practices", 
-                category: "Data & Analytics", 
-                keywords: ["data", "visualization", "chart", "graph", "dashboard", "insights", "presentation"], 
-                icon: "fa-chart-line",
-                preview: "Create effective and insightful data visualizations.",
-                popularity: 84
-            },
-            { 
-                title: "Creating effective dashboards", 
-                category: "Data & Analytics", 
-                keywords: ["dashboard", "kpi", "metrics", "visualization", "report", "analytics", "performance"], 
-                icon: "fa-chart-pie",
-                preview: "Design and build effective business dashboards.",
-                popularity: 80
-            },
-            { 
-                title: "Data entry best practices", 
-                category: "Data & Analytics", 
-                keywords: ["data", "entry", "input", "accuracy", "validation", "quality", "spreadsheet"], 
-                icon: "fa-keyboard",
-                preview: "Ensure accurate and efficient data entry processes.",
-                popularity: 73
-            },
-            { 
-                title: "Pivot table tutorial for beginners", 
-                category: "Data & Analytics", 
-                keywords: ["pivot table", "excel", "data", "analysis", "summary", "grouping", "filter"], 
-                icon: "fa-table",
-                preview: "Master pivot tables for data analysis in Excel.",
-                popularity: 87
-            },
-            { 
-                title: "Power Query for data transformation", 
-                category: "Data & Analytics", 
-                keywords: ["power query", "data", "transformation", "cleaning", "etl", "microsoft", "import"], 
-                icon: "fa-filter",
-                preview: "Use Power Query to clean and transform data efficiently.",
-                popularity: 79
-            }
+            { title: "How to protect against ransomware attacks", category: "Cybersecurity", keywords: ["ransomware", "protection", "security", "malware"], icon: "fa-shield-alt", preview: "Learn essential steps to prevent ransomware infections.", popularity: 95 },
+            { title: "Setting up two-factor authentication", category: "Cybersecurity", keywords: ["2fa", "authentication", "security", "login"], icon: "fa-lock", preview: "Add an extra layer of security to your accounts.", popularity: 88 },
+            { title: "Best practices for password security", category: "Cybersecurity", keywords: ["password", "security", "strong", "manager"], icon: "fa-key", preview: "Create and manage strong, secure passwords.", popularity: 92 },
+            { title: "Recognizing phishing attempts", category: "Cybersecurity", keywords: ["phishing", "email", "scam", "fraud"], icon: "fa-fish", preview: "Identify and avoid phishing scams.", popularity: 85 },
+            { title: "How to secure your home network", category: "Cybersecurity", keywords: ["wifi", "network", "router", "firewall"], icon: "fa-wifi", preview: "Protect your home network from unauthorized access.", popularity: 80 },
+            { title: "Understanding VPNs and when to use them", category: "Cybersecurity", keywords: ["vpn", "privacy", "encryption"], icon: "fa-user-secret", preview: "Learn about VPNs and online privacy.", popularity: 78 },
+            { title: "Social engineering attack prevention", category: "Cybersecurity", keywords: ["social engineering", "manipulation"], icon: "fa-user-ninja", preview: "Defend against psychological manipulation tactics.", popularity: 75 },
+            { title: "Mobile device security best practices", category: "Cybersecurity", keywords: ["mobile", "phone", "security"], icon: "fa-mobile-alt", preview: "Secure your smartphones and tablets.", popularity: 82 },
+            { title: "Troubleshooting slow computer performance", category: "IT Support", keywords: ["slow", "computer", "performance", "speed"], icon: "fa-tachometer-alt", preview: "Fix slow computer issues and improve performance.", popularity: 90 },
+            { title: "Fixing common network connectivity issues", category: "IT Support", keywords: ["network", "connection", "wifi", "internet"], icon: "fa-network-wired", preview: "Solve common network and internet problems.", popularity: 87 },
+            { title: "Windows update troubleshooting guide", category: "IT Support", keywords: ["windows", "update", "error"], icon: "fa-windows", preview: "Resolve Windows update issues.", popularity: 83 },
+            { title: "How to backup your data effectively", category: "IT Support", keywords: ["backup", "data", "cloud", "storage"], icon: "fa-hdd", preview: "Create effective backup strategies.", popularity: 89 },
+            { title: "Printer setup and connection issues", category: "IT Support", keywords: ["printer", "setup", "driver"], icon: "fa-print", preview: "Set up printers and fix common problems.", popularity: 76 },
+            { title: "Blue screen error solutions", category: "IT Support", keywords: ["blue screen", "bsod", "crash"], icon: "fa-bug", preview: "Diagnose and fix blue screen errors.", popularity: 79 },
+            { title: "Driver update and installation guide", category: "IT Support", keywords: ["driver", "update", "hardware"], icon: "fa-cogs", preview: "Properly update hardware drivers.", popularity: 77 },
+            { title: "System optimization techniques", category: "IT Support", keywords: ["system", "optimization", "performance"], icon: "fa-tools", preview: "Optimize your computer system.", popularity: 84 },
+            { title: "Microsoft Office 365 setup guide", category: "Software", keywords: ["office", "365", "microsoft", "word", "excel"], icon: "fa-microsoft", preview: "Install and configure Office 365.", popularity: 86 },
+            { title: "Windows 10/11 installation steps", category: "Software", keywords: ["windows", "installation", "os"], icon: "fa-laptop", preview: "Step-by-step Windows installation guide.", popularity: 88 },
+            { title: "Adobe Creative Cloud basics", category: "Software", keywords: ["adobe", "creative", "photoshop"], icon: "fa-palette", preview: "Get started with Adobe Creative Cloud.", popularity: 81 },
+            { title: "AutoCAD for beginners", category: "Software", keywords: ["autocad", "cad", "design"], icon: "fa-ruler-combined", preview: "Learn the basics of AutoCAD.", popularity: 74 },
+            { title: "Excel formula and function guide", category: "Software", keywords: ["excel", "formula", "function"], icon: "fa-file-excel", preview: "Master Excel formulas and functions.", popularity: 91 },
+            { title: "PowerPoint presentation design tips", category: "Software", keywords: ["powerpoint", "presentation", "slides"], icon: "fa-file-powerpoint", preview: "Create professional presentations.", popularity: 83 },
+            { title: "Software licensing and activation help", category: "Software", keywords: ["license", "activation", "key"], icon: "fa-id-card", preview: "Understand software licensing.", popularity: 72 },
+            { title: "Troubleshooting common software errors", category: "Software", keywords: ["software", "error", "crash"], icon: "fa-exclamation-triangle", preview: "Fix common software errors.", popularity: 85 },
+            { title: "Getting started with Power BI", category: "Data & Analytics", keywords: ["power bi", "dashboard", "report"], icon: "fa-chart-bar", preview: "Create reports and dashboards in Power BI.", popularity: 82 },
+            { title: "Excel advanced formulas guide", category: "Data & Analytics", keywords: ["excel", "advanced", "formulas"], icon: "fa-calculator", preview: "Learn advanced Excel formulas.", popularity: 89 },
+            { title: "Database design principles", category: "Data & Analytics", keywords: ["database", "sql", "design"], icon: "fa-database", preview: "Fundamental database design principles.", popularity: 76 },
+            { title: "Data visualization best practices", category: "Data & Analytics", keywords: ["data", "visualization", "chart"], icon: "fa-chart-line", preview: "Create effective data visualizations.", popularity: 84 },
+            { title: "Creating effective dashboards", category: "Data & Analytics", keywords: ["dashboard", "kpi", "metrics"], icon: "fa-chart-pie", preview: "Design and build effective dashboards.", popularity: 80 },
+            { title: "Data entry best practices", category: "Data & Analytics", keywords: ["data", "entry", "accuracy"], icon: "fa-keyboard", preview: "Ensure accurate data entry.", popularity: 73 },
+            { title: "Pivot table tutorial for beginners", category: "Data & Analytics", keywords: ["pivot table", "excel", "data"], icon: "fa-table", preview: "Master pivot tables in Excel.", popularity: 87 },
+            { title: "Power Query for data transformation", category: "Data & Analytics", keywords: ["power query", "data", "etl"], icon: "fa-filter", preview: "Use Power Query to transform data.", popularity: 79 }
         ];
         
-        // Popular search tags
-        const popularTags = [
-            "security", "windows", "excel", "network", "password", 
-            "backup", "performance", "printer", "formulas", "dashboard"
-        ];
+        const popularTags = ["security", "windows", "excel", "network", "password", "backup", "performance", "printer", "formulas", "dashboard"];
         
-        // Get intelligent search suggestions based on input
         function getSearchSuggestions(query) {
             const normalizedQuery = query.toLowerCase().trim();
+            if (normalizedQuery.length === 0) return searchDatabase.sort((a, b) => b.popularity - a.popularity).slice(0, 5);
             
-            if (normalizedQuery.length === 0) {
-                // Return popular articles when input is empty
-                return searchDatabase
-                    .sort((a, b) => b.popularity - a.popularity)
-                    .slice(0, 5);
-            }
-            
-            if (normalizedQuery.length === 1) {
-                // Return articles starting with the letter
-                return searchDatabase
-                    .filter(article => 
-                        article.title.toLowerCase().startsWith(normalizedQuery) ||
-                        article.keywords.some(keyword => keyword.startsWith(normalizedQuery))
-                    )
-                    .sort((a, b) => b.popularity - a.popularity)
-                    .slice(0, 6);
-            }
-            
-            // Calculate relevance score for each article
             const scoredResults = searchDatabase.map(article => {
                 let score = 0;
                 const titleLower = article.title.toLowerCase();
-                const categoryLower = article.category.toLowerCase();
-                
-                // Exact title match (highest priority)
-                if (titleLower === normalizedQuery) {
-                    score += 200;
-                }
-                
-                // Title starts with query
-                if (titleLower.startsWith(normalizedQuery)) {
-                    score += 100;
-                }
-                
-                // Query in title
-                if (titleLower.includes(normalizedQuery)) {
-                    score += 80;
-                }
-                
-                // Each keyword match
+                if (titleLower.includes(normalizedQuery)) score += 80;
                 article.keywords.forEach(keyword => {
-                    if (keyword === normalizedQuery) {
-                        score += 60;
-                    } else if (keyword.startsWith(normalizedQuery)) {
-                        score += 40;
-                    } else if (keyword.includes(normalizedQuery)) {
-                        score += 30;
-                    }
+                    if (keyword.includes(normalizedQuery)) score += 30;
                 });
-                
-                // Category match
-                if (categoryLower.includes(normalizedQuery)) {
-                    score += 50;
-                }
-                
-                // Word-by-word matching
-                const queryWords = normalizedQuery.split(' ');
-                const titleWords = titleLower.split(' ');
-                
-                queryWords.forEach(qWord => {
-                    if (qWord.length < 2) return;
-                    
-                    // Exact word match in title
-                    if (titleWords.includes(qWord)) {
-                        score += 25;
-                    }
-                    
-                    // Partial word matches in title
-                    titleWords.forEach(tWord => {
-                        if (tWord.startsWith(qWord)) {
-                            score += 20;
-                        } else if (tWord.includes(qWord)) {
-                            score += 15;
-                        }
-                    });
-                    
-                    // Keyword matches
-                    article.keywords.forEach(keyword => {
-                        if (keyword.includes(qWord)) {
-                            score += 18;
-                        }
-                    });
-                });
-                
-                // Boost popular articles slightly
                 score += (article.popularity / 100) * 10;
-                
                 return { ...article, score };
             });
-            
-            // Filter out zero-scoring results and sort by score
-            return scoredResults
-                .filter(result => result.score > 0)
-                .sort((a, b) => b.score - a.score)
-                .slice(0, 8);
+            return scoredResults.filter(result => result.score > 0).sort((a, b) => b.score - a.score).slice(0, 8);
         }
         
-        // Highlight matching text in suggestions
         function highlightText(text, query) {
             if (!query || query.length < 1) return text;
-            
             const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
             return text.replace(regex, '<span class="suggestion-highlight">$1</span>');
         }
         
-        // Display search suggestions with enhanced UI
         function displaySearchSuggestions(suggestions, query) {
             const suggestionsContainer = document.getElementById('search-suggestions');
-            
             if (suggestions.length === 0) {
                 suggestionsContainer.innerHTML = `
-                    <div class="popular-searches">
-                        <div class="popular-searches-title">
-                            <i class="fas fa-fire"></i>
-                            <span>Popular Searches:</span>
-                        </div>
-                        <div class="popular-tags">
-                            ${popularTags.map(tag => 
-                                `<div class="popular-tag" onclick="setSearchQueryAndSearch('${tag}')">${tag}</div>`
-                            ).join('')}
-                        </div>
-                    </div>
-                    <div class="no-suggestions">
-                        No matches found for "${query}". Try different keywords.
-                    </div>
-                    <div class="search-stats">
-                        <span>Search Tips:</span>
-                        <span>Try single letters or full words</span>
-                    </div>
-                `;
+                    <div class="popular-searches"><div class="popular-searches-title"><i class="fas fa-fire"></i><span>Popular Searches:</span></div>
+                    <div class="popular-tags">${popularTags.map(tag => `<div class="popular-tag" onclick="setSearchQueryAndSearch('${tag}')">${tag}</div>`).join('')}</div></div>
+                    <div class="no-suggestions">No matches found. Try different keywords.</div>`;
                 suggestionsContainer.classList.add('active');
                 return;
             }
             
-            let suggestionsHTML = '';
+            let suggestionsHTML = `<div class="popular-searches"><div class="popular-searches-title"><i class="fas fa-fire"></i><span>Top Suggestions</span></div></div>`;
             
-            // Show popular searches when query is empty
-            if (!query || query.trim() === '') {
-                suggestionsHTML += `
-                    <div class="popular-searches">
-                        <div class="popular-searches-title">
-                            <i class="fas fa-fire"></i>
-                            <span>Popular Searches:</span>
-                        </div>
-                        <div class="popular-tags">
-                            ${popularTags.map(tag => 
-                                `<div class="popular-tag" onclick="setSearchQueryAndSearch('${tag}')">${tag}</div>`
-                            ).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-            
-            // Add suggestions
             suggestions.forEach(suggestion => {
                 const highlightedTitle = highlightText(suggestion.title, query);
-                
                 suggestionsHTML += `
                     <div class="suggestion-item" onclick="selectSuggestion('${suggestion.title}')">
                         <i class="fas ${suggestion.icon}"></i>
@@ -1666,664 +1296,458 @@
                             <div>${highlightedTitle}</div>
                             <span class="suggestion-preview">${suggestion.preview}</span>
                         </div>
-
                         <span class="suggestion-category">${suggestion.category}</span>
-                    </div>
-                `;
+                    </div>`;
             });
-            
-            // Add search stats
-            suggestionsHTML += `
-                <div class="search-stats">
-                    <span>${suggestions.length} suggestions found</span>
-                    <span>↑↓ to navigate • Enter to select</span>
-                </div>
-            `;
             
             suggestionsContainer.innerHTML = suggestionsHTML;
             suggestionsContainer.classList.add('active');
         }
         
-        // Set search query from popular tags and trigger search
         function setSearchQueryAndSearch(tag) {
             const searchInput = document.getElementById('kb-search-input');
             searchInput.value = tag;
             searchInput.focus();
-            
-            // Trigger search automatically
             const suggestions = getSearchSuggestions(tag);
             displaySearchSuggestions(suggestions, tag);
-            
-            // Perform the search immediately
             performKBSearch();
         }
         
-        // Set search query from popular tags (without triggering search)
-        function setSearchQuery(tag) {
-            const searchInput = document.getElementById('kb-search-input');
-            searchInput.value = tag;
-            searchInput.focus();
-            
-            // Show suggestions
-            const suggestions = getSearchSuggestions(tag);
-            displaySearchSuggestions(suggestions, tag);
-        }
-        
-        // Select a suggestion from the dropdown
         function selectSuggestion(articleTitle) {
             document.getElementById('kb-search-input').value = articleTitle;
             hideSearchSuggestions();
             performKBSearch();
         }
         
-        // Hide search suggestions
         function hideSearchSuggestions() {
-            const suggestionsContainer = document.getElementById('search-suggestions');
-            suggestionsContainer.classList.remove('active');
+            document.getElementById('search-suggestions').classList.remove('active');
         }
         
-        // Enhanced search functionality
         function performKBSearch() {
             const query = document.getElementById('kb-search-input').value.toLowerCase().trim();
-            
             if (!query) {
-                // Show all articles if search is empty
-                document.querySelectorAll('.kb-article').forEach(article => {
-                    article.style.display = 'block';
-                    article.style.backgroundColor = '';
-                });
-                
-                document.querySelectorAll('.kb-category').forEach(category => {
-                    category.style.display = 'block';
-                });
-                
+                document.querySelectorAll('.kb-article').forEach(article => { article.style.display = 'block'; article.style.backgroundColor = ''; });
+                document.querySelectorAll('.kb-category').forEach(category => { category.style.display = 'block'; });
                 return;
             }
             
             hideSearchSuggestions();
-            
             const allArticles = document.querySelectorAll('.kb-article');
             let foundMatches = false;
             
-            // Search through all articles
             allArticles.forEach(article => {
                 const articleText = article.textContent.toLowerCase();
                 if (articleText.includes(query)) {
                     article.style.display = 'block';
-                    article.style.backgroundColor = 'rgba(147, 51, 234, 0.2)';
-                    article.style.boxShadow = '0 0 10px rgba(147, 51, 234, 0.3)';
+                    article.style.backgroundColor = 'rgba(139, 92, 246, 0.15)';
+                    article.style.borderLeft = '3px solid var(--primary)';
+                    if (!foundMatches) article.scrollIntoView({behavior: 'smooth', block: 'center'});
                     foundMatches = true;
-                    
-                    // Scroll to the first match
-                    if (foundMatches) {
-                        article.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    }
                 } else {
                     article.style.display = 'none';
                     article.style.backgroundColor = '';
-                    article.style.boxShadow = 'none';
+                    article.style.borderLeft = 'none';
                 }
             });
             
-            // Show/hide categories based on visible articles
             document.querySelectorAll('.kb-category').forEach(category => {
                 const visibleArticles = category.querySelectorAll('.kb-article[style*="display: block"]');
-                if (visibleArticles.length > 0) {
-                    category.style.display = 'block';
-                    category.style.borderColor = 'rgba(147, 51, 234, 0.5)';
-                } else {
-                    category.style.display = 'none';
-                }
+                category.style.display = visibleArticles.length > 0 ? 'block' : 'none';
             });
-            
-            if (!foundMatches) {
-                // Show a more helpful message
-                const searchInput = document.getElementById('kb-search-input');
-                searchInput.style.borderColor = 'rgba(255, 100, 100, 0.5)';
-                searchInput.style.boxShadow = '0 0 15px rgba(255, 100, 100, 0.3)';
-                
-                setTimeout(() => {
-                    searchInput.style.borderColor = '';
-                    searchInput.style.boxShadow = '';
-                }, 2000);
-            }
         }
         
         function showArticleDetail(title) {
             const kbContent = {
-                // Cybersecurity articles
-                'How to protect against ransomware attacks': `How to Protect Against Ransomware Attacks
+                'How to protect against ransomware attacks': `Ransomware is malicious software that encrypts your files and demands payment for the decryption key. It often spreads through phishing emails or unsafe downloads.
 
-Ransomware is a type of malicious software that encrypts your files and demands payment for the decryption key. Here's how to protect yourself:
+Prevention Tips:
+1. Regular Backups: Use the 3-2-1 rule—keep 3 copies of data on 2 different media, with 1 offsite (cloud).
+2. Update Software: Keep your OS and applications patched to close security holes.
+3. Email Caution: Never open attachments from unknown senders or unexpected invoices.
+4. Security Software: Use reputable antivirus with real-time ransomware protection.
 
-1. Regular Backups: Maintain offline backups of important data.
-2. Software Updates: Keep all systems and software updated.
-3. Email Caution: Don't open attachments from unknown sources.
-4. Antivirus: Use reputable antivirus software with ransomware protection.
-5. Network Segmentation: Isolate critical systems from general networks.
-
-Signs of ransomware infection include encrypted files with new extensions, ransom notes, and blocked access to systems.`,
+If Infected:
+- Immediately disconnect from the network to prevent spread.
+- Do not pay the ransom; there is no guarantee you will get your data back.
+- Use dedicated decryption tools available from security vendors (like No More Ransom Project).`,
                 
-                'Setting up two-factor authentication': `Setting Up Two-Factor Authentication (2FA)
+                'Setting up two-factor authentication': `Two-factor authentication (2FA) adds a critical layer of security by requiring a second form of verification.
 
-Two-factor authentication adds an extra layer of security to your accounts:
+Setup Steps:
+1. Navigate to the security settings of your account (e.g., Google, Facebook, Banking).
+2. Look for "Two-Factor Authentication" or "2-Step Verification".
+3. Choose your method:
+   - Authenticator App (Recommended): Download Google Authenticator or Authy. Scan the QR code to link your account.
+   - SMS: Receive a code via text message (less secure but better than nothing).
+4. Save Backup Codes: Store these securely offline. They are your lifeline if you lose your phone.
 
-1. Enable 2FA: Go to account security settings.
-2. Choose Method: SMS, authenticator app, or hardware key.
-3. Backup Codes: Save recovery codes in a secure location.
-4. Test Setup: Verify the process works before finalizing.
-
-Popular authenticator apps include Google Authenticator, Authy, and Microsoft Authenticator. Hardware keys like YubiKey offer the highest security level.`,
+Why Use It?
+Even if a hacker steals your password, they cannot access your account without the second factor (your phone or hardware key).`,
                 
-                'Best practices for password security': `Best Practices for Password Security
+                'Best practices for password security': `Strong passwords are your first line of defense against unauthorized access.
 
-Strong passwords are essential for online security:
+Creating a Strong Password:
+- Length: Aim for at least 12-16 characters.
+- Complexity: Mix uppercase, lowercase, numbers, and symbols.
+- Passphrases: Use a random sequence of words (e.g., "Purple-Elephant-Jumps-Fast") which is easier to remember and harder to crack.
 
-1. Length: Use at least 12 characters.
-2. Complexity: Mix uppercase, lowercase, numbers, and symbols.
-3. Uniqueness: Don't reuse passwords across sites.
-4. Password Managers: Use tools like LastPass or 1Password.
-5. Regular Updates: Change passwords every 3-6 months for sensitive accounts.
-
-Avoid using personal information, dictionary words, or simple patterns in passwords.`,
+Management Tips:
+1. Use a Password Manager: Tools like LastPass, 1Password, or Bitwarden generate and store complex passwords for you.
+2. Unique Passwords: Never reuse passwords across different sites. If one site is breached, your other accounts remain safe.
+3. Change Compromised Passwords: Change passwords immediately if a service reports a data breach.`,
                 
-                'Recognizing phishing attempts': `Recognizing Phishing Attempts
+                'Recognizing phishing attempts': `Phishing is a social engineering attack where scammers trick you into revealing sensitive information.
 
-Phishing is a social engineering attack that tricks victims into revealing sensitive information:
+Red Flags to Watch For:
+- Urgency: Messages claiming your account will be locked "immediately" if you don't act.
+- Generic Greetings: "Dear Customer" instead of your actual name.
+- Suspicious Links: Hover over links without clicking to see the actual URL. Look for misspellings (e.g., "amaz0n.com").
+- Attachments: Unexpected files, especially .exe, .zip, or .docm files.
 
-Common Indicators:
-- Urgent language demanding immediate action
-- Generic greetings like "Dear Customer"
-- Suspicious email addresses or domain names
-- Unexpected attachments or links
-- Threats of account closure or penalties
-
-To stay safe: verify requests through official channels, hover over links before clicking, and report suspicious emails to IT.`,
+How to Verify:
+- Contact the company directly using their official phone number or website.
+- Check the sender's email address carefully for minor misspellings.`,
                 
-                'How to secure your home network': `How to Secure Your Home Network
+                'How to secure your home network': `Your home network is the gateway for all your devices. Securing it prevents neighbors and hackers from accessing your data.
 
-Home network security protects your personal devices and data:
-
-1. Router Password: Change default admin credentials.
-2. Firmware: Keep router firmware updated.
-3. WiFi Security: Use WPA3 or WPA2 encryption.
-4. Guest Network: Create separate network for visitors.
-5. Firewall: Enable router's built-in firewall.
-6. Device Management: Regularly review connected devices.
-
-Change default SSID names and disable WPS for better security.`,
+Steps to Secure Your Router:
+1. Change Default Credentials: Replace the default admin username and password immediately.
+2. Update Firmware: Check for router updates regularly to patch vulnerabilities.
+3. Use Strong Encryption: Set Wi-Fi security to WPA3 or WPA2-PSK (AES). Avoid WEP.
+4. Rename SSID: Don't use your name or address as the network name.
+5. Disable Remote Management: Turn off "Remote Management" unless you specifically need it.
+6. Guest Network: Create a separate network for visitors to isolate your main devices.`,
                 
-                'Understanding VPNs and when to use them': `Understanding VPNs and When to Use Them
+                'Understanding VPNs and when to use them': `A Virtual Private Network (VPN) encrypts your internet connection, masking your IP address and location.
 
-A Virtual Private Network (VPN) creates a secure connection over the internet:
+When to Use a VPN:
+- Public WiFi: Protect your data from snoopers in cafes, airports, or hotels.
+- Bypassing Geo-restrictions: Access content unavailable in your region.
+- Privacy: Prevent your ISP from tracking your browsing history.
 
-Uses:
-- Public WiFi protection
-- Accessing geo-blocked content
-- Bypassing censorship
-- Secure remote work
-
-Choose VPNs with strong encryption, no-log policies, and reliable connection speeds. Free VPNs often have privacy concerns and limited bandwidth.`,
+Limitations:
+- Speed: Encryption can slow down your connection slightly.
+- Trust: You are shifting trust from your ISP to the VPN provider. Choose a provider with a strict "No-Logs" policy.
+- Free VPNs: Avoid free services; they often monetize by selling your data.`,
                 
-                'Social engineering attack prevention': `Social Engineering Attack Prevention
+                'Social engineering attack prevention': `Social engineering manipulates people into breaking normal security procedures. It relies on human error rather than technical hacking.
 
-Social engineering manipulates people into breaking security procedures:
+Common Tactics:
+- Pretexting: The attacker creates a fabricated scenario (e.g., posing as IT support) to steal information.
+- Baiting: Leaving infected USB drives or fake download links to entice victims.
+- Tailgating: Following authorized personnel into secure areas without credentials.
 
-Types:
-- Pretexting: Fabricated scenarios
-- Baiting: Offering incentives for information
-- Tailgating: Following authorized personnel
-- Vishing: Voice phishing
-
-Prevention:
-- Verify identities through established channels
-- Be cautious of unsolicited requests
-- Implement security awareness training
-- Establish clear information sharing policies`,
+Defense Strategies:
+1. Verify Identity: Always verify the identity of anyone asking for sensitive information, even if they claim to be internal staff.
+2. Slow Down: Attackers create a sense of urgency. Take time to verify requests.
+3. Limit Information: Be cautious about how much personal info you share on social media, as attackers use this to build trust.`,
                 
-                'Mobile device security best practices': `Mobile Device Security Best Practices
+                'Mobile device security best practices': `Mobile devices store vast amounts of personal data and require robust protection.
 
-Mobile devices are prime targets for attackers:
-
-1. Screen Lock: Use biometrics or strong PINs.
-2. App Sources: Only install from official stores.
-3. Updates: Keep OS and apps updated.
-4. Permissions: Review app permissions regularly.
-5. Public WiFi: Avoid sensitive transactions.
-6. Remote Wipe: Enable device tracking and wiping.
-
-Consider using mobile device management (MDM) solutions for business devices.`,
+Essential Measures:
+1. Screen Lock: Use a strong PIN (6+ digits), pattern, or biometrics (Fingerprint/FaceID).
+2. Encryption: Ensure device encryption is enabled (standard in modern iOS and Android).
+3. App Hygiene: Only download apps from official stores (Google Play, App Store). Delete unused apps.
+4. Permissions: Review app permissions regularly. Does a flashlight app really need access to your contacts?
+5. Remote Wipe: Enable "Find My iPhone" or "Find My Device" to locate, lock, or wipe your phone if lost.
+6. Avoid Rooting/Jailbreaking: This removes built-in security protections.`,
                 
-                // IT Support articles
-                'Troubleshooting slow computer performance': `Troubleshooting Slow Computer Performance
+                'Troubleshooting slow computer performance': `A slow computer can be caused by software bloat, hardware limitations, or malware.
 
-Slow computer performance can be frustrating but is often fixable:
+Quick Fixes:
+1. Task Manager: Press Ctrl+Shift+Esc to see which apps are using CPU and Memory. Close unnecessary high-resource apps.
+2. Startup Apps: Disable programs that launch at startup (Task Manager > Startup tab).
+3. Disk Cleanup: Use the built-in "Disk Cleanup" tool or download "WizTree" to visualize large files taking up space.
 
-1. Check Task Manager: Look for resource-heavy processes.
-2. Disk Cleanup: Remove temporary files and unused programs.
-3. Startup Programs: Disable unnecessary startup items.
-4. Memory Upgrade: Add more RAM if system is frequently low.
-5. Malware Scan: Run full system antivirus scan.
-6. Disk Defragmentation: Optimize hard drive performance.
-7. Update Drivers: Ensure all hardware drivers are current.
-
-Regular maintenance can prevent most performance issues.`,
+Advanced Solutions:
+- Malware Scan: Run a full scan with Windows Defender or Malwarebytes.
+- Hardware Upgrade: Adding an SSD (Solid State Drive) is the single most effective upgrade to speed up an older PC.
+- Thermal Throttling: If your laptop gets hot, clean the vents or use a cooling pad to prevent slowdowns.`,
                 
-                'Fixing common network connectivity issues': `Fixing Common Network Connectivity Issues
+                'Fixing common network connectivity issues': `Network problems are often resolved with simple troubleshooting steps.
 
-Network problems can disrupt work and communication:
-
-1. Basic Checks: Restart router and modem.
-2. Cable Inspection: Check for damaged or loose connections.
-3. WiFi Signal: Move closer to router or reduce interference.
-4. IP Configuration: Renew IP address using ipconfig /renew.
-5. Driver Updates: Update network adapter drivers.
-6. Firewall Settings: Check if firewall is blocking connections.
-7. ISP Issues: Contact provider if problem persists.
-
-Keep network equipment in well-ventilated areas to prevent overheating.`,
+Step-by-Step Fix:
+1. The "Nuclear" Option: Unplug your router and modem. Wait 30 seconds. Plug the modem in first, wait 1 minute, then plug in the router.
+2. Check Physical Connections: Ensure ethernet cables are clicked in tight and aren't damaged.
+3. Forget Network: On your device, "Forget" the WiFi network and reconnect by re-entering the password.
+4. DNS Issues: Try changing your DNS server to Google (8.8.8.8) or Cloudflare (1.1.1.1) in your network adapter settings.
+5. Command Line: Open Command Prompt as Admin and type: ipconfig /flushdns followed by netsh winsock reset.`,
                 
-                'Windows update troubleshooting guide': `Windows Update Troubleshooting Guide
+                'Windows update troubleshooting guide': `Windows updates are vital for security, but they can sometimes get stuck.
 
-Windows updates can sometimes fail or cause issues:
-
-1. Free Space: Ensure at least 15GB free disk space.
-2. Update History: Check for failed updates in Windows Update settings.
-3. Windows Update Troubleshooter: Run built-in diagnostic tool.
-4. Services: Restart Windows Update services (wuauserv, bits, cryptsvc).
-5. Clear Cache: Delete contents of SoftwareDistribution folder.
-6. Manual Download: Get updates directly from Microsoft Update Catalog.
-7. System Restore: Revert to point before update issues began.
-
-Always backup important data before major updates.`,
+Common Solutions:
+1. Restart Services: Open Services (services.msc), find "Windows Update," stop it, and start it again.
+2. Troubleshooter: Run the built-in "Windows Update Troubleshooter" found in Settings > Update & Security > Troubleshoot.
+3. Clear Cache: Navigate to C:\Windows\SoftwareDistribution\Download and delete all files inside (stop the Windows Update service first).
+4. System File Checker: Open Command Prompt as Admin and run sfc /scannow to repair corrupted system files.
+5. Manual Update: Download the specific standalone update package from the Microsoft Update Catalog website.`,
                 
-                'How to backup your data effectively': `How to Backup Your Data Effectively
+                'How to backup your data effectively': `Data loss can happen at any time. A robust backup strategy is essential.
 
-Data backup is crucial for protecting against loss:
+The 3-2-1 Rule Explained:
+- 3 Copies: Keep 3 total copies of your data (1 primary + 2 backups).
+- 2 Media Types: Store backups on different devices (e.g., External Hard Drive + Cloud Storage).
+- 1 Offsite: Keep one backup offsite (Cloud or a drive at a relative's house) to protect against fire/theft.
 
-1. 3-2-1 Rule: 3 copies of data, 2 different media, 1 offsite.
-2. Automated Backups: Schedule regular automatic backups.
-3. Cloud Storage: Use services like OneDrive, Google Drive, or Dropbox.
-4. External Drives: Maintain physical backups on external hard drives.
-5. Versioning: Keep multiple versions of important files.
-6. Test Restores: Regularly verify backup integrity.
-7. Encryption: Protect sensitive backup data with encryption.
-
-Review and update backup strategies regularly as data needs change.`,
+Recommended Tools:
+- Cloud: OneDrive, Google Drive, or Dropbox for syncing documents.
+- Image Backup: Macrium Reflect or Acronis for full system images (OS + Programs).
+- Automated: Set backups to run automatically weekly so you don't forget.`,
                 
-                'Printer setup and connection issues': `Printer Setup and Connection Issues
+                'Printer setup and connection issues': `Printer issues are common but often easy to resolve.
 
-Printer problems are common in both home and office environments:
-
-1. Physical Connection: Check USB, Ethernet, or WiFi connections.
-2. Driver Installation: Download latest drivers from manufacturer website.
-3. Printer Queue: Clear stuck print jobs from queue.
-4. Default Printer: Set correct printer as default in settings.
-5. Network Discovery: Ensure printer is visible on network.
-6. Ink/Toner Levels: Check and replace cartridges if needed.
-7. Paper Jams: Clear any paper jams according to manual.
-
-Keep printer firmware updated for optimal performance and compatibility.`,
+Basic Setup & Fixes:
+1. Reinstall Drivers: Uninstall the printer in Settings > Devices, then download the latest driver from the manufacturer's website.
+2. IP Address: If using WiFi, ensure the printer's IP address hasn't changed. Set a "Static IP" in your router settings for the printer.
+3. Print Spooler: If documents are stuck, restart the "Print Spooler" service in services.msc.
+4. Offline Mode: Check if "Use Printer Offline" is accidentally selected in the printer menu.
+5. Paper Jams: Check not just the tray, but the rear access panel for small scraps of paper.`,
                 
-                'Blue screen error solutions': `Blue Screen Error (BSOD) Solutions
+                'Blue screen error solutions': `The "Blue Screen of Death" (BSOD) indicates a critical system error.
 
-Blue screen errors indicate serious system problems:
-
-1. Note Error Code: Write down the STOP code for troubleshooting.
-2. Recent Changes: Undo recent driver installations or updates.
-3. Memory Test: Run Windows Memory Diagnostic tool.
-4. Disk Check: Use chkdsk to scan for disk errors.
-5. Driver Rollback: Revert problematic drivers to previous versions.
-6. System Restore: Return system to point before errors began.
-7. Clean Boot: Start Windows with minimal drivers and programs.
-
-If problems persist, consider professional repair or system reinstallation.`,
+How to Debug:
+1. Note the Error Code: Look for the STOP code (e.g., CRITICAL_PROCESS_DIED, IRQL_NOT_LESS_OR_EQUAL).
+2. Safe Mode: If the PC loops into BSOD, boot into Safe Mode (Hold Shift + Restart > Troubleshoot > Advanced Options).
+3. Recent Changes: Did you install new hardware or drivers? Roll them back in Device Manager.
+4. Hardware Check:
+   - Run Windows Memory Diagnostic (type "mdsched.exe" in Start).
+   - Check hard drive health using "CrystalDiskInfo".
+5. Overheating: Ensure fans are spinning and heatsinks are clean.`,
                 
-                'Driver update and installation guide': `Driver Update and Installation Guide
+                'Driver update and installation guide': `Drivers allow Windows to communicate with your hardware.
 
-Device drivers are essential for hardware functionality:
-
-1. Device Manager: Use Windows built-in tool to check driver status.
-2. Manufacturer Websites: Download drivers directly from hardware makers.
-3. Windows Update: Enable automatic driver updates through Windows Update.
-4. Compatibility: Ensure drivers match your operating system version.
-5. Backup: Create restore point before updating critical drivers.
-6. Installation Order: Update chipset drivers first, then others.
-7. Verification: Confirm devices work properly after driver installation.
-
-Avoid third-party driver update tools as they can install incorrect drivers.`,
+Best Practices:
+1. Manufacturer Source: Always download drivers from the official website (NVIDIA, AMD, Intel, Realtek). Avoid "Driver Updater" software which is often malware.
+2. Device Manager: Right-click Start > Device Manager. Look for yellow warning icons.
+3. Update Graphics: For gaming or design, keep GPU drivers updated for performance and stability.
+4. Chipset Drivers: Essential for motherboard stability (USB, Audio, SATA ports).
+5. Roll Back: If a new driver causes issues, right-click the device in Device Manager > Properties > Driver > Roll Back Driver.`,
                 
-                'System optimization techniques': `System Optimization Techniques
+                'System optimization techniques': `Optimizing your system ensures it runs smoothly and efficiently.
 
-Regular system optimization maintains peak performance:
-
-1. Disk Cleanup: Remove temporary files, system cache, and old updates.
-2. Startup Management: Disable unnecessary programs that launch at boot.
-3. Service Optimization: Turn off unused Windows services.
-4. Registry Cleaning: Use trusted tools to remove invalid registry entries.
-5. Defragmentation: Optimize hard drives (not needed for SSDs).
-6. Visual Effects: Reduce animations and visual effects for better performance.
-7. Power Settings: Use High Performance power plan for demanding tasks.
-
-Schedule regular optimization sessions to maintain system health.`,
+Performance Tweaks:
+1. Visual Effects: Search "View advanced system settings" > Performance > Adjust for best performance (or custom).
+2. Storage Sense: Enable "Storage Sense" in Settings to automatically delete temporary files and empty the recycle bin.
+3. Hibernate: Disable Hibernation if you don't use it to save space (cmd: powercfg -h off).
+4. Power Plan: Use "High Performance" power plan if working on a desktop or plugged-in laptop.
+5. Debloat: Remove pre-installed bloatware (McAfee trials, manufacturer apps) via Settings > Apps.`,
                 
-                // Software articles
-                'Microsoft Office 365 setup guide': `Microsoft Office 365 Setup Guide
+                'Microsoft Office 365 setup guide': `Office 365 provides the latest productivity tools with cloud integration.
 
-Office 365 provides cloud-based productivity tools:
+Installation Steps:
+1. Purchase/Subscribe: Go to office.com and sign in with your Microsoft account.
+2. Install: Click "Install Office" in the top right. Choose "Office 365 Apps".
+3. Activation: Open any app (Word/Excel), sign in with your account to activate the license.
+4. OneDrive Sync: Set up OneDrive to backup your Documents, Desktop, and Pictures folders automatically.
 
-1. Account Creation: Sign up at office.com with valid email.
-2. Installation: Download Office apps from portal.office.com.
-3. Activation: Sign in with Microsoft account to activate.
-4. Cloud Integration: Connect OneDrive for file storage and sharing.
-5. Collaboration: Set up shared workspaces and team sites.
-6. Security: Enable multi-factor authentication for accounts.
-7. Updates: Keep Office apps updated through Microsoft 365 admin center.
-
-Training resources are available through Microsoft Learn and documentation.`,
+Tips:
+- Use the web versions (Word Online) for quick edits without installing software.
+- Share documents by sending a "Share" link rather than emailing attachments to avoid version conflicts.`,
                 
-                'Windows 10/11 installation steps': `Windows 10/11 Installation Steps
+                'Windows 10/11 installation steps': `Performing a clean install can resolve persistent issues and remove bloatware.
 
-Installing Windows requires careful preparation:
+Preparation:
+1. Backup: Save all personal files to an external drive or cloud.
+2. License Key: Ensure you have your 25-character product key handy (or a digital license linked to your MS account).
+3. Media Creation: Download the "Media Creation Tool" from Microsoft's site. Insert a USB drive (at least 8GB) to create bootable media.
 
-1. System Requirements: Verify hardware meets minimum specifications.
-2. Backup Data: Save all important files to external storage.
-3. Create Installation Media: Use Media Creation Tool from Microsoft.
-4. Boot from USB: Change BIOS/UEFI settings to boot from installation media.
-5. Installation Type: Choose between upgrade or clean installation.
-6. Product Key: Enter valid license key when prompted.
-7. Settings Configuration: Customize privacy, network, and user settings.
-
-Create recovery media after installation for future troubleshooting.`,
+Installation Process:
+1. Boot from USB: Restart PC and press the boot key (F12, F2, Del).
+2. Partition: During setup, delete existing partitions for a truly clean install (WARNING: This erases everything).
+3. Drivers: After installation, run Windows Update to fetch drivers, then check the manufacturer site for specific drivers (LAN/Audio).`,
                 
-                'Adobe Creative Cloud basics': `Adobe Creative Cloud Basics
+                'Adobe Creative Cloud basics': `Adobe CC is the industry standard for creative professionals.
 
-Creative Cloud offers professional design and media tools:
+Getting Started:
+1. Subscription: Choose a plan (Photography, Single App, or All Apps).
+2. Desktop App: Install the "Creative Cloud Desktop App" to manage installations and updates.
+3. Cloud Sync: Enable "Creative Cloud Files" to sync assets across devices.
 
-1. Subscription: Choose plan based on usage needs (Individual, Team, Enterprise).
-2. Installation: Download Creative Cloud desktop app from Adobe website.
-3. App Selection: Install specific apps like Photoshop, Illustrator, or Premiere.
-4. Cloud Sync: Enable Creative Cloud Libraries for cross-app asset sharing.
-5. Storage: Use included cloud storage for file backup and collaboration.
-6. Updates: Keep apps updated through Creative Cloud desktop application.
-7. Learning Resources: Access tutorials and templates through Adobe Stock.
+Key Apps:
+- Photoshop: Image editing and manipulation.
+- Illustrator: Vector graphics (logos, icons).
+- Premiere Pro: Video editing.
+- XD: UI/UX design.
 
-Students and educators may qualify for discounted subscription rates.`,
+Learning:
+- Adobe provides excellent tutorials inside the app (Home > Learn) to master the basics quickly.`,
                 
-                'AutoCAD for beginners': `AutoCAD for Beginners
+                'AutoCAD for beginners': `AutoCAD is a leading CAD software for architecture and engineering.
 
-AutoCAD is industry-standard computer-aided design software:
+Interface Basics:
+- Ribbon: The top toolbar containing all tools (Draw, Modify, Annotate).
+- Command Line: Type commands here (e.g., "L" for Line, "C" for Circle) for speed.
+- Viewport: The main drawing area. Use the mouse wheel to zoom and pan.
 
-1. Interface Familiarization: Learn ribbon, command line, and tool palettes.
-2. Basic Commands: Master LINE, CIRCLE, RECTANGLE, and MODIFY commands.
-3. Coordinate Systems: Understand absolute and relative coordinate entry.
-4. Layers: Organize drawings using layer management.
-5. Dimensions: Add accurate measurements and annotations.
-6. Templates: Create and use standard drawing templates.
-7. File Management: Save in appropriate formats (.dwg, .dxf) for sharing.
+Essential Commands:
+- LINE (L): Draw lines.
+- CIRCLE (C): Draw circles.
+- TRIM (TR): Cut objects to meet edges.
+- EXTEND (EX): Lengthen objects to meet edges.
+- OFFSET (O): Create parallel lines/concentric circles.
 
-Practice with simple geometric shapes before advancing to complex designs.`,
+Tip: Learn keyboard shortcuts immediately; they are significantly faster than clicking icons.`,
                 
-                'Excel formula and function guide': `Excel Formula and Function Guide
+                'Excel formula and function guide': `Excel formulas automate calculations and data analysis.
 
-Excel formulas enable powerful data analysis and calculations:
+Basic Syntax:
+- All formulas start with an "=" sign.
+- Use cell references (A1) instead of raw numbers so formulas update automatically.
 
-1. Basic Operators: + (add), - (subtract), * (multiply), / (divide).
-2. Cell References: Use A1 notation and understand relative vs. absolute references.
-3. Common Functions: SUM, AVERAGE, COUNT, MAX, MIN, IF, VLOOKUP.
-4. Formula Syntax: Start with =, use parentheses for order of operations.
-5. Error Handling: Use IFERROR to manage formula errors gracefully.
-6. Named Ranges: Create meaningful names for cell ranges.
-7. Array Formulas: Perform calculations on multiple values simultaneously.
+Common Functions:
+- SUM(range): Adds numbers. =SUM(A1:A10).
+- AVERAGE(range): Calculates mean. =AVERAGE(B1:B10).
+- VLOOKUP(lookup_value, table_array, col_index, FALSE): Looks for a value in a table. (Use XLOOKUP in newer Excel versions).
+- IF(logical_test, value_if_true, value_if_false): =IF(A1>50, "Pass", "Fail").
 
-Use Formula Auditing tools to trace precedents and dependents.`,
+Tip: Use absolute references ($A$1) to lock a cell reference when copying formulas to other cells.`,
                 
-                'PowerPoint presentation design tips': `PowerPoint Presentation Design Tips
+                'PowerPoint presentation design tips': `Good design enhances communication, while bad design distracts.
 
-Effective presentations require both content and visual appeal:
+Design Rules:
+1. Consistency: Use a master slide for consistent fonts, colors, and headers across all slides.
+2. Simplicity: Stick to one main idea per slide. Use bullet points, not paragraphs.
+3. Visuals: Use high-quality images. Avoid clipart.
+4. Contrast: Ensure text is readable against the background. Dark text on light background or vice versa.
 
-1. Slide Structure: Follow 6x6 rule (max 6 bullet points, 6 words each).
-2. Visual Hierarchy: Use consistent fonts, sizes, and colors.
-3. Image Quality: Use high-resolution images and proper aspect ratios.
-4. Animation: Apply subtle transitions and animations sparingly.
-5. Color Scheme: Maintain consistent theme throughout presentation.
-6. Readability: Ensure text is large enough for audience viewing.
-7. Practice: Rehearse timing and delivery with the actual slides.
-
-Save presentations in multiple formats (.pptx, .pdf) for compatibility.`,
+Animation:
+- Keep it professional. Use "Fade" or "Appear" instead of "Bounce" or "Spin".
+- Use animation to reveal bullet points one by one to control the audience's focus.`,
                 
-                'Software licensing and activation help': `Software Licensing and Activation Help
+                'Software licensing and activation help': `Understanding licensing prevents legal issues and ensures software reliability.
 
-Understanding software licensing prevents legal and technical issues:
+Types of Licenses:
+- Perpetual: Pay once, use forever (e.g., Office 2019 Home & Student).
+- Subscription: Pay monthly/yearly (e.g., Office 365). Includes updates.
+- OEM: Tied to the hardware it came with (usually pre-installed on laptops). Cannot be transferred.
+- Volume: For businesses, allowing multiple activations via a Key Management Service (KMS).
 
-1. License Types: Know differences between perpetual, subscription, and trial licenses.
-2. Activation Process: Enter product keys and complete online verification.
-3. Volume Licensing: Enterprise solutions for organizations with multiple users.
-4. License Compliance: Maintain proper documentation and number of installations.
-5. Transfer Rights: Understand conditions for moving licenses between devices.
-6. Renewal: Keep track of subscription expiration dates.
-7. Troubleshooting: Use vendor support for activation failures or license errors.
-
-Always purchase software from authorized resellers to ensure legitimacy.`,
+Activation Issues:
+- "Product Key Already Used": You may need to uninstall the software from the old PC before activating on the new one.
+- Contact Support: Use the automated phone system provided by Microsoft during activation if online activation fails.`,
                 
-                'Troubleshooting common software errors': `Troubleshooting Common Software Errors
+                'Troubleshooting common software errors': `Software crashes are frustrating but often follow standard patterns.
 
-Software problems can often be resolved with systematic approaches:
-
-1. Error Messages: Note exact error text for research and support.
-2. Restart Application: Close and reopen the problematic software.
-3. Update Software: Install latest patches and service releases.
-4. Compatibility Mode: Run older software in compatibility mode for newer systems.
-5. Reinstall: Completely remove and reinstall the application.
-6. System Resources: Check for sufficient RAM, disk space, and processing power.
-7. Conflicts: Identify and resolve conflicts with other running programs.
-
-Keep detailed logs of troubleshooting steps for future reference.`,
+General Fixes:
+1. Restart: The classic fix. Clears RAM and resets the software state.
+2. Compatibility Mode: Right-click the .exe > Properties > Compatibility > Run in compatibility mode for Windows 7/8.
+3. Admin Rights: Some programs require admin privileges. Right-click > Run as Administrator.
+4. Clean Reinstall: Uninstall the program, delete the remaining folder in "Program Files", and reinstall fresh.
+5. Dependencies: Some apps need specific frameworks (NET Framework, Visual C++ Redistributables). Install these via Microsoft's website.`,
                 
-                // Data & Analytics articles
-                'Getting started with Power BI': `Getting started with Power BI
+                'Getting started with Power BI': `Power BI transforms raw data into interactive dashboards for business intelligence.
 
-Power BI transforms data into interactive visual insights:
+Workflow:
+1. Get Data: Connect to sources like Excel, SQL Server, or Web APIs.
+2. Transform: Use Power Query Editor to clean data (remove columns, filter rows, change types).
+3. Model: Define relationships between tables (e.g., linking "Sales" table to "Date" table).
+4. Visualize: Drag fields onto the canvas to create charts, maps, and tables.
+5. Analyze: Create "Measures" using DAX formulas for complex calculations (e.g., Year-over-Year growth).
 
-1. Data Sources: Connect to Excel, databases, cloud services, and APIs.
-2. Data Modeling: Create relationships between tables and define measures.
-3. Visualizations: Choose appropriate charts (bar, line, pie, maps) for data types.
-4. DAX Formulas: Use Data Analysis Expressions for calculated columns and measures.
-5. Reports: Design interactive reports with slicers and filters.
-6. Dashboards: Create consolidated views of key performance indicators.
-7. Sharing: Publish reports to Power BI Service for team collaboration.
-
-Start with Power BI Desktop free version to learn basic functionality.`,
+Sharing:
+- Publish your report to the Power BI Service (cloud) to share dashboards with your team.`,
                 
-                'Excel advanced formulas guide': `Excel Advanced Formulas Guide
+                'Excel advanced formulas guide': `Move beyond basics with powerful lookup and logical functions.
 
-Advanced Excel formulas unlock sophisticated data analysis capabilities:
+Key Advanced Functions:
+- INDEX/MATCH: The powerful alternative to VLOOKUP. =INDEX(ColumnToReturn, MATCH(LookupValue, LookupColumn, 0)).
+- SUMIFS: Sum values based on multiple criteria. =SUMIFS(SumRange, CriteriaRange1, Criteria1, CriteriaRange2, Criteria2).
+- COUNTIFS: Count cells based on multiple criteria.
+- TEXTJOIN: Join text from multiple ranges with a delimiter.
 
-1. Array Formulas: Process multiple values with single formulas using Ctrl+Shift+Enter.
-2. INDEX/MATCH: More flexible alternative to VLOOKUP for data retrieval.
-3. SUMIFS/COUNTIFS: Apply multiple criteria to sum or count operations.
-4. TEXT Functions: Manipulate and format text data (LEFT, RIGHT, MID, CONCATENATE).
-5. DATE Functions: Calculate time intervals and manipulate date values.
-6. Dynamic Arrays: Use newer functions like FILTER, SORT, UNIQUE in Excel 365.
-7. Named Formulas: Create reusable formula snippets with descriptive names.
-
-Use Excel's Formula Auditing tools to trace dependencies and debug complex formulas.`,
+Array Formulas:
+- Use dynamic arrays (Office 365) like FILTER, SORT, and UNIQUE to manipulate arrays of data without complex CSE (Ctrl+Shift+Enter) formulas.`,
                 
-                'Database design principles': `Database Design Principles
+                'Database design principles': `Proper design ensures data integrity and scalability.
 
-Proper database design ensures data integrity and efficient querying:
+Core Concepts:
+1. Normalization: Organizing data to reduce redundancy.
+   - 1NF: No repeating groups.
+   - 2NF: No partial dependencies.
+   - 3NF: No transitive dependencies.
+2. Primary Key: A unique identifier for each record (e.g., ID).
+3. Foreign Key: A field that links to the Primary Key of another table to create relationships.
 
-1. Normalization: Eliminate redundancy through first, second, and third normal forms.
-2. Entity-Relationship Modeling: Define tables, attributes, and relationships clearly.
-3. Primary Keys: Establish unique identifiers for each record in tables.
-4. Foreign Keys: Create referential integrity between related tables.
-5. Data Types: Choose appropriate data types for optimal storage and performance.
-6. Indexing: Create indexes on frequently queried columns for faster retrieval.
-7. Constraints: Implement validation rules to maintain data quality.
-
-Document database schema and relationships for maintenance and future development.`,
+Data Types:
+- Use appropriate types (Integer, Varchar, Date) to optimize storage and speed. Don't store numbers as text.
+- Indexing: Create indexes on columns used frequently in WHERE clauses to speed up queries.`,
                 
-                'Data visualization best practices': `Data Visualization Best Practices
+                'Data visualization best practices': `Visualization turns numbers into narratives.
 
-Effective visualizations communicate insights clearly and accurately:
+Chart Selection:
+- Comparison: Use Bar/Column charts.
+- Trends: Use Line charts.
+- Composition: Use Pie/Donut charts (only for small segments) or Stacked Bars.
+- Distribution: Use Histograms or Scatter plots.
 
-1. Know Your Audience: Tailor complexity and terminology to viewer expertise.
-2. Choose Right Chart Type: Match visualization to data type and message.
-3. Minimize Clutter: Remove unnecessary elements that distract from key insights.
-4. Color Usage: Use consistent color schemes and ensure accessibility for colorblind users.
-5. Labeling: Include clear titles, axis labels, and data point annotations.
-6. Scale Appropriately: Use appropriate axis ranges to avoid misleading representations.
-7. Storytelling: Arrange visualizations in logical sequence to tell a complete story.
-
-Test visualizations with sample users to ensure clarity and effectiveness.`,
+Design Rules:
+- Less is More: Remove gridlines, 3D effects, and background colors that distract from the data.
+- Label Clearly: Every chart needs a title, and axes need labels. Use legends only when necessary.
+- Color: Use color to highlight insights, not to decorate. Stick to a consistent color palette.`,
                 
-                'Creating effective dashboards': `Creating Effective Dashboards
+                'Creating effective dashboards': `A dashboard should provide key insights at a glance.
 
-Dashboards provide at-a-glance views of key performance metrics:
+Planning:
+- Audience: Who is it for? (Executive summary vs. Operational details).
+- KPIs: Identify the top 3-5 Key Performance Indicators to display prominently.
 
-1. Define Purpose: Identify primary audience and key questions the dashboard should answer.
-2. Select KPIs: Choose 5-9 most critical metrics to avoid overwhelming users.
-3. Layout Design: Organize information hierarchically with most important items prominent.
-4. Interactive Elements: Include filters, drill-downs, and date ranges for user exploration.
-5. Real-time Updates: Connect to live data sources for current information.
-6. Mobile Responsiveness: Ensure dashboard works well on different screen sizes.
-7. Performance Monitoring: Track dashboard usage and user feedback for improvements.
+Layout:
+- Top Left: Place the most critical KPIs (viewers scan top-to-bottom, left-to-right).
+- Filters: Add slicers/tabs to allow users to drill down into specific regions or time periods.
+- Density: Avoid clutter. Use white space to separate distinct sections.
 
-Regular review and updates keep dashboards relevant to changing business needs.`,
+Maintenance:
+- Dashboards are living documents. Update them as business goals change.`,
                 
-                'Data entry best practices': `Data Entry Best Practices
+                'Data entry best practices': `Clean data is the foundation of accurate analysis.
 
-Accurate and consistent data entry is fundamental to reliable analysis:
+Accuracy Techniques:
+1. Data Validation: Use Excel's Data Validation feature to restrict inputs (e.g., only allow dates, or a list of specific items).
+2. Drop-down Lists: Force users to select from a list to prevent spelling errors.
+3. Consistent Formats: Decide on date formats (DD/MM/YYYY vs MM/DD/YYYY) and stick to them.
+4. Separate Data Types: Don't mix text and numbers in the same column (e.g., "15 approx" prevents math operations).
 
-1. Standardization: Establish consistent formats for dates, names, and numerical values.
-2. Validation Rules: Implement drop-down lists, data ranges, and required field checks.
-3. Training: Provide comprehensive training on data entry procedures and tools.
-4. Quality Control: Regular audits and spot checks to identify and correct errors.
-5. Templates: Use standardized forms and templates to ensure consistency.
-6. Error Handling: Create clear procedures for correcting mistakes and maintaining audit trails.
-7. Automation: Use data validation and auto-fill features to reduce manual entry.
-
-Document data entry standards and update procedures as business needs evolve.`,
+Automation:
+- Use Forms: Microsoft Forms or Google Forms standardize data collection.
+- Power Automate: Automate data transfer from emails to Excel/databases.`,
                 
-                'Pivot table tutorial for beginners': `Pivot Table Tutorial for Beginners
+                'Pivot table tutorial for beginners': `Pivot Tables are the fastest way to summarize large datasets in Excel.
 
-Pivot tables summarize and analyze large datasets efficiently:
+How to Create:
+1. Click anywhere inside your data table.
+2. Go to Insert > PivotTable.
+3. Choose where to place it (New Worksheet is best).
 
-1. Data Preparation: Ensure data is in tabular format with headers in first row.
-2. Create Pivot Table: Select data range and choose Insert > PivotTable.
-3. Field Placement: Drag fields to Rows, Columns, Values, and Filters areas.
-4. Aggregation: Choose appropriate summary functions (Sum, Count, Average, Max).
-5. Sorting and Filtering: Organize data by values or apply specific criteria.
-6. Calculated Fields: Add custom calculations using existing pivot table data.
-7. Refresh Data: Update pivot table when source data changes.
+Layout:
+- Rows: The category you want to group by (e.g., "Region").
+- Columns: The secondary category (e.g., "Year").
+- Values: The data to calculate (e.g., Sum of "Sales").
+- Filters: To view specific subsets (e.g., "Product Category").
 
-Practice with simple datasets before working with complex business data.`,
+Tips:
+- Group Dates: Right-click on a date in the Pivot Table to group by Months, Quarters, or Years.
+- Slicers: Insert Slicers for visual buttons to filter data quickly.`,
                 
-                'Power Query for data transformation': `Power Query for Data Transformation
+                'Power Query for data transformation': `Power Query (Get & Transform) is a data connection technology that lets you discover, connect, combine, and refine data sources.
 
-Power Query streamlines data cleaning and transformation workflows:
+Access:
+- In Excel: Data tab > Get Data > From Table/Range.
 
-1. Data Sources: Connect to multiple sources including files, databases, and web services.
-2. Query Editor: Use intuitive interface to apply transformations without complex formulas.
-3. Common Transformations: Remove duplicates, split columns, change data types, filter rows.
-4. Merging and Appending: Combine data from multiple sources into single dataset.
-5. Custom Columns: Create calculated fields using Power Query's formula language (M).
-6. Query Parameters: Make queries dynamic by using parameters for changing values.
-7. Load Options: Choose between loading to worksheet, data model, or both.
+Common Transformations:
+- Split Columns: Divide a single column into multiple (e.g., split "First Last" into two columns).
+- Unpivot: Turn wide data (months as columns) into tall data (ideal for Pivot Tables).
+- Merge Queries: Join two tables similar to SQL JOINs.
+- Append Queries: Stack one table on top of another.
 
-Power Query automatically documents transformation steps, making processes reproducible.`
+Advantage:
+- All steps are recorded. When the source data changes, just click "Refresh All" to repeat the cleaning process instantly.`
             };
             
             const content = kbContent[title] || `No detailed information available for "${title}".`;
-            
-            // Define topic-specific related articles
-            let relatedArticles = [];
-
-            if (title.includes('ransomware') || title.includes('Ransomware')) {
-                relatedArticles = [
-                    'Best practices for password security',
-                    'Understanding VPNs and when to use them',
-                    'Recognizing phishing attempts',
-                    'Social engineering attack prevention'
-                ];
-            } else if (title.includes('authentication') || title.includes('2FA')) {
-                relatedArticles = [
-                    'Best practices for password security',
-                    'Mobile device security best practices',
-                    'How to secure your home network',
-                    'Understanding VPNs and when to use them'
-                ];
-            } else if (title.includes('password') || title.includes('Password')) {
-                relatedArticles = [
-                    'Setting up two-factor authentication',
-                    'Understanding VPNs and when to use them',
-                    'How to secure your home network',
-                    'Mobile device security best practices'
-                ];
-            } else if (title.includes('phishing')) {
-                relatedArticles = [
-                    'How to protect against ransomware attacks',
-                    'Social engineering attack prevention',
-                    'Best practices for password security',
-                    'Understanding VPNs and when to use them'
-                ];
-            } else if (title.includes('network') || title.includes('WiFi')) {
-                relatedArticles = [
-                    'Understanding VPNs and when to use them',
-                    'Mobile device security best practices',
-                    'Recognizing phishing attempts',
-                    'Social engineering attack prevention'
-                ];
-            } else if (title.includes('VPN')) {
-                relatedArticles = [
-                    'How to secure your home network',
-                    'Mobile device security best practices',
-                    'Recognizing phishing attempts',
-                    'Best practices for password security'
-                ];
-            } else if (title.includes('mobile') || title.includes('Mobile')) {
-                relatedArticles = [
-                    'How to secure your home network',
-                    'Best practices for password security',
-                    'Understanding VPNs and when to use them',
-                    'Recognizing phishing attempts'
-                ];
-            } else if (title.includes('social') || title.includes('Social')) {
-                relatedArticles = [
-                    'Recognizing phishing attempts',
-                    'How to protect against ransomware attacks',
-                    'Best practices for password security',
-                    'Setting up two-factor authentication'
-                ];
-            } else if (title.includes('Excel') || title.includes('Pivot') || title.includes('Query') || title.includes('Power')) {
-                relatedArticles = [
-                    'Advanced Excel formulas and functions',
-                    'Pivot table tutorial for beginners',
-                    'Power Query for data transformation',
-                    'Creating dynamic dashboards in Excel'
-                ];
-            } else if (title.includes('computer') || title.includes('performance') || title.includes('slow')) {
-                relatedArticles = [
-                    'How to clean and optimize your computer',
-                    'Troubleshooting software installation issues',
-                    'Essential software for new computers',
-                    'Computer maintenance best practices'
-                ];
-            } else {
-                // Default related articles for other topics
-                relatedArticles = [
-                    'How to protect against ransomware attacks',
-                    'Setting up two-factor authentication',
-                    'Best practices for password security',
-                    'Recognizing phishing attempts'
-                ];
-            }
-            
+            const relatedArticles = searchDatabase.filter(a => a.title !== title).sort(() => 0.5 - Math.random()).slice(0, 4);
             
             const existingPanel = document.querySelector('.kb-article-top-panel');
-            if (existingPanel) {
-                existingPanel.remove();
-            }
+            if (existingPanel) existingPanel.remove();
             
             const articleTopPanel = document.createElement('div');
             articleTopPanel.className = 'kb-article-top-panel';
@@ -2334,11 +1758,11 @@ Power Query automatically documents transformation steps, making processes repro
                         <button class="kb-top-close-btn" onclick="closeKnowledgePanel()">&times;</button>
                     </div>
                     <div class="kb-article-top-body">
-                        <pre style="white-space: pre-wrap; font-family: Arial, sans-serif; line-height: 1.6;">${content}</pre>
+                        <pre style="white-space: pre-wrap; font-family: 'Segoe UI', sans-serif; line-height: 1.8;">${content}</pre>
                         <div class="kb-article-top-related">
                             <h4>Related Articles:</h4>
                             <ul>
-                                ${relatedArticles.map(article => `<li onclick="showArticleDetail('${article}')">${article}</li>`).join('')}
+                                ${relatedArticles.map(article => `<li onclick="showArticleDetail('${article.title}')">${article.title}</li>`).join('')}
                             </ul>
                         </div>
                     </div>
@@ -2346,148 +1770,51 @@ Power Query automatically documents transformation steps, making processes repro
             `;
             
             document.body.appendChild(articleTopPanel);
-            
-            setTimeout(() => {
-                articleTopPanel.classList.add('active');
-            }, 10);
+            setTimeout(() => articleTopPanel.classList.add('active'), 10);
         }
         
-        // Function to close the knowledge base top panel
         function closeKnowledgePanel() {
             const panel = document.querySelector('.kb-article-top-panel');
             if (panel) {
                 panel.classList.remove('active');
-                
-                setTimeout(() => {
-                    if (panel.parentNode) {
-                        panel.remove();
-                    }
-                }, 400);
+                setTimeout(() => panel.remove(), 400);
             }
         }
         
-        // Enhanced escape key listener
-        function initializeEscapeKeyListener() {
-            try {
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
-                        closeKnowledgePanel();
-                        hideSearchSuggestions();
-                    }
-                });
-            } catch (error) {
-                console.error('Error initializing escape key listener:', error);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeKnowledgePanel();
+                hideSearchSuggestions();
             }
-        }
+        });
         
-        // Initialize after DOM is fully loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeEscapeKeyListener);
-        } else {
-            initializeEscapeKeyListener();
-        }
-        
-        // Enhanced Knowledge Base Search with intelligent suggestions
         function initializeKBSearchEvents() {
-            try {
-                const searchInput = document.getElementById('kb-search-input');
-                const searchBtn = document.getElementById('kb-search-btn');
-                const suggestionsContainer = document.getElementById('search-suggestions');
-                
-                // Show popular searches when input is focused
-                searchInput?.addEventListener('focus', function() {
-                    if (!this.value.trim()) {
-                        const suggestions = getSearchSuggestions('');
-                        displaySearchSuggestions(suggestions, '');
-                    }
-                });
-                
-                // Perform search on button click
-                searchBtn?.addEventListener('click', performKBSearch);
-                
-                // Trigger search on pressing Enter
-                searchInput?.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        performKBSearch();
-                    }
-                });
-                
-                // Show intelligent suggestions when typing
-                searchInput?.addEventListener('input', function() {
-                    const query = this.value.trim();
-                    
-                    if (query === '') {
-                        const suggestions = getSearchSuggestions('');
-                        displaySearchSuggestions(suggestions, '');
-                        return;
-                    }
-                    
-                    // Show suggestions for single characters too
-                    const suggestions = getSearchSuggestions(query);
-                    displaySearchSuggestions(suggestions, query);
-                });
-                
-                // Hide suggestions when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
-                        hideSearchSuggestions();
-                    }
-                });
-                
-                // Enhanced arrow key navigation for suggestions
-                searchInput?.addEventListener('keydown', function(e) {
-                    const suggestions = suggestionsContainer.querySelectorAll('.suggestion-item');
-                    
-                    if (!suggestions.length || !suggestionsContainer.classList.contains('active')) {
-                        return;
-                    }
-                    
-                    const activeSuggestion = suggestionsContainer.querySelector('.suggestion-item.active');
-                    let nextIndex = -1;
-                    
-                    if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        if (!activeSuggestion) {
-                            nextIndex = 0;
-                        } else {
-                            nextIndex = Array.from(suggestions).indexOf(activeSuggestion) + 1;
-                            if (nextIndex >= suggestions.length) nextIndex = 0;
-                        }
-                    } else if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        if (!activeSuggestion) {
-                            nextIndex = suggestions.length - 1;
-                        } else {
-                            nextIndex = Array.from(suggestions).indexOf(activeSuggestion) - 1;
-                            if (nextIndex < 0) nextIndex = suggestions.length - 1;
-                        }
-                    } else if (e.key === 'Enter' && activeSuggestion) {
-                        e.preventDefault();
-                        selectSuggestion(activeSuggestion.querySelector('div').textContent);
-                        return;
-                    }
-                    
-                    // Update active suggestion
-                    suggestions.forEach(s => s.classList.remove('active'));
-                    if (nextIndex >= 0) {
-                        suggestions[nextIndex].classList.add('active');
-                        suggestions[nextIndex].scrollIntoView({ block: 'nearest' });
-                    }
-                });
-                
-            } catch (error) {
-                console.error('Error initializing KB search events:', error);
-            }
+            const searchInput = document.getElementById('kb-search-input');
+            const searchBtn = document.getElementById('kb-search-btn');
+            const suggestionsContainer = document.getElementById('search-suggestions');
+            
+            searchInput?.addEventListener('focus', function() {
+                if (!this.value.trim()) displaySearchSuggestions(getSearchSuggestions(''), '');
+            });
+            
+            searchBtn?.addEventListener('click', performKBSearch);
+            searchInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') performKBSearch(); });
+            
+            searchInput?.addEventListener('input', function() {
+                const query = this.value.trim();
+                displaySearchSuggestions(getSearchSuggestions(query), query);
+            });
+            
+            document.addEventListener('click', function(event) {
+                if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+                    hideSearchSuggestions();
+                }
+            });
         }
         
-        // Initialize after DOM is fully loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeKBSearchEvents);
-        } else {
-            initializeKBSearchEvents();
-        }
+        initializeKBSearchEvents();
         
-        // Header JavaScript
+        // Header JS
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileNav = document.getElementById('mobile-nav');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
@@ -2496,25 +1823,28 @@ Power Query automatically documents transformation steps, making processes repro
         mobileMenuBtn.addEventListener('click', () => {
             mobileNav.classList.toggle('show');
             mobileMenuOverlay.classList.toggle('active');
-            
-            if (mobileNav.classList.contains('show')) {
-                mobileMenuIcon.classList.remove('fa-bars');
-                mobileMenuIcon.classList.add('fa-times');
-            } else {
-                mobileMenuIcon.classList.remove('fa-times');
-                mobileMenuIcon.classList.add('fa-bars');
-            }
+            mobileMenuIcon.classList.toggle('fa-bars');
+            mobileMenuIcon.classList.toggle('fa-times');
         });
 
         mobileMenuOverlay.addEventListener('click', () => {
             mobileNav.classList.remove('show');
             mobileMenuOverlay.classList.remove('active');
-            mobileMenuIcon.classList.remove('fa-times');
             mobileMenuIcon.classList.add('fa-bars');
+            mobileMenuIcon.classList.remove('fa-times');
         });
 
-        // Navigation
         function navigateTo(path) {
+            // Split path and anchor
+            let cleanPath = path;
+            let anchor = '';
+            
+            if (path.includes('#')) {
+                const parts = path.split('#');
+                cleanPath = parts[0];
+                anchor = parts[1];
+            }
+            
             const pathToFile = {
                 '/': 'index.html',
                 '/services': 'service.html',
@@ -2523,13 +1853,15 @@ Power Query automatically documents transformation steps, making processes repro
                 '/contact': 'contact.html'
             };
             
-            const targetFile = pathToFile[path];
-            if (targetFile) {
-                window.location.href = targetFile;
+            if (pathToFile[cleanPath]) {
+                let url = pathToFile[cleanPath];
+                if (anchor) {
+                    url += '#' + anchor;
+                }
+                window.location.href = url;
             }
         }
 
-        // Add click handlers to navigation links
         document.querySelectorAll('[data-path]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -2542,7 +1874,6 @@ Power Query automatically documents transformation steps, making processes repro
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-grid">
-                <!-- Brand Section -->
                 <div class="footer-brand" data-aos="fade-up" data-aos-delay="100">
                     <div class="footer-logo">
                         <div class="footer-logo-icon">♠</div>
@@ -2551,61 +1882,33 @@ Power Query automatically documents transformation steps, making processes repro
                             <p class="footer-logo-subtitle">Online 24/7</p>
                         </div>
                     </div>
-                    <p class="footer-description">
-                        Professional Remote Technical Solutions
-                    </p>
+                    <p class="footer-description">Professional Remote Technical Solutions</p>
                     <div class="footer-status">
                         <div class="footer-status-dot"></div>
                         <span class="footer-status-text">Always Online</span>
                     </div>
                 </div>
-
-                <!-- Services -->
                 <div data-aos="fade-up" data-aos-delay="200">
                     <h4 class="footer-section-title">Services</h4>
                     <ul class="footer-links">
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Cybersecurity</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">IT Support</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Software Solutions</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Data Analytics</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Translation</a>
-                        </li>
+                        <li class="footer-link"><a href="#" data-path="/services#cybersecurity">Cybersecurity</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services#it-support">IT Support</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services#software-solutions">Software Solutions</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services#data-analytics">Data Analytics</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services#translation">Translation</a></li>
                     </ul>
                 </div>
-                
-                <!-- Quick Links -->
-                <div data-aos="fade-up" data-aos-delay="400">
+                <div data-aos="fade-up" data-aos-delay="300">
                     <h4 class="footer-section-title">Quick Links</h4>
                     <ul class="footer-links">
-                        <li class="footer-link">
-                            <a href="#" data-path="/">Home</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Services</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/about">About</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/base">Help Center</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/contact">Contact</a>
-                        </li>
+                        <li class="footer-link"><a href="#" data-path="/">Home</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services">Services</a></li>
+                        <li class="footer-link"><a href="#" data-path="/about">About</a></li>
+                        <li class="footer-link"><a href="#" data-path="/base">Help Center</a></li>
+                        <li class="footer-link"><a href="#" data-path="/contact">Contact</a></li>
                     </ul>
                 </div>
-
-                <!-- Contact Info -->
-                <div data-aos="fade-up" data-aos-delay="500">
+                <div data-aos="fade-up" data-aos-delay="400">
                     <h4 class="footer-section-title">Contact</h4>
                     <ul class="footer-contact-list">
                         <li class="footer-contact-item">
@@ -2614,9 +1917,7 @@ Power Query automatically documents transformation steps, making processes repro
                         </li>
                         <li class="footer-contact-item">
                             <i class="fas fa-envelope footer-contact-icon"></i>
-                            <a href="mailto:asktechpoint.team@gmail.com" class="footer-contact-link">
-                                asktechpoint.team@gmail.com
-                            </a>
+                            <a href="mailto:asktechpoint.team@gmail.com" class="footer-contact-link">asktechpoint.team@gmail.com</a>
                         </li>
                         <li class="footer-contact-item">
                             <i class="fas fa-clock footer-contact-icon"></i>
@@ -2625,22 +1926,13 @@ Power Query automatically documents transformation steps, making processes repro
                     </ul>
                 </div>
             </div>
-
-            <!-- Bottom Bar -->
             <div class="footer-bottom">
-                <p class="footer-copyright">
-                    © <span id="current-year"></span> Tech Point. All Rights Reserved
-                </p>
-                <div class="social-icons" style="justify-content: center; margin: 1rem 0;">
-                    <a href="#" class="social-icon" data-path="https://instagram.com/techpoint" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-icon" data-path="https://wa.me/962782674812" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="social-icon" data-path="https://facebook.com/techpoint" target="_blank">
-                        <i class="fab fa-facebook"></i>
-                    </a>
+                <p class="footer-copyright">© <span id="current-year"></span> Tech Point. All Rights Reserved</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </div>
                 <div class="footer-legal-links">
                     <a href="#" class="footer-legal-link">Privacy Policy</a>
@@ -2650,41 +1942,16 @@ Power Query automatically documents transformation steps, making processes repro
         </div>
     </footer>
     
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
-        });
-        
-        // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
-        
-        // Return to Top Button Functionality
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Show/hide return to top button based on scroll position
-        window.addEventListener('scroll', () => {
-            const topBtn = document.getElementById('topBtn');
-            
-            if (window.pageYOffset > 300) {
-                topBtn.style.display = 'block';
-            } else {
-                topBtn.style.display = 'none';
-            }
-        });
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     </script>
     
-    <!-- Return to Top Button -->
-    <button class="top-btn" id="topBtn" onclick="scrollToTop()">
+    <button class="top-btn" id="topBtn" onclick="scrollToTop()" style="display: none;">
         <i class="fas fa-arrow-up"></i>
     </button>
+    <a href="https://wa.me/962782674812" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 </html>
