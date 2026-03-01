@@ -38,6 +38,7 @@
             --foreground-70: rgba(255, 255, 255, 0.7);
             --foreground-60: rgba(255, 255, 255, 0.6);
             --foreground-50: rgba(255, 255, 255, 0.5);
+            --transition: 0.3s ease;
         }
 
         body {
@@ -46,6 +47,25 @@
             color: var(--foreground);
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
+        }
+
+        /* Ambient Background Orbs */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        body::before {
+            background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+        }
+        body::after {
+            background: radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 40%);
         }
 
         /* Enhanced Header Styles */
@@ -54,9 +74,9 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 15, 35, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+            background: rgba(15, 15, 35, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
             z-index: 1000;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
@@ -86,7 +106,7 @@
         }
 
         .logo-button:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .logo-3d {
@@ -138,11 +158,11 @@
         }
 
         .nav-link:hover {
-            color: var(--secondary-light);
+            color: var(--foreground);
         }
 
         .nav-link.active {
-            color: var(--primary);
+            color: var(--primary-light);
         }
 
         .nav-link.active::after {
@@ -153,7 +173,7 @@
             width: 100%;
             height: 2px;
             background: var(--gradient-purple);
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 8px var(--primary);
         }
 
         .header-right {
@@ -176,6 +196,7 @@
             border-radius: 9999px;
             background: rgba(6, 182, 212, 0.1);
             border: 1px solid rgba(6, 182, 212, 0.2);
+            font-size: 0.875rem;
         }
 
         .online-dot {
@@ -256,7 +277,15 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+            background: transparent;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
+            z-index: 0;
         }
 
         .hero-content {
@@ -270,8 +299,10 @@
             font-size: 3.5rem;
             font-weight: 900;
             margin-bottom: 1rem;
-            color: var(--foreground);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            background: linear-gradient(to right, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.4));
         }
 
         @media (min-width: 768px) {
@@ -288,7 +319,7 @@
 
         .hero p {
             font-size: 1.25rem;
-            color: var(--foreground-80);
+            color: var(--gray-300);
             max-width: 48rem;
             margin: 0 auto;
         }
@@ -296,7 +327,9 @@
         /* Filters Section */
         .filters {
             padding: 3rem 2rem;
-            background: var(--dark-gray);
+            background: rgba(15, 15, 35, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .filters-container {
@@ -315,48 +348,6 @@
             }
         }
 
-        /* Search Box */
-        .search-container {
-            position: relative;
-            width: 100%;
-        }
-
-        @media (min-width: 1024px) {
-            .search-container {
-                width: 24rem;
-            }
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 3rem;
-            background: var(--background);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 0.5rem;
-            color: var(--foreground);
-            font-size: 0.875rem;
-            transition: all 0.3s;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-        }
-
-        .search-input::placeholder {
-            color: var(--foreground-50);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--foreground-50);
-            pointer-events: none;
-        }
-
         /* Category Buttons */
         .category-buttons {
             display: flex;
@@ -366,26 +357,29 @@
         }
 
         .category-btn {
-            padding: 0.5rem 1.5rem;
-            background: var(--background);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 0.5rem;
-            color: var(--foreground);
+            padding: 0.6rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            color: var(--gray-300);
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .category-btn:hover {
-            border-color: var(--primary);
+            border-color: var(--secondary);
+            color: var(--secondary-light);
+            background: rgba(6, 182, 212, 0.05);
         }
 
         .category-btn.active {
             background: var(--primary);
             color: var(--foreground);
             border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.7);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
         }
 
         /* Services Grid */
@@ -405,21 +399,40 @@
         /* Service Card */
         .service-card {
             position: relative;
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(21, 21, 40, 0.9));
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
             padding: 2rem;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             height: 320px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0), rgba(6, 182, 212, 0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            transition: background 0.5s;
+            z-index: 1;
         }
 
         .service-card:hover {
             transform: translateY(-8px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .service-card:hover::before {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(6, 182, 212, 0.5));
         }
 
         .service-card:active {
@@ -431,6 +444,8 @@
             height: auto;
             min-height: 400px;
             cursor: default;
+            background: rgba(15, 15, 35, 0.95);
+            border-color: rgba(139, 92, 246, 0.3);
         }
 
         .service-card.flipped:hover {
@@ -439,6 +454,8 @@
 
         .card-front, .card-back {
             transition: opacity 0.3s, transform 0.3s;
+            position: relative;
+            z-index: 2;
         }
 
         .service-card:not(.flipped) .card-back {
@@ -454,19 +471,20 @@
             width: 70px;
             height: 70px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 16px;
+            border-radius: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1.5rem;
             color: white;
             font-size: 1.8rem;
-            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s;
         }
 
         .service-card:hover .service-icon {
-            transform: scale(1.1);
-            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.6);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5);
         }
 
         .service-title {
@@ -479,28 +497,27 @@
 
         .service-card:hover .service-title {
             color: white;
-            transform: scale(1.05);
         }
 
-
-
         .service-category {
-            font-size: 0.875rem;
-            color: var(--gold-accent);
+            font-size: 0.75rem;
+            color: var(--secondary-light);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             margin-bottom: 1rem;
             display: inline-block;
             padding: 0.25rem 0.75rem;
-            background: rgba(251, 191, 36, 0.1);
+            background: rgba(6, 182, 212, 0.1);
             border-radius: 20px;
+            font-weight: 600;
         }
 
         .service-tagline {
             font-size: 0.95rem;
-            color: var(--foreground-80);
+            color: var(--gray-400);
             line-height: 1.6;
             margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
 
         .availability-badge {
@@ -508,13 +525,13 @@
             top: 1.5rem;
             right: 1.5rem;
             background: var(--gradient-gold);
-            color: var(--background);
+            color: #000;
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
         }
 
         /* Card Back */
@@ -524,7 +541,7 @@
             align-items: flex-start;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
         }
 
         .back-title {
@@ -536,11 +553,11 @@
         }
 
         .close-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--foreground);
-            width: 40px;
-            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-400);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -548,12 +565,14 @@
             cursor: pointer;
             transition: all 0.3s;
             flex-shrink: 0;
-            font-size: 1rem;
+            font-size: 0.9rem;
             margin-left: 1rem;
         }
 
         .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #ef4444;
             transform: rotate(90deg);
         }
 
@@ -563,11 +582,11 @@
 
         .back-image {
             width: 100%;
-            height: 180px;
+            height: 160px;
             object-fit: cover;
             border-radius: 12px;
             margin-bottom: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .back-section {
@@ -575,7 +594,7 @@
         }
 
         .back-section-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--primary-light);
             margin-bottom: 0.75rem;
@@ -585,12 +604,12 @@
         }
 
         .back-section-title i {
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .back-text {
-            font-size: 0.95rem;
-            color: var(--foreground-80);
+            font-size: 0.9rem;
+            color: var(--gray-300);
             line-height: 1.6;
             margin: 0;
         }
@@ -603,19 +622,19 @@
 
         .feature-list li {
             padding: 0.4rem 0;
-            color: var(--foreground-70);
-            font-size: 0.9rem;
+            color: var(--gray-400);
+            font-size: 0.85rem;
             position: relative;
             padding-left: 1.5rem;
             line-height: 1.5;
         }
 
         .feature-list li::before {
-            content: '▸';
+            content: '→';
             position: absolute;
             left: 0;
-            color: var(--primary-light);
-            font-size: 1rem;
+            color: var(--secondary-light);
+            font-size: 0.9rem;
         }
 
         /* Loading State */
@@ -629,10 +648,10 @@
         .loading-card {
             width: 100%;
             height: 320px;
-            background: var(--dark-gray);
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
             animation: pulse 1.5s infinite;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         @keyframes pulse {
@@ -650,8 +669,19 @@
         /* CTA Section */
         .cta-section {
             padding: 5rem 2rem;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
             text-align: center;
+            position: relative;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
         }
 
         .cta-container {
@@ -663,8 +693,9 @@
             font-size: 3rem;
             font-weight: 900;
             margin-bottom: 1rem;
-            color: var(--foreground);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            background: linear-gradient(to right, #fff, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         @media (min-width: 768px) {
@@ -675,7 +706,7 @@
 
         .cta-description {
             font-size: 1.125rem;
-            color: var(--foreground-80);
+            color: var(--gray-300);
             max-width: 42rem;
             margin: 0 auto 2rem auto;
         }
@@ -686,23 +717,25 @@
             background: var(--primary);
             color: var(--foreground);
             text-decoration: none;
-            border-radius: 0.5rem;
+            border-radius: 9999px;
             font-size: 1rem;
             font-weight: 600;
             transition: all 0.3s;
-            box-shadow: 0 4px 30px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .cta-button:hover {
-            box-shadow: 0 0 30px rgba(139, 92, 246, 1);
-            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+            transform: translateY(-3px);
+            background: #7c3aed;
         }
 
         /* Enhanced Footer Styles */
         .footer {
-            background: linear-gradient(to bottom, #16213e, #0f0f23);
-            border-top: 1px solid rgba(139, 92, 246, 0.3);
-            padding: 4rem 2rem;
+            background: linear-gradient(to bottom, #0f0f23, #080816);
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 5rem 2rem;
             position: relative;
         }
 
@@ -712,9 +745,9 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 1px;
+            height: 2px;
             background: linear-gradient(to right, transparent, var(--primary), transparent);
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+            opacity: 0.5;
         }
 
         .footer-container {
@@ -787,8 +820,9 @@
 
         .footer-description {
             font-size: 0.875rem;
-            color: var(--foreground-80);
+            color: var(--gray-400);
             margin-bottom: 1.5rem;
+            line-height: 1.8;
         }
 
         .footer-status {
@@ -828,14 +862,29 @@
 
         .footer-link a {
             font-size: 0.875rem;
-            color: var(--foreground-80);
+            color: var(--gray-400);
             text-decoration: none;
             transition: all 0.3s;
+            position: relative;
+        }
+        
+        .footer-link a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary-light);
+            transition: width 0.3s;
         }
 
         .footer-link a:hover {
             color: var(--secondary-light);
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        
+        .footer-link a:hover::before {
+            width: 100%;
         }
 
         .footer-contact-list {
@@ -850,27 +899,25 @@
         }
 
         .footer-contact-icon {
-            color: var(--primary);
+            color: var(--primary-light);
             margin-top: 0.25rem;
             flex-shrink: 0;
-            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.5));
         }
 
         .footer-contact-text {
             font-size: 0.875rem;
-            color: var(--foreground-80);
+            color: var(--gray-400);
         }
 
         .footer-contact-link {
             font-size: 0.875rem;
-            color: var(--foreground-80);
+            color: var(--gray-400);
             text-decoration: none;
             transition: all 0.3s;
         }
 
         .footer-contact-link:hover {
             color: var(--secondary-light);
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
         
         /* Social Icons */
@@ -887,55 +934,24 @@
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--foreground);
             font-size: 1rem;
             transition: all 0.3s ease;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .social-icon:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
-        }
-        
-        .social-icon .fa-instagram {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-instagram {
-            color: #e1306c;
-        }
-        
-        .social-icon .fa-facebook {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-facebook {
-            color: #3b5998;
-        }
-        
-        .social-icon .fa-linkedin {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-linkedin {
-            color: #0077b5;
-        }
-        
-        .social-icon .fa-whatsapp {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover .fa-whatsapp {
-            color: #25D366;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+            border-color: var(--primary);
         }
 
         .footer-bottom {
             margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -951,7 +967,7 @@
 
         .footer-copyright {
             font-size: 0.875rem;
-            color: var(--foreground-60);
+            color: var(--gray-500);
         }
 
         .footer-legal-links {
@@ -961,14 +977,13 @@
 
         .footer-legal-link {
             font-size: 0.875rem;
-            color: var(--foreground-60);
+            color: var(--gray-500);
             text-decoration: none;
             transition: all 0.3s;
         }
 
         .footer-legal-link:hover {
             color: var(--secondary-light);
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
 
         /* WhatsApp Button */
@@ -989,39 +1004,12 @@
             z-index: 1000;
             transition: all 0.3s;
         }
-
-        .top-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #9333ea, #06b6d4);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .top-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-
+        
         .whatsapp-float:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
         }
 
-        /* Back to top */
         .top-btn {
             position: fixed;
             bottom: 20px;
@@ -1045,7 +1033,7 @@
 
         .top-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.6);
         }
     </style>
 </head>
@@ -1118,8 +1106,8 @@
     <section class="filters">
         <div class="filters-container">
             <!-- Category Buttons -->
-            <div class="category-buttons" id="categoryButtons" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-                <!-- Categories will be populated by JavaScript -->
+            <div class="category-buttons" id="categoryButtons" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+                <!-- Categories populated by JS -->
             </div>
         </div>
     </section>
@@ -1127,7 +1115,7 @@
     <!-- Services Grid -->
     <section class="services-grid-section">
         <div id="servicesContainer">
-            <!-- Services will be loaded here by JavaScript -->
+            <!-- Services loaded by JS -->
         </div>
     </section>
 
@@ -1170,21 +1158,11 @@
                 <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
                     <h4 class="footer-section-title">Services</h4>
                     <ul class="footer-links">
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Cybersecurity</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">IT Support</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Software Solutions</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Data Analytics</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Translation</a>
-                        </li>
+                        <li class="footer-link"><a href="#" data-path="/services">Cybersecurity</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services">IT Support</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services">Software Solutions</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services">Data Analytics</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services">Translation</a></li>
                     </ul>
                 </div>
 
@@ -1192,21 +1170,11 @@
                 <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
                     <h4 class="footer-section-title">Quick Links</h4>
                     <ul class="footer-links">
-                        <li class="footer-link">
-                            <a href="#" data-path="/">Home</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/services">Services</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/about">About</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/base">Help Center</a>
-                        </li>
-                        <li class="footer-link">
-                            <a href="#" data-path="/contact">Contact</a>
-                        </li>
+                        <li class="footer-link"><a href="#" data-path="/">Home</a></li>
+                        <li class="footer-link"><a href="#" data-path="/services">Services</a></li>
+                        <li class="footer-link"><a href="#" data-path="/about">About</a></li>
+                        <li class="footer-link"><a href="#" data-path="/base">Help Center</a></li>
+                        <li class="footer-link"><a href="#" data-path="/contact">Contact</a></li>
                     </ul>
                 </div>
 
@@ -1220,9 +1188,7 @@
                         </li>
                         <li class="footer-contact-item">
                             <i class="fas fa-envelope footer-contact-icon"></i>
-                            <a href="mailto:asktechpoint.team@gmail.com" class="footer-contact-link">
-                                asktechpoint.team@gmail.com
-                            </a>
+                            <a href="mailto:asktechpoint.team@gmail.com" class="footer-contact-link">asktechpoint.team@gmail.com</a>
                         </li>
                         <li class="footer-contact-item">
                             <i class="fas fa-clock footer-contact-icon"></i>
@@ -1234,19 +1200,12 @@
 
             <!-- Bottom Bar -->
             <div class="footer-bottom">
-                <p class="footer-copyright">
-                    © <span id="current-year"></span> Tech Point. All Rights Reserved
-                </p>
-                <div class="social-icons" style="justify-content: center; margin: 1rem 0;">
-                    <a href="#" class="social-icon" data-path="https://instagram.com/techpoint" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-icon" data-path="https://wa.me/962782674812" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="social-icon" data-path="https://facebook.com/techpoint" target="_blank">
-                        <i class="fab fa-facebook"></i>
-                    </a>
+                <p class="footer-copyright">© <span id="current-year"></span> Tech Point. All Rights Reserved</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </div>
                 <div class="footer-legal-links">
                     <a href="#" class="footer-legal-link">Privacy Policy</a>
@@ -1277,18 +1236,22 @@
 
         mobileMenuBtn.addEventListener('click', () => {
             mobileNav.classList.toggle('show');
-            
-            if (mobileNav.classList.contains('show')) {
-                mobileMenuIcon.classList.remove('fa-bars');
-                mobileMenuIcon.classList.add('fa-times');
-            } else {
-                mobileMenuIcon.classList.remove('fa-times');
-                mobileMenuIcon.classList.add('fa-bars');
-            }
+            mobileMenuIcon.classList.toggle('fa-bars');
+            mobileMenuIcon.classList.toggle('fa-times');
         });
 
         // Navigation
-        function navigateTo(path, service = null) {
+        function navigateTo(path) {
+            // Split path and anchor
+            let cleanPath = path;
+            let anchor = '';
+            
+            if (path.includes('#')) {
+                const parts = path.split('#');
+                cleanPath = parts[0];
+                anchor = parts[1];
+            }
+            
             const pathToFile = {
                 '/': 'index.html',
                 '/services': 'service.html',
@@ -1297,17 +1260,16 @@
                 '/contact': 'contact.html'
             };
             
-            const targetFile = pathToFile[path];
+            const targetFile = pathToFile[cleanPath];
             if (targetFile) {
                 let url = targetFile;
-                if (service) {
-                    url += `?service=${service}`;
+                if (anchor) {
+                    url += '#' + anchor;
                 }
                 window.location.href = url;
             }
         }
 
-        // Add click handlers to navigation links
         document.querySelectorAll('[data-path]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1328,95 +1290,105 @@
             'Document Formatting': 'fa-file-alt'
         };
 
-        // Sample Services Data with Images
+        // Sample Services Data with Updated Images
         const servicesData = [
             {
-                id: "1",
-                serviceName: "Cybersecurity",
+                id: "1", 
+                serviceName: "Cybersecurity", 
                 tagline: "Advanced protection and malware removal",
                 detailedDescription: "We provide comprehensive cybersecurity solutions including threat detection, malware removal, and security audits to keep your systems protected from modern cyber threats.",
-                category: "Security",
-                serviceImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop&crop=center",
-                is247Available: true,
+                category: "Security", 
+                serviceImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
+                is247Available: true, 
                 keyFeatures: "• Real-time threat detection\n• Malware removal\n• Security audits\n• Firewall configuration\n• Data encryption",
                 targetAudience: "Businesses of all sizes, financial institutions, healthcare organizations"
             },
             {
-                id: "2",
-                serviceName: "IT Support",
+                id: "2", 
+                serviceName: "IT Support", 
                 tagline: "Remote technical assistance via AnyDesk",
                 detailedDescription: "Professional IT support services with 24/7 availability. We provide remote assistance for technical issues, software troubleshooting, and system optimization.",
-                category: "Support",
-                serviceImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&crop=center",
-                is247Available: true,
+                category: "Support", 
+                serviceImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
+                is247Available: true, 
                 keyFeatures: "• Remote desktop support\n• Software troubleshooting\n• System optimization\n• Network configuration\n• Hardware diagnostics",
                 targetAudience: "Small businesses, remote teams, individuals, enterprises"
             },
             {
-                id: "3",
-                serviceName: "Software Solutions",
+                id: "3", 
+                serviceName: "Software Solutions", 
                 tagline: "Installation with digital license activation",
                 detailedDescription: "Expert software installation, configuration, and digital license activation for various applications including productivity suites, business software, and specialized tools with legitimate licensing.",
-                category: "Software",
-                serviceImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&crop=center",
-                is247Available: false,
+                category: "Software", 
+                serviceImage: "https://images.unsplash.com/photo-1461749280684-cc1785671d76?w=800&h=600&fit=crop",
+                is247Available: false, 
                 keyFeatures: "• Software installation & licensing\n• Digital license activation\n• Configuration setup\n• Integration services\n• Training & support",
                 targetAudience: "Businesses, educational institutions, government agencies"
             },
             {
-                id: "4",
-                serviceName: "Data Analytics",
+                id: "4", 
+                serviceName: "Data Analytics", 
                 tagline: "Power BI analytics and data entry",
                 detailedDescription: "Transform your raw data into actionable insights with our Power BI analytics services. We help you make data-driven decisions for business growth.",
-                category: "Analytics",
-                serviceImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&crop=center",
-                is247Available: false,
+                category: "Analytics", 
+                serviceImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+                is247Available: false, 
                 keyFeatures: "• Power BI dashboards\n• Data visualization\n• Data entry services\n• Report generation\n• Business intelligence",
                 targetAudience: "Business analysts, data teams, executives, marketing teams"
             },
             {
-                id: "5",
-                serviceName: "Translation",
+                id: "5", 
+                serviceName: "Translation", 
                 tagline: "Professional Arabic/English services",
                 detailedDescription: "High-quality translation and transcription services between Arabic and English for documents, websites, and multimedia content.",
-                category: "Services",
-                serviceImage: "https://images.unsplash.com/photo-1551836026-d5c2c2e66b2b?w=800&h=600&fit=crop&crop=center",
-                is247Available: false,
+                category: "Services", 
+                serviceImage: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=800&h=600&fit=crop",
+                is247Available: false, 
                 keyFeatures: "• Document translation\n• Website localization\n• Transcription services\n• Proofreading\n• Cultural adaptation",
                 targetAudience: "Businesses, educational institutions, government agencies, individuals"
             },
             {
-                id: "6",
-                serviceName: "Software Installation",
+                id: "6", 
+                serviceName: "Software Installation", 
                 tagline: "Digital license activation and setup",
-                detailedDescription: "Professional installation of Windows, Office, and engineering software with legitimate digital license activation. We provide you with digital licenses and install software like AutoCAD, Revit, 3ds Max, and many more.",
-                category: "Software",
-                serviceImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&crop=center",
-                is247Available: true,
-                keyFeatures: "• Windows OS installation & licensing\n• Office Suite installation & licensing\n• Engineering software (AutoCAD, Revit, 3ds Max)\n• Digital license provision\n• Software configuration & setup",
+                detailedDescription: "Professional installation of Windows, Office, and engineering software with legitimate digital license activation.",
+                category: "Software", 
+                serviceImage: "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=800&h=600&fit=crop",
+                is247Available: true, 
+                keyFeatures: "• Windows OS installation & licensing\n• Office Suite installation & licensing\n• Engineering software\n• Digital license provision",
                 targetAudience: "Engineers, architects, designers, businesses, students"
             },
-
             {
-                id: "7",
-                serviceName: "Microsoft Office Solutions",
-                tagline: "Complete Office suite setup and support",
-                detailedDescription: "Professional assistance with Microsoft Office applications including installation, configuration, and troubleshooting to help you maximize productivity with Word, Excel, PowerPoint, and other Office tools.",
-                category: "Software",
-                serviceImage: "https://images.unsplash.com/photo-1611224885990-ab7363d5f2a9?w=800&h=600&fit=crop&crop=center",
-                is247Available: false,
-                keyFeatures: "• Office software installation and setup\n• Custom template creation\n• Automated task setup\n• System integration configuration\n• Ongoing technical support",
+                id: "7", 
+                serviceName: "Engineering Software", 
+                tagline: "AutoCAD, Revit, 3ds Max and more",
+                detailedDescription: "Specialized installation and licensing for professional engineering and design software.",
+                category: "Software", 
+                serviceImage: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=600&fit=crop",
+                is247Available: false, 
+                keyFeatures: "• AutoCAD installation & licensing\n• Revit installation & licensing\n• 3ds Max installation & licensing",
+                targetAudience: "Engineers, architects, construction professionals, design firms"
+            },
+            {
+                id: "8", 
+                serviceName: "Microsoft Office Solutions", 
+                tagline: "Complete Office suite support",
+                detailedDescription: "Comprehensive support for Microsoft Office applications including installation, troubleshooting, and advanced feature implementation.",
+                category: "Software", 
+                serviceImage: "https://images.unsplash.com/photo-1517180102446-f3ece451e926?w=800&h=600&fit=crop",
+                is247Available: false, 
+                keyFeatures: "• Office installation\n• Template creation\n• Macro development\n• Integration setup",
                 targetAudience: "Businesses, students, professionals, educational institutions"
             },
             {
-                id: "8",
-                serviceName: "Document Formatting",
+                id: "9", 
+                serviceName: "Document Formatting", 
                 tagline: "Professional document preparation",
                 detailedDescription: "Transform your documents into professional, well-formatted files with proper styling, layout, and organization.",
-                category: "Services",
-                serviceImage: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&h=600&fit=crop&crop=center",
-                is247Available: false,
-                keyFeatures: "• Document formatting\n• Template design\n• PDF conversion\n• Style consistency\n• Print preparation",
+                category: "Services", 
+                serviceImage: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop",
+                is247Available: false, 
+                keyFeatures: "• Document formatting\n• Template design\n• PDF conversion\n• Style consistency",
                 targetAudience: "Students, professionals, businesses, researchers"
             }
         ];
@@ -1433,10 +1405,7 @@
 
         // Initialize
         function init() {
-            // Show loading state
             showLoading();
-            
-            // Simulate loading delay
             setTimeout(() => {
                 isLoading = false;
                 renderCategories();
@@ -1448,28 +1417,20 @@
         function showLoading() {
             servicesContainer.innerHTML = `
                 <div class="loading-grid">
-                    ${Array(6).fill().map((_, i) => `
-                        <div class="loading-card" data-aos="fade-up" data-aos-delay="${i * 100}"></div>
-                    `).join('')}
-                </div>
-            `;
+                    ${Array(6).fill().map((_, i) => `<div class="loading-card" data-aos="fade-up" data-aos-delay="${i * 100}"></div>`).join('')}
+                </div>`;
         }
 
         // Render category buttons
         function renderCategories() {
             const categories = ['All', ...new Set(servicesData.map(s => s.category).filter(Boolean))];
-            
             categoryButtons.innerHTML = categories.map((category, index) => `
                 <button class="category-btn ${selectedCategory === category ? 'active' : ''}" 
                         onclick="selectCategory('${category}')"
-                        data-aos="fade-up" 
-                        data-aos-duration="800" 
-                        data-aos-delay="${index * 100}">
+                        data-aos="fade-up" data-aos-duration="800" data-aos-delay="${index * 100}">
                     ${category}
                 </button>
             `).join('');
-            
-            // Reinitialize AOS for new elements
             AOS.refresh();
         }
 
@@ -1477,75 +1438,59 @@
         function selectCategory(category) {
             selectedCategory = category;
             renderCategories();
-            filterServices();
+            filterServicesByCategory();
         }
 
-        // Filter services based on category only (no search functionality)
-        function filterServices() {
-            filteredServices = servicesData.filter(service => {
-                // Category filter
-                if (selectedCategory !== 'All' && service.category !== selectedCategory) {
-                    return false;
-                }
-                
-                return true;
-            });
-            
+        // Filter services by category
+        function filterServicesByCategory() {
+            if (selectedCategory === 'All') {
+                filteredServices = [...servicesData];
+            } else {
+                filteredServices = servicesData.filter(service => 
+                    service.category === selectedCategory
+                );
+            }
             renderServices();
         }
 
         // Toggle card flip
         function toggleFlip(serviceId, event) {
-            // Prevent event bubbling if clicking on close button
-            if (event && event.target.closest('.close-btn')) {
-                return;
-            }
-            
             const serviceCard = document.querySelector(`[data-service-id="${serviceId}"]`);
             if (!serviceCard) return;
-            
-            // Close any previously flipped card
+
+            // Check if the close button was clicked
+            if (event && event.target.closest('.close-btn')) {
+                // Close the card if it's currently flipped
+                if (flippedCardId === serviceId) {
+                    serviceCard.classList.remove('flipped');
+                    flippedCardId = null;
+                }
+                event.stopPropagation();
+                return;
+            }
+
             if (flippedCardId && flippedCardId !== serviceId) {
                 const prevCard = document.querySelector(`[data-service-id="${flippedCardId}"]`);
-                if (prevCard) {
-                    prevCard.classList.remove('flipped');
-                }
+                if (prevCard) prevCard.classList.remove('flipped');
             }
-            
-            // Toggle current card
+
             if (flippedCardId === serviceId) {
                 serviceCard.classList.remove('flipped');
                 flippedCardId = null;
             } else {
                 serviceCard.classList.add('flipped');
                 flippedCardId = serviceId;
-                
-                // Scroll the flipped card into view
-                setTimeout(() => {
-                    serviceCard.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
-                }, 100);
+                setTimeout(() => serviceCard.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
             }
-            
-            // Stop event propagation
             event.stopPropagation();
         }
 
         // Render services
         function renderServices() {
-            if (isLoading) {
-                showLoading();
-                return;
-            }
+            if (isLoading) { showLoading(); return; }
             
             if (filteredServices.length === 0) {
-                servicesContainer.innerHTML = `
-                    <div class="no-results" data-aos="fade-up" data-aos-duration="800">
-                        <p>No services found in this category.</p>
-                    </div>
-                `;
+                servicesContainer.innerHTML = `<div class="no-results" data-aos="fade-up"><p>No services found. Try a different search term.</p></div>`;
                 AOS.refresh();
                 return;
             }
@@ -1555,30 +1500,20 @@
                     ${filteredServices.map((service, index) => {
                         const iconClass = serviceIcons[service.serviceName] || 'fa-cog';
                         return `
-                            <div class="service-card ${flippedCardId === service.id ? 'flipped' : ''}" 
+                            <div id="${service.serviceName.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')}" class="service-card ${flippedCardId === service.id ? 'flipped' : ''}" 
                                  data-service-id="${service.id}"
                                  onclick="toggleFlip('${service.id}', event)"
-                                 data-aos="fade-up" 
-                                 data-aos-duration="800" 
-                                 data-aos-delay="${index * 100}">
+                                 data-aos="fade-up" data-aos-duration="800" data-aos-delay="${index * 100}">
                                 
                                 <!-- Front Side -->
                                 <div class="card-front">
-                                    ${service.is247Available ? `
-                                        <div class="availability-badge">24/7</div>
-                                    ` : ''}
-                                    
-                                    <div class="service-icon">
-                                        <i class="fas ${iconClass}"></i>
-                                    </div>
-                                    
+                                    ${service.is247Available ? `<div class="availability-badge">24/7</div>` : ''}
+                                    <div class="service-icon"><i class="fas ${iconClass}"></i></div>
                                     <h3 class="service-title">${service.serviceName}</h3>
                                     <div class="service-category">${service.category || 'Service'}</div>
                                     <p class="service-tagline">${service.tagline}</p>
-                                    
-                                    <p style="color: var(--foreground-60); font-size: 0.875rem; margin-top: auto;">
-                                        <i class="fas fa-hand-pointer" style="margin-right: 0.5rem;"></i>
-                                        Click to view details
+                                    <p style="color: var(--gray-500); font-size: 0.8rem; margin-top: auto;">
+                                        <i class="fas fa-hand-pointer" style="margin-right: 0.5rem;"></i>Click to view details
                                     </p>
                                 </div>
                                 
@@ -1592,125 +1527,63 @@
                                     </div>
                                     
                                     <div class="back-content">
-                                        <img src="${service.serviceImage}" 
-                                             alt="${service.serviceName}" 
-                                             class="back-image"
-                                             onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop'">
-                                        
+                                        <img src="${service.serviceImage}" alt="${service.serviceName}" class="back-image" onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop'">
                                         <div class="back-section">
-                                            <h4 class="back-section-title">
-                                                <i class="fas fa-info-circle"></i>
-                                                Description
-                                            </h4>
+                                            <h4 class="back-section-title"><i class="fas fa-info-circle"></i> Description</h4>
                                             <p class="back-text">${service.detailedDescription}</p>
                                         </div>
-                                        
                                         ${service.keyFeatures ? `
-                                            <div class="back-section">
-                                                <h4 class="back-section-title">
-                                                    <i class="fas fa-star"></i>
-                                                    Key Features
-                                                </h4>
-                                                <ul class="feature-list">
-                                                    ${service.keyFeatures.split('\n').map(feature => 
-                                                        `<li>${feature.replace('• ', '')}</li>`
-                                                    ).join('')}
-                                                </ul>
-                                            </div>
-                                        ` : ''}
-                                        
-                                        ${service.targetAudience ? `
-                                            <div class="back-section">
-                                                <h4 class="back-section-title">
-                                                    <i class="fas fa-users"></i>
-                                                    Target Audience
-                                                </h4>
-                                                <p class="back-text">${service.targetAudience}</p>
-                                            </div>
+                                        <div class="back-section">
+                                            <h4 class="back-section-title"><i class="fas fa-star"></i> Key Features</h4>
+                                            <ul class="feature-list">
+                                                ${service.keyFeatures.split('\n').map(feature => `<li>${feature.replace('• ', '')}</li>`).join('')}
+                                            </ul>
+                                        </div>
                                         ` : ''}
                                     </div>
                                 </div>
-                            </div>
-                        `;
+                            </div>`;
                     }).join('')}
-                </div>
-            `;
-            
-            // Reinitialize AOS for new elements
+                </div>`;
             AOS.refresh();
         }
 
-        // Make functions globally available
+        // Global functions
         window.selectCategory = selectCategory;
         window.toggleFlip = toggleFlip;
-        window.filterServices = filterServices;
+        window.filterServicesByCategory = filterServicesByCategory;
 
-        // Function to get URL parameter
-        function getUrlParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
-
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            init();
-            
-            // Check if there's a service parameter in the URL
-            const serviceParam = getUrlParameter('service');
-            if (serviceParam) {
-                // Wait for services to be rendered, then find and flip the corresponding card
-                setTimeout(() => {
-                    // Map URL service parameter to actual service names
-                    const serviceMap = {
-                        'cybersecurity': 'Cybersecurity',
-                        'it-support': 'IT Support',
-                        'software-solutions': 'Software Solutions',
-                        'data-analytics': 'Data Analytics',
-                        'translation': 'Translation',
-                        '247-support': 'IT Support', // 24/7 Support maps to IT Support
-                        'software-installation': 'Software Installation',
-                        'microsoft-office-solutions': 'Microsoft Office Solutions',
-                        'document-formatting': 'Document Formatting'
-                    };
-                    
-                    const serviceName = serviceMap[serviceParam] || serviceParam;
-                    
-                    // Find the service object by name
-                    const service = servicesData.find(s => s.serviceName.toLowerCase() === serviceName.toLowerCase());
-                    
-                    if (service) {
-                        // Find the corresponding card and flip it
-                        const serviceCard = document.querySelector(`[data-service-id="${service.id}"]`);
-                        if (serviceCard && !serviceCard.classList.contains('flipped')) {
-                            serviceCard.classList.add('flipped');
-                            flippedCardId = service.id;
-                            
-                            // Scroll the flipped card into view
-                            setTimeout(() => {
-                                serviceCard.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'center'
-                                });
-                            }, 100);
-                        }
-                    }
-                }, 1500); // Wait a bit more to ensure services are loaded
-            }
-        });
-
-        // Footer Initialization
-        // Set current year
+        // Init App
+        document.addEventListener('DOMContentLoaded', init);
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
-        // Return to Top Button Functionality
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+        // Scroll to anchor if present in URL
+        window.addEventListener('load', function() {
+            const hash = window.location.hash;
+            if (hash) {
+                const elementId = hash.substring(1); // Remove #
+                const element = document.getElementById(elementId);
+                if (element) {
+                    // Wait a bit for the page to render
+                    setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Also trigger the card flip if it's a service card
+                        if (element.classList.contains('service-card')) {
+                            const serviceId = element.getAttribute('data-service-id');
+                            if (serviceId) {
+                                // Simulate the click to flip the card
+                                element.click();
+                            }
+                        }
+                    }, 300);
+                }
+            }
+        });
+        
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-        // Add WhatsApp button
+        // Add WhatsApp and Top buttons
         const whatsappBtn = document.createElement('a');
         whatsappBtn.href = 'https://wa.me/962782674812';
         whatsappBtn.target = '_blank';
@@ -1718,7 +1591,6 @@
         whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i>';
         document.body.appendChild(whatsappBtn);
 
-        // Add back to top button
         const topBtn = document.createElement('button');
         topBtn.className = 'top-btn';
         topBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
